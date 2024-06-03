@@ -444,12 +444,12 @@ In lab 2, you created a workload using HammerDB. At the same time, you were samp
       * Again, the right side is much better because the optimizer uses the before-upgrade plans.
       * Performance after upgrade with before-plan plans (the right side) is better than before the upgrade. Most likely, the database is using new functionality which out-of-the-box brings better performance.
 
-6. Reset the optimizer hack.
+6. Reset the optimizer hack, changing the parameter back to the default value (100).
 
     ```
     <copy>
-    alter system reset optimizer_index_cost_adj scope=spfile;
-    alter system set optimizer_index_cost_adj=100;
+    alter system reset optimizer_index_cost_adj scope=both;
+    show parameter optimizer_index_cost_adj
     </copy>
     ```
 
