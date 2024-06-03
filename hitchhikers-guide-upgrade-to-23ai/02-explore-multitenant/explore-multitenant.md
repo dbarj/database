@@ -32,8 +32,8 @@ You connect to the CDB, find a list of PDBs and connect to them using different 
     <copy>
     . cdb23
     sql / as sysdba
-
     </copy>
+
     -- Be sure to hit RETURN
     ```
 
