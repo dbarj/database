@@ -6,7 +6,7 @@ In this lab, you will review and startup all components required to successfully
 
 Estimated Time: 5 Minutes.
 
-## Objectives
+### Objectives
 
 In this lab, you will:
 
