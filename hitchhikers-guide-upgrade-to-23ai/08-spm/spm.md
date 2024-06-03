@@ -289,19 +289,20 @@ In lab 2, you created a workload using HammerDB. At the same time, you were samp
       ``` text
       SQL> SET SERVEROUT ON
       SQL> DECLARE
-              l_plans_loaded  PLS_INTEGER;
-            BEGIN
-               l_plans_loaded := DBMS_SPM.load_plans_from_sqlset(
-                                    sqlset_name  => 'STS_CaptureCursorCache',
-                                    fixed        => 'YES',
-                                    enabled      => 'YES'
-                                 );
-               DBMS_OUTPUT.PUT_LINE('Plans loaded: ' || l_plans_loaded);
-            END;
-      /SQL>   2    3    4    5    6    7    8    9   10   11
+        2     l_plans_loaded  PLS_INTEGER;
+        3  BEGIN
+        4     l_plans_loaded := DBMS_SPM.load_plans_from_sqlset(
+        5                          sqlset_name  => 'STS_CaptureCursorCache',
+        6                          fixed        => 'YES',
+        7                          enabled      => 'YES'
+        8                       );
+        9     DBMS_OUTPUT.PUT_LINE('Plans loaded: ' || l_plans_loaded);
+        10 END;
+        11 /
       Plans loaded: 28
 
       PL/SQL procedure successfully completed.
+      SQL>
       ```
       </details>
 
