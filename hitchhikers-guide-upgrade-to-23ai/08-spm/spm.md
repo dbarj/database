@@ -82,18 +82,21 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
     ```
     </details>
 
-2. Create a SQL Plan Baseline. You will use a script created by Carlos Sierra. When prompted for:
-      - *SQL_ID* (*1*), enter *4wg725nwpxb1z*.
-      - *1st Plan Hash Value*, enter *612465046*.
-      - *2nd Plan Hash Value*, hit RETURN.
-      - *3rd Plan Hash Value*, hit RETURN.
-      - *FIXED*, hit RETURN.
+2. Create a SQL Plan Baseline. You will use a script created by Carlos Sierra.
 
       ```
       <copy>
       @/home/oracle/scripts/spb_create.sql
       </copy>
       ```
+
+When prompted for:
+      - *SQL_ID* (*1*), enter *4wg725nwpxb1z*.
+      - *1st Plan Hash Value*, enter *612465046*.
+      - *2nd Plan Hash Value*, hit RETURN.
+      - *3rd Plan Hash Value*, hit RETURN.
+      - *FIXED*, hit RETURN.
+
     <details>
     <summary>*click to see the output*</summary>
     ``` text
