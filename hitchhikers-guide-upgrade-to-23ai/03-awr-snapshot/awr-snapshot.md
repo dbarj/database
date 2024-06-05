@@ -24,7 +24,7 @@ This lab assumes:
 
 ## Task 1: Generate an AWR snapshot
 
-1. Use the yellow terminal. Set the environment to the *UPGR* database and connect.
+1. Set the environment to the *UPGR* database and connect.
 
     ```
     <copy>
@@ -81,7 +81,7 @@ This lab assumes:
 
 4. This populates the *Script Editor* tab with the driver script. Ignore any error messages.
 
-5. Expand *Virtual Users* and double-click on *Create*. This creates virtual users.
+5. Expand *Virtual Users* and double-click on *Create*. This creates three virtual users (users 2-4) for the workload. HammerDB creates an additional user for monitoring.
     ![view the 3 Virtual Users being started](./images/awr-snapshot-create-virtual-users.png " ")
 
 ## Task 3: Start workload
