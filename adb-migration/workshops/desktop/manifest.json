@@ -19,14 +19,14 @@
       "filename": "../../01-initialize-environment/initialize-environment.md"
     },
     {
-      "title": "Lab 2: Architecture",
-      "description": "Architecture",
-      "filename": "../../02-architecture/architecture.md"
+      "title": "Lab 2: Migration Strategy",
+      "description": "Migration Strategy",
+      "filename": "../../02-migration-strategy/migration-strategy.md"
     },
     {
-      "title": "Lab 3: Getting Started",
-      "description": "Getting Started",
-      "filename": "../../03-getting-started/getting-started.md"
+      "title": "Lab 3: Evaluate Database Compatibility",
+      "description": "Evaluate Database Compatibility",
+      "filename": "../../03-evaluate-database-compatibility/evaluate-database-compatibility.md"
     },
     {
       "title": "Lab 4: Best Practices and Other Settings",

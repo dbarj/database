@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, you will create the prerequisites for starting a job. Plus, start a simple Data Pump export/import.
+In this lab, you will evaluate an Oracle Database for compatibility with Autonomous Database, using Cloud Premigration Advisor Tool (CPAT).
 
 Estimated Time: 10 Minutes
 
@@ -10,9 +10,10 @@ Estimated Time: 10 Minutes
 
 In this lab, you will:
 
-* Create a user, a directory and other prerequisites
-* Examine a Data Pump parameter file
-* Start Data Pump
+* Understand how CPAT works
+* Where to download and unzip CPAT
+* Start CPAT
+* Open and check report
 
 ### Prerequisites
 
@@ -20,55 +21,94 @@ This lab assumes:
 
 - You have completed Lab 1: Initialize Environment
 
-## Task 1: Create prerequisites
+## Task 1: Download CPAT
 
-A few things must be in place before you can start a Data Pump job.
+CPAT tool is available in *My Oracle Support*, on Doc ID 2758371.1.
 
-1. Use the *yellow* terminal 🟨. Set the environment to *FTEX* and connect.
+![CPAT](./images/mos.png)
 
-    ```
-    <copy>
-    . ftex
-    sqlplus / as sysdba
-    </copy>
+The tool was already pre-downloaded on this lab and is available at */home/oracle/scripts/*.
 
-    -- Be sure to hit RETURN
-    ```
-
-2. A user may always export from or import to their own schema. But to export from or import to other schemas or the entire database, you must have additional privileges. Find the Data Pump roles.
+1. Use the *yellow* terminal 🟨. Unzip CPAT file.
 
     ```
     <copy>
-    select role from dba_roles where role like '%PUMP%';
+    mkdir -p /home/oracle/cpat
+    unzip /home/oracle/stage/p32613591_112048_Generic.zip -d /home/oracle/cpat
+    ls -l /home/oracle/cpat
     </copy>
+
+    # Be sure to hit RETURN
     ```
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> select role from dba_roles where role like '%PUMP%';
-    
-    ROLE
-    --------------------------------------------------------------------------------
-    DATAPUMP_EXP_FULL_DATABASE
-    DATAPUMP_IMP_FULL_DATABASE
+    [CDB23:oracle@holserv1:~]$ ls -la /home/oracle/cpat
+    total 48
+    drwxr-xr-x.  2 oracle oinstall    59 Feb 10 14:09 bin
+    drwxr-xr-x.  2 oracle oinstall  4096 Feb 10 14:09 lib
+    -rw-r--r--.  1 oracle oinstall  6069 Feb 10 14:09 LICENSE.txt
+    drwxr-xr-x.  2 oracle oinstall    35 Feb 10 14:09 misc
+    -rw-r--r--.  1 oracle oinstall   139 Feb 10 14:09 premigration.cmd
+    -rwxr-xr-x.  1 oracle oinstall 10519 Feb 10 14:09 premigration.sh
+    -rw-r--r--.  1 oracle oinstall  1782 Feb 10 14:09 README.txt
+    -rw-r--r--.  1 oracle oinstall 11533 Feb 10 14:09 THIRD_PARTY_LICENSES.txt
     ```
-    </details> 
+    </details>
 
-3. Get a list of those with the roles.
+2. Now, execute CPAT for both *BLUE* and *RED* PDBs.
 
     ```
     <copy>
-    col grantee format a20
-    col granted_role format a30
-    select grantee, granted_role from dba_role_privs where granted_role like '%PUMP%' order by 1, 2;
+    . cdb23
+    mkdir ~/cpat_output/
+    ./cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output/
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
 
-    * *DBA* is a role, that's granted to the *SYSTEM* user.
-    * Although *SYS* also has the Data Pump roles, you must **NEVER** use *SYS* to start Data Pump jobs. This may lead to unexpected behaviour.
+    * To get all the possible parameter options for CPAT, run *./cpat/premigration.sh -help*.
+    * *--connectstring jdbc:oracle:oci:@ --sysdba* is used for OS Authentication.
+      * It will connect on cdb23 as it is the currently exported ORACLE_HOME and ORACLE_SID.
+      * It will run CPAT for all opened PDBs: *BLUE* and *RED*.
+    * *--targetcloud ALL* is used to run checks against all possible targets, like ATP,ADW and Exadata.
+    * *--migrationmethod ALL* is used to run checks for all possible migration methods.
+    * *--reportformat JSON HTML TEXT* is used to generate report in HTML, JSON and TEXT.
+    * *--outdir ~/cpat_output/* is used to save the output on this folder. 
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    $ ./cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output/
+    CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
+    Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
+    
+    Cloud Premigration Advisor Tool Version 25.2.0
+    CPAT-1013: Informational: No analysis properties file found on the command line. Source analysis will not be as complete as possible.
+    See the help text for information on using an analysis properties file.
+    
+    Analyzing 2 PDBs from CDB$ROOT
+    Completed 0 of 2 PDB analysis tasks as of Jun 27, 2025, 1:35:53 AM.  There are 2 PDB analysis tasks currently running.
+    Completed 0 of 2 PDB analysis tasks as of Jun 27, 2025, 1:36:03 AM.  There are 2 PDB analysis tasks currently running.
+    Completed 2 of 2 PDB analysis tasks as of Jun 27, 2025, 1:36:13 AM.  There are 0 PDB analysis tasks currently running.
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/premigration_advisor_summary_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/premigration_advisor_summary_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/premigration_advisor_summary_report.txt
+    ```
+    </details> 
+
+3. List the generated CPAT files.
+
+    ```
+    <copy>
+    ls -l ~/cpat_output/
+    </copy>
+
+    # Be sure to hit RETURN
+    ```
+
 
     <details>
     <summary>*click to see the output*</summary>

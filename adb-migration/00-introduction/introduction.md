@@ -12,7 +12,7 @@ Estimated Workshop Time: 2 hours
 
 In this workshop, you will:
 
-* Learn about ADB architecture
+* Learn about the ADB architecture
 * Check your environment for readiness before you move
 * Use Cloud Migration Analyser to get the recommended move approach
 * Export data with Data Pump and import into ADB
