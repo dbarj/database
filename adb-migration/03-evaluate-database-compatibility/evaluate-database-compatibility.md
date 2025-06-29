@@ -57,625 +57,404 @@ The tool was already pre-downloaded on this lab and is available at */home/oracl
     ```
     </details>
 
-2. Now, execute CPAT for both *BLUE* and *RED* PDBs.
+## Task 2: Generate and open a generic CPAT report
+
+CPAT can evaluate multiple different migration methods, like golden gate and data pump, and also to multiple different targets, like ADB Serverless, ADB Dedicated and Exadata. In this task, we will generate a generic CPAT report that will show all checks and issues related to every possible combination of migration method and target type.
+
+1. Execute CPAT for both *BLUE* and *RED* PDBs, generating a generic report.
 
     ```
     <copy>
     . cdb23
-    mkdir ~/cpat_output/
-    ./cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output/
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output_generic/
     </copy>
 
     # Be sure to hit RETURN
     ```
 
-    * To get all the possible parameter options for CPAT, run *./cpat/premigration.sh -help*.
+    * To get all the possible parameter options for CPAT, run *~/cpat/premigration.sh -help*.
     * *--connectstring jdbc:oracle:oci:@ --sysdba* is used for OS Authentication.
-      * It will connect on cdb23 as it is the currently exported ORACLE_HOME and ORACLE_SID.
-      * It will run CPAT for all opened PDBs: *BLUE* and *RED*.
-    * *--targetcloud ALL* is used to run checks against all possible targets, like ATP,ADW and Exadata.
+      + It will connect on cdb23 as it is the currently exported *ORACLE_HOME* and *ORACLE_SID*.
+      + It will run CPAT for all opened PDBs: *BLUE* and *RED*.
+    * *--targetcloud ALL* is used to run checks against all possible targets, like ATP, ADW and Exadata.
     * *--migrationmethod ALL* is used to run checks for all possible migration methods.
     * *--reportformat JSON HTML TEXT* is used to generate report in HTML, JSON and TEXT.
-    * *--outdir ~/cpat_output/* is used to save the output on this folder. 
+    * *--outdir ~/cpat_output_generic/* is used to save the output on this folder.
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ ./cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output/
+    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output_generic/
     CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
     Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
-    
+
     Cloud Premigration Advisor Tool Version 25.2.0
     CPAT-1013: Informational: No analysis properties file found on the command line. Source analysis will not be as complete as possible.
     See the help text for information on using an analysis properties file.
-    
+
     Analyzing 2 PDBs from CDB$ROOT
     Completed 0 of 2 PDB analysis tasks as of Jun 27, 2025, 1:35:53 AM.  There are 2 PDB analysis tasks currently running.
     Completed 0 of 2 PDB analysis tasks as of Jun 27, 2025, 1:36:03 AM.  There are 2 PDB analysis tasks currently running.
     Completed 2 of 2 PDB analysis tasks as of Jun 27, 2025, 1:36:13 AM.  There are 0 PDB analysis tasks currently running.
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/premigration_advisor_summary_report.json
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/premigration_advisor_summary_report.html
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/premigration_advisor_summary_report.txt
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_generic/premigration_advisor_summary_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_generic/premigration_advisor_summary_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_generic/premigration_advisor_summary_report.txt
     ```
-    </details> 
+    </details>
 
-3. List the generated CPAT files.
+2. Check the generated report files.
 
     ```
     <copy>
-    ls -l ~/cpat_output/
+    ls -l ~/cpat_output_generic/
     </copy>
 
     # Be sure to hit RETURN
     ```
 
+    * Note that the output folder contains 3 different file types: JSON, TEXT and HTML.
+      + The JSON file will be later consumed by CMA, on the next lab.
+      + The TEXT file can be read on a terminal.
+      + The HTML file can be opened in a brownser.
+    * Only the *BLUE* and *RED* PDBs were checked. As *GREEN* PDB was closed, it was skipped.
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> col grantee format a20
-    SQL> col granted_role format a30
-    SQL> select grantee, granted_role from dba_role_privs where granted_role like '%PUMP%' order by 1, 2;
-    
-    GRANTEE              GRANTED_ROLE
-    -------------------- ------------------------------
-    DBA                  DATAPUMP_EXP_FULL_DATABASE
-    DBA                  DATAPUMP_IMP_FULL_DATABASE
-    GSMADMIN_INTERNAL    DATAPUMP_EXP_FULL_DATABASE
-    GSMADMIN_INTERNAL    DATAPUMP_IMP_FULL_DATABASE
-    GSMUSER_ROLE         DATAPUMP_EXP_FULL_DATABASE
-    SYS                  DATAPUMP_EXP_FULL_DATABASE
-    SYS                  DATAPUMP_IMP_FULL_DATABASE
-    
-    7 rows selected.    
-    ```
-    </details> 
-    
-4. Create a user that you can use for Data Pump jobs.
-
-    ```
-    <copy>
-    grant datapump_exp_full_database, datapump_imp_full_database to dpuser identified by oracle;
-    alter user dpuser default tablespace users;
-    alter user dpuser quota unlimited on users;
-    </copy>
-
-    -- Be sure to hit RETURN
-    ```
-
-    * The `GRANT ... IDENTIFIED BY` construct creates the user and grant privileges in one command.
-    * The user doing the Data Pump job must have quota on a tablespace to store the control table.
-    
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> grant datapump_exp_full_database, datapump_imp_full_database to dpuser identified by oracle;
-    
-    Grant succeeded.
-
-    SQL> alter user dpuser quota unlimited on users;
-    
-    User altered.
-    
-    SQL> alter user dpuser default tablespace users;
-    
-    User altered.
-    ```
-    </details> 
-
-5. Data Pump needs a location where it can read from/write to files. You specify that using a directory object. Examine the built-in directory *DATA\_PUMP\_DIR*. 
-
-    ```
-    <copy>
-    select directory_path from dba_directories where directory_name='DATA_PUMP_DIR';
-    </copy>
-    ```
-
-    * Since Data Pump works on the server, the directory object refers to a location on the database server.
-    * The directory path is not ideal; it defaults to a directory inside the Oracle home.
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> select directory_path from dba_directories where directory_name='DATA_PUMP_DIR';
-    
-    DIRECTORY_PATH
-    --------------------------------------------------------------------------------
-    /u01/app/oracle/product/19/rdbms/log/
-    ```
-    </details> 
-
-6. Create your own directory object and create the directory in the file system too.
-
-    ```
-    <copy>
-    create or replace directory dpdir as '/home/oracle/dpdir';
-    host mkdir /home/oracle/dpdir
-    </copy>
-
-    -- Be sure to hit RETURN
-    ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> create or replace directory dpdir as '/home/oracle/dpdir';
-    
-    Directory created.
-    
-    SQL> host mkdir /home/oracle/dpdir
-
-    ```
-    </details> 
-
-7. Data Pump uses Advanced Queueing (AQ) to coordinate work between the control and worker processes. AQ uses the streams pool in the SGA. Check the current allocation.
-
-    ```
-    <copy>
-    select bytes from v$sgainfo where name='Streams Pool Size';
-    </copy>
-    ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> select bytes from v$sgainfo where name='Streams Pool Size';
-    
-         BYTES
-    ----------
-             0
-    ```
-    </details> 
-
-8. Automatic Shared Memory Management (ASMM) automatically will automatically allocate memory to the streams pool when needed. However, it will resize the pool in small granules and it might affect the performance of the Data Pump job. Increase the streams pool immediately.
-
-    ```
-    <copy>
-    alter system set streams_pool_size=128m scope=memory;
-    select bytes from v$sgainfo where name='Streams Pool Size';
-    </copy>
-
-    -- Be sure to hit RETURN
-    ```
-
-    * Normally, 128M to 256M is enough. 
-    * If you frequently run Data Pump jobs, you can use `SCOPE=BOTH` to persist the change.
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> alter system set streams_pool_size=128m scope=memory;
-    
-    System altered.
-
-    SQL> select bytes from v$sgainfo where name='Streams Pool Size';
-    
-         BYTES
-    ----------
-     134217728    
-    ```
-    </details>     
-
-
-9. Exit SQL*Plus.
-
-    ```
-    <copy>
-    exit
-    </copy>
-    ```
-
-## Task 2: Parameter file
-
-It often takes a number of parameters to start a Data Pump job. If you have many parameters or need to escape characters, it becomes very impractical to supply the parameters on the command line. Instead, you can use a parameter file.
-
-1. Still connected to the *yellow* terminal 🟨. Find the command line parameter that toggles the use of a parameter file.
-
-    ```
-    <copy>
-    expdp -help | grep -i -B1 "parameter file"
-    </copy>
-    ```
-
-    * You can use `PARFILE` to reference a parameter file.
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    expdp -help | grep -i -B1 "parameter file"
-    PARFILE
-    Specify parameter file name.
+    $ ls -l ~/cpat_output_generic/
+    total 40
+    drwxr-xr-x. 2 oracle oinstall   177 Jun 27 12:44 BLUE
+    -rw-r--r--. 1 oracle oinstall 10684 Jun 27 12:44 premigration_advisor_summary.log
+    -rw-r--r--. 1 oracle oinstall 17072 Jun 27 12:44 premigration_advisor_summary_report.html
+    -rw-r--r--. 1 oracle oinstall  1289 Jun 27 12:44 premigration_advisor_summary_report.json
+    -rw-r--r--. 1 oracle oinstall  2185 Jun 27 12:44 premigration_advisor_summary_report.txt
+    drwxr-xr-x. 2 oracle oinstall   173 Jun 27 12:44 RED
     ```
     </details>
 
-2. A parameter file is just a text file. Each parameter is on a separate line and the parameter and value is separated by the equal sign (=). Examine this pre-created parameter file.
-
-
-    ```
-    <copy>
-    cat /home/oracle/scripts/dp-03-export.par
-    </copy>
-    ```
-
-    * `SCHEMAS` indicates a schema mode export.
-    * Data Pump names files according to `DUMPFILE` and `LOGFILE` and stores those files in the directory specified by `DIRECTORY`.
-    * `REUSE_DUMPFILES` allows Data Pump to overwrite existing dump files.
-  
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    $ cat /home/oracle/scripts/dp-03-export.par
-    schemas=f1
-    directory=dpdir
-    dumpfile=f1.dmp
-    logfile=f1-export.log
-    reuse_dumpfiles=yes
-    ```
-    </details>    
-
-## Task 3: Starting Data Pump
-
-With a parameter file you can now start a Data Pump export and import a schema into another database.
-
-1. Still connected to the *yellow* terminal 🟨. Export the schema *F1* from *FTEX* database.
+3. Open and explore the TEXT files.
 
     ```
     <copy>
-    . ftex
-    expdp dpuser/oracle parfile=/home/oracle/scripts/dp-03-export.par    
+    cd ~/cpat_output_generic/
+    cat premigration_advisor_summary_report.txt
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
 
-    * To start an export, you use the `expdp` client.
-    * Connect as the user you created in the previous lab.
-    * Take the parameters from the parfile specified.
+    * Note that the output folder contains 3 different file types: JSON, TEXT and HTML.
+      + The JSON file will be later consumed by CMA, on the next lab.
+      + The TEXT file can be read on a terminal.
+      + The HTML file can be opened in a brownser.
+    * Only the *BLUE* and *RED* PDBs were checked. As *GREEN* PDB was closed, it was skipped.
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ expdp system/oracle parfile=/home/oracle/scripts/dp-03-export.par
-    
-    Export: Release 19.0.0.0.0 - Production on Fri Apr 25 12:13:35 2025
-    Version 19.27.0.0.0
-    
-    Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
-    
-    Connected to: Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
-    Starting "SYSTEM"."SYS_EXPORT_SCHEMA_01":  system/******** parfile=/home/oracle/scripts/dp-03-export.par
-    Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
-    Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
-    Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
-    Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
-    Processing object type SCHEMA_EXPORT/USER
-    Processing object type SCHEMA_EXPORT/SYSTEM_GRANT
-    Processing object type SCHEMA_EXPORT/DEFAULT_ROLE
-    Processing object type SCHEMA_EXPORT/TABLESPACE_QUOTA
-    Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
-    Processing object type SCHEMA_EXPORT/TABLE/TABLE
-    Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
-    . . exported "F1"."F1_LAPTIMES"                          16.98 MB  571047 rows
-    . . exported "F1"."F1_RESULTS"                           1.429 MB   26439 rows
-    . . exported "F1"."F1_DRIVERSTANDINGS"                   916.2 KB   34511 rows
-    . . exported "F1"."F1_QUALIFYING"                        419.0 KB   10174 rows
-    . . exported "F1"."F1_PITSTOPS"                          416.8 KB   10793 rows
-    . . exported "F1"."F1_CONSTRUCTORSTANDINGS"              344.1 KB   13231 rows
-    . . exported "F1"."F1_CONSTRUCTORRESULTS"                225.2 KB   12465 rows
-    . . exported "F1"."F1_RACES"                             131.4 KB    1125 rows
-    . . exported "F1"."F1_DRIVERS"                           87.86 KB     859 rows
-    . . exported "F1"."F1_SPRINTRESULTS"                     29.88 KB     280 rows
-    . . exported "F1"."F1_CONSTRUCTORS"                      22.97 KB     212 rows
-    . . exported "F1"."F1_CIRCUITS"                          17.42 KB      77 rows
-    . . exported "F1"."F1_SEASONS"                           10.03 KB      75 rows
-    . . exported "F1"."F1_STATUS"                            7.843 KB     139 rows
-    Master table "SYSTEM"."SYS_EXPORT_SCHEMA_01" successfully loaded/unloaded
-    ******************************************************************************
-    Dump file set for SYSTEM.SYS_EXPORT_SCHEMA_01 is:
-      /home/oracle/dpdir/f1.dmp
-    Job "SYSTEM"."SYS_EXPORT_SCHEMA_01" successfully completed at Fri Apr 25 12:13:57 2025 elapsed 0 00:00:20
+    $ cat ~/cpat_output_generic/premigration_advisor_summary_report.txt
+    ====================================================================================================================================
+    Cloud Premigration Advisor Tool (CPAT) Report
+    ====================================================================================================================================
+
+    Report Details
+    ~~~~~~~~~~~~~~
+      CPAT Application Version: 25.2.0
+      Report Generated On:      2025-06-27T12:44:04Z
+      OPEN PDBs:                BLUE, RED
+      CLOSED PDBs:              GREEN
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    List of PDB Analysis Summaries
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    PDB Analysis Summary
+    ~~~~~~~~~~~~~~~~~~~~
+      PDB Name:              BLUE
+      Overall Report Result: Action Required
+      Analysis Duration:     00:00:08.000
+      Output File Base Path: /home/oracle/cpat_output_generic
+      Analysis Log File:     BLUE/BLUE_premigration_advisor.log
+      CPAT Report File(s)
+        JSON:                BLUE/BLUE_premigration_advisor_report.json
+        HTML:                BLUE/BLUE_premigration_advisor_report.html
+        TEXT:                BLUE/BLUE_premigration_advisor_report.txt
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    PDB Analysis Summary
+    ~~~~~~~~~~~~~~~~~~~~
+      PDB Name:              RED
+      Overall Report Result: Action Required
+      Analysis Duration:     00:00:06.000
+      Output File Base Path: /home/oracle/cpat_output_generic
+      Analysis Log File:     RED/RED_premigration_advisor.log
+      CPAT Report File(s)
+        JSON:                RED/RED_premigration_advisor_report.json
+        HTML:                RED/RED_premigration_advisor_report.html
+        TEXT:                RED/RED_premigration_advisor_report.txt
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ====================================================================================================================================
     ```
     </details>
 
-2. Import into the *UPGR* database. Set the environment and connect
+    Now take a look on the contents of the text report for the *RED* PDB.
 
     ```
     <copy>
-    . upgr
-    sqlplus / as sysdba
+    head -n 100 RED/RED_premigration_advisor_report.txt
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
 
-4. Create a user.
+4. Open and explore the HTML files.
 
     ```
     <copy>
-    grant datapump_exp_full_database, datapump_imp_full_database to dpuser identified by oracle;
-    alter user dpuser default tablespace users;
-    alter user dpuser quota unlimited on users;
+    cd ~/cpat_output_generic/
+    firefox premigration_advisor_summary_report.html &
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
-    
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> grant datapump_exp_full_database, datapump_imp_full_database to dpuser identified by oracle;
-    
-    Grant succeeded.
 
-    SQL> alter user dpuser quota unlimited on users;
-    
-    User altered.
-    
-    SQL> alter user dpuser default tablespace users;
-    
-    User altered.
-    ```
-    </details> 
+    ![CPAT Summary](images/cpat_summary_gen.png)
 
-5. Create a directory object.
+    * This is a summary page with information about execution on all the PDBs.
+    * Note that only the *BLUE* and *RED* PDBs were checked. As *GREEN* PDB was closed, it was skipped.
+
+    Now click and expand the "> BLUE - Action Required" option.
+
+    Open the HTML Report *BLUE/BLUE_premigratrion_advisor_report.html*.
+
+    ![Blue Summary](images/blue_summary_gen.png)
+
+    * Note that for each different category (source database, target database, migration method and additional tasks), we have total checks and their results.
+
+    Go to "Premigration Advisor Check Details List". Navigate though the report.
+
+    ![Blue Checks](images/blue_checks_gen.png)
+
+    * Note that some of the checks that have "Action Required" are related to Golden Gate, which is not the migration method we will use on this lab.
+
+    Now, close Firefox.
+
+## Task 3: Generate and open a CPAT report for our lab
+
+Now that we could see that CPAT could generate a report when you still don't know the migration method that will be used and the target type, let's create a more specific report, where I know where we are going and which method we are using.
+
+In this lab, we will be moving:
+* *BLUE* PDB to *SAPHIRE* ADB using Data Pump.
+* *RED* PDB to *RUBY* ADB using Data Pump with DB Links.
+
+So, let's create a CPAT report where we only list issues for this specific migration methods.
+
+1. First, let's collect information from our target ADBs to help CPAT identify the issues.
+
+    Use the *yellow* terminal 🟨. Run it first for the *SAPPHIRE* ADB:
 
     ```
     <copy>
-    create or replace directory dpdir as '/home/oracle/dpdir';
-    </copy>
-    ```
-
-    * The directory object points to the same directory as in the *FTEX* database. Thus, you avoid copying files from one directory to another.
-    * If you had the source and target databases on different hosts, you would need to copy the dump files between the two directories.
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> create or replace directory dpdir as '/home/oracle/dpdir';
-    
-    Directory created.
-    ```
-    </details> 
-
-6. Increase the streams pool.
-
-    ```
-    <copy>
-    alter system set streams_pool_size=128m scope=memory;
-    </copy>
-    ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> alter system set streams_pool_size=128m scope=memory;
-    
-    System altered.
-    ```
-    </details>     
-
-
-7. Exit SQL*Plus.
-
-    ```
-    <copy>
-    exit
-    </copy>
-    ```
-
-8. Examine the pre-created parameter file that you can use for the import.
-
-    ```
-    <copy>
-    cat /home/oracle/scripts/dp-03-import.par
-    </copy>
-    ```
-
-    * The import parameter is much simpler than the export. 
-    * Basically, you just tell Data Pump to import whatever it finds in the dump file.
-  
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    $ cat /home/oracle/scripts/dp-03-import.par
-    directory=dpdir
-    dumpfile=f1.dmp
-    logfile=f1-import.log
-    ```
-    </details>    
-
-9. Start the import into *UPGR* database.
-
-    ```
-    <copy>
-    . upgr
-    impdp dpuser/oracle parfile=/home/oracle/scripts/dp-03-import.par    
+    . adb
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix sapphire
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
-
-    * To import, you use the *impdp* client. 
+    * When ADMIN password is requested, type *Welcome_1234*
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ impdp dpuser/oracle parfile=/home/oracle/scripts/dp-03-import.par
-    
-    Import: Release 19.0.0.0.0 - Production on Fri Apr 25 12:38:36 2025
-    Version 19.27.0.0.0
-    
-    Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
-    
-    Connected to: Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
-    Master table "DPUSER"."SYS_IMPORT_FULL_01" successfully loaded/unloaded
-    Starting "DPUSER"."SYS_IMPORT_FULL_01":  dpuser/******** parfile=/home/oracle/scripts/dp-03-import.par
-    Processing object type SCHEMA_EXPORT/USER
-    Processing object type SCHEMA_EXPORT/SYSTEM_GRANT
-    Processing object type SCHEMA_EXPORT/DEFAULT_ROLE
-    Processing object type SCHEMA_EXPORT/TABLESPACE_QUOTA
-    Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
-    Processing object type SCHEMA_EXPORT/TABLE/TABLE
-    Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
-    . . imported "F1"."F1_LAPTIMES"                          16.98 MB  571047 rows
-    . . imported "F1"."F1_RESULTS"                           1.429 MB   26439 rows
-    . . imported "F1"."F1_DRIVERSTANDINGS"                   916.2 KB   34511 rows
-    . . imported "F1"."F1_QUALIFYING"                        419.0 KB   10174 rows
-    . . imported "F1"."F1_PITSTOPS"                          416.8 KB   10793 rows
-    . . imported "F1"."F1_CONSTRUCTORSTANDINGS"              344.1 KB   13231 rows
-    . . imported "F1"."F1_CONSTRUCTORRESULTS"                225.2 KB   12465 rows
-    . . imported "F1"."F1_RACES"                             131.4 KB    1125 rows
-    . . imported "F1"."F1_DRIVERS"                           87.86 KB     859 rows
-    . . imported "F1"."F1_SPRINTRESULTS"                     29.88 KB     280 rows
-    . . imported "F1"."F1_CONSTRUCTORS"                      22.97 KB     212 rows
-    . . imported "F1"."F1_CIRCUITS"                          17.42 KB      77 rows
-    . . imported "F1"."F1_SEASONS"                           10.03 KB      75 rows
-    . . imported "F1"."F1_STATUS"                            7.843 KB     139 rows
-    Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
-    Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
-    Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
-    Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
-    Job "DPUSER"."SYS_IMPORT_FULL_01" successfully completed at Fri Apr 25 12:38:56 2025 elapsed 0 00:00:18    
+    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix sapphire
+    Enter password for ADMIN user:
+    CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
+    Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
+
+    Cloud Premigration Advisor Tool Version 25.2.0
+    Cloud Premigration Advisor Tool generated properties file location: /home/oracle/cpat_output_adb/sapphire_premigration_advisor_analysis.properties
     ```
-    </details> 
-    
-## Task 4: Starting a network mode import    
+    </details>
 
-You just done an export/import via a dump file. Let's try to an import using *network mode*. This is a different approach that doesn't use a dump file. Instead, Data Pump fetches data and metadata directly from the source database via a database link. 
-
-1. Still connected to the *yellow* terminal 🟨. Remove the dump file to proof that the import works over the database link.
+    Next, run for the *RUBY* ADB:
 
     ```
     <copy>
-    rm /home/oracle/dpdir/f1.dmp
-    </copy>
-    ```
-
-2. Set the environment to the *UPGR* database and connect.
-
-    ```
-    <copy>
-    . upgr
-    sqlplus / as sysdba
+    . adb
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@ruby_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix ruby
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
 
-3. Create the database link pointing to the source database, *FTEX*. 
-    
-    ```
-    <copy>
-    connect dpuser/oracle
-    create database link ftexlink connect to dpuser identified by oracle using 'localhost/ftex';
-    </copy>
-
-    -- Be sure to hit RETURN
-    ```
-
-    * You must create the database link in the schema that does the import. In this task, it is *dpuser*. 
-    * The user, *dpuser*, must have appropriate privileges to export in the source database. 
+    * When ADMIN password is requested, type *Welcome_1234*
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> connect dpuser/oracle
-    
-    Connected.
-    
-    SQL> create database link ftexlink connect to system identified by oracle using 'localhost/ftex';
-    
-    Database link created.
-    ```
-    </details> 
+    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@ruby_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix ruby
+    Enter password for ADMIN user:
+    CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
+    Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
 
-4. Exit SQL*Plus.
-
+    Cloud Premigration Advisor Tool Version 25.2.0
+    Cloud Premigration Advisor Tool generated properties file location: /home/oracle/cpat_output_adb/ruby_premigration_advisor_analysis.properties
     ```
-    <copy>
-    exit
-    </copy>
-    ```
+    </details>
 
-5. Examine the parameter file.
+    Verify the generated property files:
 
     ```
     <copy>
-    cat /home/oracle/scripts/dp-03-import-network.par
+    ls -l ~/cpat_output_adb/
     </copy>
-    ```
 
-    * The parameter looks similar to the export parameter file.
-    * Notice the `NETWORK_LINK` parameter. It instructs Data Pump to import over a database link without a dump file.
-    * Also, notice the `REMAP_SCHEMA` parameter. Since you just imported the schema *F1* into *UPGR*, you can't import it again. But you can tell Data Pump to rename the schema on import to *F2*. 
+    # Be sure to hit RETURN
+    ```
+    * When ADMIN password is requested, type *Welcome_1234*
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    cat /home/oracle/scripts/dp-03-import-network.par
-    schemas=f1
-    directory=dpdir
-    logfile=f1-import.log
-    network_link=ftexlink
-    remap_schema=f1:f2
+    $ ls -l ~/cpat_output_adb/
+    -rw-r--r--. 1 oracle oinstall   8326 Jun 27 13:26 ruby_premigration_advisor_analysis.properties
+    -rw-r--r--. 1 oracle oinstall   7098 Jun 27 13:26 ruby_premigration_advisor.log
+    -rw-r--r--. 1 oracle oinstall   8326 Jun 27 13:26 sapphire_premigration_advisor_analysis.properties
+    -rw-r--r--. 1 oracle oinstall   7110 Jun 27 13:26 sapphire_premigration_advisor.log
     ```
-    </details> 
+    </details>
 
-6. Start the import.
+    Check the contents:
 
     ```
     <copy>
-    . upgr
-    impdp dpuser/oracle parfile=/home/oracle/scripts/dp-03-import-network.par
+    cat ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
-
-    * The environment is set to the target database, *UPGR*, and you use the import client, *impdp*. 
-    * Notice how Data Pump remaps the schema *F1* to *F2*. 
-    * When doing network imports, you don't have to export on the source database. The import implicitly performs the export.
+    * When ADMIN password is requested, type *Welcome_1234*
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ impdp dpuser/oracle parfile=/home/oracle/scripts/dp-03-import-network.par
-    
-    Import: Release 19.0.0.0.0 - Production on Fri Apr 25 13:11:09 2025
-    Version 19.27.0.0.0
-    
-    Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
-    
-    Connected to: Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
-    Starting "DPUSER"."SYS_IMPORT_SCHEMA_01":  dpuser/******** parfile=/home/oracle/scripts/dp-03-import-network.par
-    Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
-    Processing object type SCHEMA_EXPORT/USER
-    Processing object type SCHEMA_EXPORT/SYSTEM_GRANT
-    Processing object type SCHEMA_EXPORT/DEFAULT_ROLE
-    Processing object type SCHEMA_EXPORT/TABLESPACE_QUOTA
-    Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
-    Processing object type SCHEMA_EXPORT/TABLE/TABLE
-    . . imported "F2"."F1_LAPTIMES"                          571047 rows
-    . . imported "F2"."F1_DRIVERSTANDINGS"                    34511 rows
-    . . imported "F2"."F1_RESULTS"                            26439 rows
-    . . imported "F2"."F1_PITSTOPS"                           10793 rows
-    . . imported "F2"."F1_QUALIFYING"                         10174 rows
-    . . imported "F2"."F1_CONSTRUCTORSTANDINGS"               13231 rows
-    . . imported "F2"."F1_CONSTRUCTORRESULTS"                 12465 rows
-    . . imported "F2"."F1_RACES"                               1125 rows
-    . . imported "F2"."F1_DRIVERS"                              859 rows
-    . . imported "F2"."F1_CIRCUITS"                              77 rows
-    . . imported "F2"."F1_CONSTRUCTORS"                         212 rows
-    . . imported "F2"."F1_SEASONS"                               75 rows
-    . . imported "F2"."F1_SPRINTRESULTS"                        280 rows
-    . . imported "F2"."F1_STATUS"                               139 rows
-    Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
-    Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
-    Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
-    Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
-    Job "DPUSER"."SYS_IMPORT_SCHEMA_01" successfully completed at Fri Apr 25 13:11:34 2025 elapsed 0 00:00:24
+    $ cat ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties
+    #Created by CPAT version 25.2.0
+    #Fri Jun 27 13:26:17 GMT 2025
+    TargetInstanceProp.NLS_CHARACTERSET=AL32UTF8
+    TargetInstanceProp.TABLESPACE_BLOCK_SIZE.TEMP=8192
+    TargetInstanceProp.TABLESPACE_BLOCK_SIZE.DBFS_DATA=8192
+    TargetInstanceProp.PDB_LOCKDOWN=OLTP
+    SourceAnalysisProp.ADDITIONAL_EXCLUDED_SCHEMAS=SYS,APEX_PUBLIC_ROUTER,OML$MODELS,ORDS_PLSQL_GATEWAY,OMLMOD$PROXY,SYSRAC,GRAPH$METADATA,ORDS_PUBLIC_USER,GRAPH$PROXY_USER,SYSTEM,XS$NULL,LBACSYS,OUTLN,DBSNMP,APPQOSSYS,C\#\#CLOUD$SERVICE,VECSYS,DBSFWUSER,C\#\#ADP$SERVICE,GGSYS,FLOWS_FILES,CTXSYS,ORDS_METADATA,C\#\#OMLIDM,AUDSYS,GSMADMIN_INTERNAL,GGSHAREDCAP,MDSYS,XDB,APEX_240200,GSMCATUSER,C\#\#CLOUD_OPS,C\#\#DNSREST,MDDATA,REMOTE_SCHEDULER_AGENT,C\#\#API,SYSBACKUP,GSMUSER,C\#\#RFS,C\#\#QUEUE$SERVICE,C\#\#DATA$SHARE,MTSSYS,LBAC_TRIGGER,DVF,DVSYS,DIP,DGPDB_INT,SYSKM,SYS$UMF,C\#\#DV_ACCT_ADMIN,C\#\#DV_OWNER,SYSDG
+    TargetInstanceProp.DB_PLATFORM_ID=13
+    TargetInstanceProp.DIRECTORIES=DATA_PUMP_DIR,JAVA$JOX$CUJS$DIRECTORY$,OPATCH_INST_DIR,OPATCH_LOG_DIR,OPATCH_SCRIPT_DIR,ORACLE_BASE,ORACLE_HOME,SDO_DIR_ADMIN,SQL_TCB_DIR
+    TargetInstanceProp.ROLEPRIVILEGE=ACCHK_READ,ADB_MONITOR,ADM_PARALLEL_EXECUTE_TASK,ADPADMIN,ADPUSER,APEX_ADMINISTRATOR_READ_ROLE,APEX_ADMINISTRATOR_ROLE,AQ_ADMINISTRATOR_ROLE,AQ_USER_ROLE,AUDIT_ADMIN,AUDIT_VIEWER,CAPTURE_ADMIN,CONNECT,CONSOLE_ADMIN,CONSOLE_DEVELOPER,CONSOLE_MONITOR,CONSOLE_OPERATOR,CTXAPP,DATAPUMP_CLOUD_EXP,DATAPUMP_CLOUD_IMP,DATA_TRANSFORM_USER,DB_DEVELOPER_ROLE,DCAT_SYNC,DGPDB_ROLE,DV_ACCTMGR,DV_ADMIN,DV_AUDIT_CLEANUP,DV_DATAPUMP_NETWORK_LINK,DV_GOLDENGATE_ADMIN,DV_GOLDENGATE_REDO_ACCESS,DV_MONITOR,DV_OWNER,DV_PATCH_ADMIN,DV_POLICY_OWNER,DV_SECANALYST,DV_STREAMS_ADMIN,DV_XSTREAM_ADMIN,DWROLE,GATHER_SYSTEM_STATISTICS,GRAPH_ADMINISTRATOR,GRAPH_DEVELOPER,HS_ADMIN_SELECT_ROLE,LBAC_DBA,LINEAGE_AUTHOR,OEM_ADVISOR,OPTIMIZER_PROCESSING_RATE,ORDS_ADMINISTRATOR_ROLE,OSAK_ADMIN_ROLE,PDB_DBA,PGX_SERVER_GET_INFO,PGX_SERVER_MANAGE,PGX_SESSION_ADD_PUBLISHED_GRAPH,PGX_SESSION_COMPILE_ALGORITHM,PGX_SESSION_CREATE,PGX_SESSION_GET_PUBLISHED_GRAPH,PGX_SESSION_MODIFY_MODEL,PGX_SESSION_NEW_GRAPH,PGX_SESSION_READ_MODEL,PPLB_ROLE,PROVISIONER,RESOURCE,SAGA_ADM_ROLE,SAGA_CONNECT_ROLE,SAGA_PARTICIPANT_ROLE,SELECT_CATALOG_ROLE,SODA_APP,SQL_FIREWALL_ADMIN,SQL_FIREWALL_VIEWER,XS_CACHE_ADMIN,XS_CONNECT,XS_NAMESPACE_ADMIN,XS_SESSION_ADMIN
+    TargetInstanceProp.TABLESPACE_BLOCK_SIZE.SYSAUX=8192
+    TargetInstanceProp.DB_VERSION=23.8.0.25.05
+    TargetInstanceProp.TABLESPACE_BLOCK_SIZE.UNDOTBS1=8192
+    TargetInstanceProp.CLOUD_SERVICE=OLTP
+    TargetInstanceProp.SYSPRIVILEGE=ADMINISTER ANY SQL TUNING SET,ADMINISTER DATABASE TRIGGER,ADMINISTER FINE GRAINED AUDIT POLICY,ADMINISTER REDACTION POLICY,ADMINISTER RESOURCE MANAGER,ADMINISTER ROW LEVEL SECURITY POLICY,ADMINISTER SQL FIREWALL,ADMINISTER SQL MANAGEMENT OBJECT,ADMINISTER SQL TUNING SET,ADVISOR,ALTER ANY ANALYTIC VIEW,ALTER ANY ASSEMBLY,ALTER ANY ATTRIBUTE DIMENSION,ALTER ANY CLUSTER,ALTER ANY CUBE,ALTER ANY CUBE BUILD PROCESS,ALTER ANY CUBE DIMENSION,ALTER ANY DIMENSION,ALTER ANY DOMAIN,ALTER ANY EDITION,ALTER ANY EVALUATION CONTEXT,ALTER ANY HIERARCHY,ALTER ANY INDEX,ALTER ANY INDEXTYPE,ALTER ANY LIBRARY,ALTER ANY MATERIALIZED VIEW,ALTER ANY MEASURE FOLDER,ALTER ANY MINING MODEL,ALTER ANY MLE,ALTER ANY OPERATOR,ALTER ANY OUTLINE,ALTER ANY PROCEDURE,ALTER ANY PROPERTY GRAPH,ALTER ANY ROLE,ALTER ANY RULE,ALTER ANY RULE SET,ALTER ANY SEQUENCE,ALTER ANY SQL PROFILE,ALTER ANY SQL TRANSLATION PROFILE,ALTER ANY TABLE,ALTER ANY TRIGGER,ALTER ANY TYPE,ALTER DATABASE,ALTER LOCKDOWN PROFILE,ALTER PROFILE,ALTER RESOURCE COST,ALTER ROLLBACK SEGMENT,ALTER SESSION,ALTER SYSTEM,ALTER TABLESPACE,ALTER USER,ANALYZE ANY,ANALYZE ANY DICTIONARY,AUDIT ANY,AUDIT SYSTEM,BECOME USER,CHANGE NOTIFICATION,CLEAR ALL LOCAL CONTEXTS,COMMENT ANY MINING MODEL,COMMENT ANY TABLE,CREATE ANALYTIC VIEW,CREATE ANY ANALYTIC VIEW,CREATE ANY ASSEMBLY,CREATE ANY ATTRIBUTE DIMENSION,CREATE ANY CLUSTER,CREATE ANY CONTEXT,CREATE ANY CUBE,CREATE ANY CUBE BUILD PROCESS,CREATE ANY CUBE DIMENSION,CREATE ANY DIMENSION,CREATE ANY DIRECTORY,CREATE ANY DOMAIN,CREATE ANY EDITION,CREATE ANY EVALUATION CONTEXT,CREATE ANY HIERARCHY,CREATE ANY INDEX,CREATE ANY INDEXTYPE,CREATE ANY JOB,CREATE ANY MATERIALIZED VIEW,CREATE ANY MEASURE FOLDER,CREATE ANY MINING MODEL,CREATE ANY MLE,CREATE ANY OPERATOR,CREATE ANY OUTLINE,CREATE ANY PROCEDURE,CREATE ANY PROPERTY GRAPH,CREATE ANY RULE,CREATE ANY RULE SET,CREATE ANY SEQUENCE,CREATE ANY SQL PROFILE,CREATE ANY SQL TRANSLATION PROFILE,CREATE ANY SYNONYM,CREATE ANY TABLE,CREATE ANY TRIGGER,CREATE ANY TYPE,CREATE ANY VIEW,CREATE ASSEMBLY,CREATE ATTRIBUTE DIMENSION,CREATE CLUSTER,CREATE CUBE,CREATE CUBE BUILD PROCESS,CREATE CUBE DIMENSION,CREATE DATABASE LINK,CREATE DIMENSION,CREATE DOMAIN,CREATE EVALUATION CONTEXT,CREATE HIERARCHY,CREATE INDEXTYPE,CREATE JOB,CREATE LOCKDOWN PROFILE,CREATE LOGICAL PARTITION TRACKING,CREATE MATERIALIZED VIEW,CREATE MEASURE FOLDER,CREATE MINING MODEL,CREATE MLE,CREATE OPERATOR,CREATE PLUGGABLE DATABASE,CREATE PROCEDURE,CREATE PROFILE,CREATE PROPERTY GRAPH,CREATE PUBLIC DATABASE LINK,CREATE PUBLIC SYNONYM,CREATE ROLE,CREATE ROLLBACK SEGMENT,CREATE RULE,CREATE RULE SET,CREATE SEQUENCE,CREATE SESSION,CREATE SQL TRANSLATION PROFILE,CREATE SYNONYM,CREATE TABLE,CREATE TABLESPACE,CREATE TRIGGER,CREATE TYPE,CREATE USER,CREATE VIEW,DEBUG ANY PROCEDURE,DEBUG CONNECT ANY,DEBUG CONNECT SESSION,DELETE ANY CUBE DIMENSION,DELETE ANY MEASURE FOLDER,DELETE ANY TABLE,DEQUEUE ANY QUEUE,DROP ANY ANALYTIC VIEW,DROP ANY ASSEMBLY,DROP ANY ATTRIBUTE DIMENSION,DROP ANY CLUSTER,DROP ANY CONTEXT,DROP ANY CUBE,DROP ANY CUBE BUILD PROCESS,DROP ANY CUBE DIMENSION,DROP ANY DIMENSION,DROP ANY DIRECTORY,DROP ANY DOMAIN,DROP ANY EDITION,DROP ANY EVALUATION CONTEXT,DROP ANY HIERARCHY,DROP ANY INDEX,DROP ANY INDEXTYPE,DROP ANY LIBRARY,DROP ANY MATERIALIZED VIEW,DROP ANY MEASURE FOLDER,DROP ANY MINING MODEL,DROP ANY MLE,DROP ANY OPERATOR,DROP ANY OUTLINE,DROP ANY PROCEDURE,DROP ANY PROPERTY GRAPH,DROP ANY ROLE,DROP ANY RULE,DROP ANY RULE SET,DROP ANY SEQUENCE,DROP ANY SQL PROFILE,DROP ANY SQL TRANSLATION PROFILE,DROP ANY SYNONYM,DROP ANY TABLE,DROP ANY TRIGGER,DROP ANY TYPE,DROP ANY VIEW,DROP LOCKDOWN PROFILE,DROP LOGICAL PARTITION TRACKING,DROP PROFILE,DROP PUBLIC DATABASE LINK,DROP PUBLIC SYNONYM,DROP ROLLBACK SEGMENT,DROP TABLESPACE,DROP USER,ENQUEUE ANY QUEUE,EXECUTE ANY ASSEMBLY,EXECUTE ANY CLASS,EXECUTE ANY DOMAIN,EXECUTE ANY EVALUATION CONTEXT,EXECUTE ANY INDEXTYPE,EXECUTE ANY LIBRARY,EXECUTE ANY OPERATOR,EXECUTE ANY PROCEDURE,EXECUTE ANY PROGRAM,EXECUTE ANY RULE,EXECUTE ANY RULE SET,EXECUTE ANY TYPE,EXECUTE ASSEMBLY,EXECUTE DYNAMIC MLE,EXEMPT ACCESS POLICY,EXEMPT REDACTION POLICY,FLASHBACK ANY TABLE,FORCE ANY TRANSACTION,FORCE TRANSACTION,GLOBAL QUERY REWRITE,GRANT ANY OBJECT PRIVILEGE,GRANT ANY ROLE,GRANT ANY SCHEMA PRIVILEGE,INSERT ANY CUBE DIMENSION,INSERT ANY MEASURE FOLDER,INSERT ANY TABLE,KEEP DATE TIME,KEEP SYSGUID,LOCK ANY TABLE,LOGMINING,MANAGE ANY QUEUE,MANAGE SCHEDULER,MANAGE TABLESPACE,MERGE ANY VIEW,ON COMMIT REFRESH,PURGE DBA_RECYCLEBIN,QUERY REWRITE,READ ANY ANALYTIC VIEW CACHE,READ ANY PROPERTY GRAPH,READ ANY TABLE,REDEFINE ANY TABLE,RESTRICTED SESSION,RESUMABLE,SELECT ANY CUBE,SELECT ANY CUBE BUILD PROCESS,SELECT ANY CUBE DIMENSION,SELECT ANY DICTIONARY,SELECT ANY MEASURE FOLDER,SELECT ANY MINING MODEL,SELECT ANY SEQUENCE,SELECT ANY TABLE,SELECT ANY TRANSACTION,SET CONTAINER,TABLE RETENTION,TRANSLATE ANY SQL,UNDER ANY TABLE,UNDER ANY TYPE,UNDER ANY VIEW,UNLIMITED TABLESPACE,UPDATE ANY CUBE,UPDATE ANY CUBE BUILD PROCESS,UPDATE ANY CUBE DIMENSION,UPDATE ANY TABLE,USE ANY JOB RESOURCE,WRITE ANY ANALYTIC VIEW CACHE
+    TargetInstanceProp.TABLESPACE_BLOCK_SIZE.DATA=8192
+    TargetInstanceProp.TABLESPACES=DATA,DBFS_DATA,SYSAUX,SYSTEM,TEMP,UNDOTBS1
+    TargetInstanceProp.JAVAVM_STATUS=
+    TargetInstanceProp.TZ_VERSION=44
+    TargetInstanceProp.DB_BLOCK_SIZE=8192
+    TargetInstanceProp.ALLOW_ROWID_COLUMN_TYPE=FALSE
+    TargetInstanceProp.DB_TIME_ZONE=+00\:00
+    TargetInstanceProp.CPAT_VERSION=25.2.0
+    TargetInstanceProp.TABLESPACE_BLOCK_SIZE.SYSTEM=8192
+    TargetInstanceProp.NLS_NCHAR_CHARACTERSET=AL16UTF16
+    TargetInstanceProp.MAX_STRING_SIZE=EXTENDED
+    TargetInstanceProp.PROFILES=DEFAULT,ORA_ADMIN_PROFILE,ORA_APP_PROFILE,ORA_CIS_PROFILE,ORA_EXTAPP_PROFILE,ORA_MANDATORY_PROFILE,ORA_MANDATORY_PROFILE_GOV,ORA_PROTECTED_PROFILE,ORA_STIG_PROFILE
     ```
-    </details> 
+    </details>
+
+2. Now, execute CPAT for *BLUE* and *RED* PDBs, generating a specific report.
+
+    ```
+    <copy>
+    . cdb23
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix blue
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod DATAPUMP_DBLINK --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix red
+    </copy>
+
+    # Be sure to hit RETURN
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix blue
+    CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
+    Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
+
+    Cloud Premigration Advisor Tool Version 25.2.0
+    CPAT-4007: Warning: the build date for this version of the Cloud Premigration Advisor Tool is over 137 days.  Please run "premigration.sh --updatecheck" to see if a more recent version of this tool is available.
+    Please download the latest available version of the CPAT application.
+
+    Cloud Premigration Advisor Tool completed with overall result: Action Required
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/blue_premigration_advisor_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/blue_premigration_advisor_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/blue_premigration_advisor_report.txt
+    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod DATAPUMP_DBLINK --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix red
+    CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
+    Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
+
+    Cloud Premigration Advisor Tool Version 25.2.0
+    CPAT-4007: Warning: the build date for this version of the Cloud Premigration Advisor Tool is over 137 days.  Please run "premigration.sh --updatecheck" to see if a more recent version of this tool is available.
+    Please download the latest available version of the CPAT application.
+
+    Cloud Premigration Advisor Tool completed with overall result: Review Required
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/red_premigration_advisor_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/red_premigration_advisor_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/red_premigration_advisor_report.txt
+    ```
+    </details>
+
+## Task 4: Check issues that will affect this migration
+
+Now that we executed CPAT for both PDBs on our specific migration scenarios, let's take a look on the CPAT files:
+
+1. Open and explore the HTML files.
+
+    ```
+    <copy>
+    cd ~/cpat_output_adb/
+    firefox blue_premigration_advisor_report.html red_premigration_advisor_report.html &
+    </copy>
+
+    # Be sure to hit RETURN
+    ```
+2. Check the issues on *BLUE* PDB.
+
+   On the first tab, which is the *BLUE* PDB, explore the CPAT findings. If you click on *Premigration Advisor Report Summary*, you can see there are significantly less issues to be analysed.
+
+   ![Blue Summary](images/blue_summary_adb.png)
+
+   * Action Requireds reduced from 10 to 5 (1 on Source Database + 4 on Target Database)
+   * The checks that will need a closer attention are:
+     + "User Defined Objects in SYS" (Action Required)
+     + "Role Privileges" (Action Required)
+     + "XML Schema Objects" (Action Required)
+     + "XML Type Tables" (Action Required)
+     + "XML Type Columns" (Action Required)
+     + "External Tables for Serverless" (Review Required)
+     + "Directories" (Review Required)
+     + "Non-Exported Object Grants" (Review Required)
+   + We will later on another lab see how to fix each of them while moving to ADB.
+
+3. Check the issues on *RED* PDB.
+
+   On the second tab, which is the *RED* PDB, explore the CPAT findings. If you click on *Premigration Advisor Report Summary*, you can see there are almost nothing to be analysed.
+
+   ![Red Summary](images/red_summary_adb.png)
+
+   * Action Requireds reduced from 3 to 0
+   * The only check that will need a closer attention is:
+     + "Directories" (Review Required)
+   + However, it only lists internal directories that don't exists in ADB, but are not being used by the application. So this can be safelly ignored
+
+   Now that we know what needs to be adapted before moving to ADB, we can move to the next lab.
 
 You may now *proceed to the next lab*.
 
