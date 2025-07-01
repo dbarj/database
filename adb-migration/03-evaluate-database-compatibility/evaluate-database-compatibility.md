@@ -91,7 +91,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
     ``` shell
     <copy>
     . cdb23
-    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output_generic/
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output/1_generic/
     </copy>
 
     # Be sure to hit RETURN
@@ -104,12 +104,12 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
     * *--targetcloud ALL* is used to run checks against all possible targets, like ATP, ADW and Exadata.
     * *--migrationmethod ALL* is used to run checks for all possible migration methods.
     * *--reportformat JSON HTML TEXT* is used to generate report in HTML, JSON and TEXT.
-    * *--outdir ~/cpat_output_generic/* is used to save the output on this folder.
+    * *--outdir ~/cpat\_output/1\_generic/* is the target output folder.
 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output_generic/
+    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output/1_generic/
     CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
     Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
 
@@ -121,9 +121,9 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
     Completed 0 of 2 PDB analysis tasks as of Jun 27, 2025, 1:35:53 AM.  There are 2 PDB analysis tasks currently running.
     Completed 0 of 2 PDB analysis tasks as of Jun 27, 2025, 1:36:03 AM.  There are 2 PDB analysis tasks currently running.
     Completed 2 of 2 PDB analysis tasks as of Jun 27, 2025, 1:36:13 AM.  There are 0 PDB analysis tasks currently running.
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_generic/premigration_advisor_summary_report.json
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_generic/premigration_advisor_summary_report.html
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_generic/premigration_advisor_summary_report.txt
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/1_generic/premigration_advisor_summary_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/1_generic/premigration_advisor_summary_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/1_generic/premigration_advisor_summary_report.txt
     ```
     </details>
 
@@ -131,7 +131,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
     ``` shell
     <copy>
-    ls -l ~/cpat_output_generic/
+    ls -l ~/cpat_output/1_generic/
     </copy>
 
     # Be sure to hit RETURN
@@ -146,7 +146,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ ls -l ~/cpat_output_generic/
+    $ ls -l ~/cpat_output/1_generic/
     total 40
     drwxr-xr-x. 2 oracle oinstall   177 Jun 27 12:44 BLUE
     -rw-r--r--. 1 oracle oinstall 10684 Jun 27 12:44 premigration_advisor_summary.log
@@ -161,7 +161,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
     ``` shell
     <copy>
-    cd ~/cpat_output_generic/
+    cd ~/cpat_output/1_generic/
     cat premigration_advisor_summary_report.txt
     </copy>
 
@@ -177,7 +177,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ cat ~/cpat_output_generic/premigration_advisor_summary_report.txt
+    $ cat ~/cpat_output/1_generic/premigration_advisor_summary_report.txt
     ====================================================================================================================================
     Cloud Premigration Advisor Tool (CPAT) Report
     ====================================================================================================================================
@@ -198,7 +198,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
       PDB Name:              BLUE
       Overall Report Result: Action Required
       Analysis Duration:     00:00:08.000
-      Output File Base Path: /home/oracle/cpat_output_generic
+      Output File Base Path: /home/oracle/cpat_output/1_generic
       Analysis Log File:     BLUE/BLUE_premigration_advisor.log
       CPAT Report File(s)
         JSON:                BLUE/BLUE_premigration_advisor_report.json
@@ -211,7 +211,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
       PDB Name:              RED
       Overall Report Result: Action Required
       Analysis Duration:     00:00:06.000
-      Output File Base Path: /home/oracle/cpat_output_generic
+      Output File Base Path: /home/oracle/cpat_output/1_generic
       Analysis Log File:     RED/RED_premigration_advisor.log
       CPAT Report File(s)
         JSON:                RED/RED_premigration_advisor_report.json
@@ -236,7 +236,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
     ``` shell
     <copy>
-    cd ~/cpat_output_generic/
+    cd ~/cpat_output/1_generic/
     firefox premigration_advisor_summary_report.html &
     </copy>
 
@@ -261,18 +261,21 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
     ![Blue Checks](images/blue_checks_gen.png)
 
     * Note that some of the checks that have "Action Required" are related to Golden Gate, which is not the migration method we will use on this lab.
+    * Also, there are some false positive results related to "Timezone Version" under "Additional Tasks". This is because CPAT has no information about the target ADB.
+
+    In the next task, we will try to reduce the number of false positive results by gathering some information of our target ADB in advance.
 
     Now, close Firefox.
 
-## Task 3: Generate and open a CPAT report for our lab
+## Task 3: Collect target info to reduce CPAT warnings
 
-Now that we could see that CPAT could generate a report when you still don't know the migration method that will be used and the target type, let's create a more specific report, where I know where we are going and which method we are using.
+Now that we could see that CPAT could generate a report when you still don't know the migration method that will be used and the target type, let's create a more specific report, where I know where we are going, but haven't decided yet which method to use.
 
 In this lab, we will be moving:
-* *BLUE* PDB to *SAPHIRE* ADB using Data Pump.
-* *RED* PDB to *RUBY* ADB using Data Pump with DB Links.
+* *BLUE* PDB to *SAPPHIRE* ADB.
+* *RED* PDB to *RUBY* ADB.
 
-So, let's create a CPAT report where we only list issues for this specific migration methods.
+So, let's create a CPAT report where we only list issues for those specifics ADBs.
 
 1. First, let's collect information from our target ADBs to help CPAT identify the issues.
 
@@ -281,7 +284,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
     ``` shell
     <copy>
     . adb
-    ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix sapphire
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output/props/ --outfileprefix sapphire
     </copy>
 
     # Be sure to hit RETURN
@@ -291,13 +294,13 @@ So, let's create a CPAT report where we only list issues for this specific migra
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix sapphire
+    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output/props/ --outfileprefix sapphire
     Enter password for ADMIN user:
     CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
     Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
 
     Cloud Premigration Advisor Tool Version 25.2.0
-    Cloud Premigration Advisor Tool generated properties file location: /home/oracle/cpat_output_adb/sapphire_premigration_advisor_analysis.properties
+    Cloud Premigration Advisor Tool generated properties file location: /home/oracle/cpat_output/props/sapphire_premigration_advisor_analysis.properties
     ```
     </details>
 
@@ -306,7 +309,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
     ``` shell
     <copy>
     . adb
-    ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@ruby_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix ruby
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@ruby_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output/props/ --outfileprefix ruby
     </copy>
 
     # Be sure to hit RETURN
@@ -317,13 +320,13 @@ So, let's create a CPAT report where we only list issues for this specific migra
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@ruby_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix ruby
+    $ ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@ruby_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output/props/ --outfileprefix ruby
     Enter password for ADMIN user:
     CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
     Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
 
     Cloud Premigration Advisor Tool Version 25.2.0
-    Cloud Premigration Advisor Tool generated properties file location: /home/oracle/cpat_output_adb/ruby_premigration_advisor_analysis.properties
+    Cloud Premigration Advisor Tool generated properties file location: /home/oracle/cpat_output/props/ruby_premigration_advisor_analysis.properties
     ```
     </details>
 
@@ -331,7 +334,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
     ``` shell
     <copy>
-    ls -l ~/cpat_output_adb/
+    ls -l ~/cpat_output/props/
     </copy>
 
     # Be sure to hit RETURN
@@ -341,7 +344,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ ls -l ~/cpat_output_adb/
+    $ ls -l ~/cpat_output/props/
     -rw-r--r--. 1 oracle oinstall   8326 Jun 27 13:26 ruby_premigration_advisor_analysis.properties
     -rw-r--r--. 1 oracle oinstall   7098 Jun 27 13:26 ruby_premigration_advisor.log
     -rw-r--r--. 1 oracle oinstall   8326 Jun 27 13:26 sapphire_premigration_advisor_analysis.properties
@@ -353,7 +356,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
     ``` shell
     <copy>
-    cat ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties
+    cat ~/cpat_output/props/ruby_premigration_advisor_analysis.properties
     </copy>
 
     # Be sure to hit RETURN
@@ -363,7 +366,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    $ cat ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties
+    $ cat ~/cpat_output/props/ruby_premigration_advisor_analysis.properties
     #Created by CPAT version 25.2.0
     #Fri Jun 27 13:26:17 GMT 2025
     TargetInstanceProp.NLS_CHARACTERSET=AL32UTF8
@@ -399,8 +402,8 @@ So, let's create a CPAT report where we only list issues for this specific migra
     ``` shell
     <copy>
     . cdb23
-    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix blue
-    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod DATAPUMP_DBLINK --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix red
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod ALL --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output/2_adbs/ --outfileprefix blue
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod ALL --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output/2_adbs/ --outfileprefix red
     </copy>
 
     # Be sure to hit RETURN
@@ -409,7 +412,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix blue
+    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod ALL --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output/2_adbs/ --outfileprefix blue
     CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
     Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
 
@@ -418,10 +421,10 @@ So, let's create a CPAT report where we only list issues for this specific migra
     Please download the latest available version of the CPAT application.
 
     Cloud Premigration Advisor Tool completed with overall result: Action Required
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/blue_premigration_advisor_report.json
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/blue_premigration_advisor_report.html
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/blue_premigration_advisor_report.txt
-    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod DATAPUMP_DBLINK --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix red
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/blue_premigration_advisor_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/blue_premigration_advisor_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/blue_premigration_advisor_report.txt
+    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod ALL --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output/2_adbs/ --outfileprefix red
     CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
     Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
 
@@ -430,13 +433,13 @@ So, let's create a CPAT report where we only list issues for this specific migra
     Please download the latest available version of the CPAT application.
 
     Cloud Premigration Advisor Tool completed with overall result: Review Required
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/red_premigration_advisor_report.json
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/red_premigration_advisor_report.html
-    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output_adb/red_premigration_advisor_report.txt
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/red_premigration_advisor_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/red_premigration_advisor_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/red_premigration_advisor_report.txt
     ```
     </details>
 
-## Task 4: Check issues that will affect this migration
+## Task 4: Check that total issues were reduced
 
 Now that we executed CPAT for both PDBs on our specific migration scenarios, let's take a look on the CPAT files:
 
@@ -444,7 +447,99 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
     ``` shell
     <copy>
-    cd ~/cpat_output_adb/
+    cd ~/cpat_output/2_adbs/
+    firefox blue_premigration_advisor_report.html red_premigration_advisor_report.html &
+    </copy>
+
+    # Be sure to hit RETURN
+    ```
+2. Check the issues on *BLUE* PDB.
+
+    On the first tab, which is the *BLUE* PDB, explore the CPAT findings. If you click on *Premigration Advisor Report Summary*, you can see there are significantly less issues to be analysed.
+
+    ![Blue Summary](images/blue_summary_adb.png)
+
+    * Actions Required reduced from 10 to 8
+    * Reviews Required reduced from 10 to 7
+    * Reviews Suggested reduced from 10 to 7
+
+3. Check the issues on *RED* PDB.
+
+    On the second tab, which is the *RED* PDB, explore the CPAT findings. If you click on *Premigration Advisor Report Summary*, you can see there are almost nothing to be analysed.
+
+    ![Red Summary](images/red_summary_adb.png)
+
+    * Actions Required reduced from 3 to 2
+    * Reviews Required reduced from 6 to 3
+    * Reviews Suggested reduced from 7 to 4
+
+    Note that are still many checks that are related to Golden Gate, which is not the migration method we will use on this lab. In the next task, we will try to reduce the number of results now by gathering information only related to the target method we will.
+
+    Now, close Firefox.
+
+## Task 5: Generate and open a CPAT report for our lab
+
+Now that we could see that CPAT could generate a report when you still don't know the migration method that will be used, let's create a more specific report, where I want to specify which method we are using.
+
+In this lab, we will be moving:
+* *BLUE* PDB using Data Pump.
+* *RED* PDB using Data Pump with DB Links.
+
+So, let's create a CPAT report where we only list issues for this specific migration methods.
+
+1. Execute CPAT for *BLUE* and *RED* PDBs, generating a specific report.
+
+    ``` shell
+    <copy>
+    . cdb23
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output/3_adbs_datapump/ --outfileprefix blue
+    ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod DATAPUMP_DBLINK --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output/3_adbs_datapump/ --outfileprefix red
+    </copy>
+
+    # Be sure to hit RETURN
+    ```
+
+    * Note we changed from *--migrationmethod ALL* to *--migrationmethod DATAPUMP* (for BLUE) and *--migrationmethod DATAPUMP_DBLINK* (for RED).
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output/3_adbs_datapump/ --outfileprefix blue
+    CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
+    Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
+
+    Cloud Premigration Advisor Tool Version 25.2.0
+    CPAT-4007: Warning: the build date for this version of the Cloud Premigration Advisor Tool is over 137 days.  Please run "premigration.sh --updatecheck" to see if a more recent version of this tool is available.
+    Please download the latest available version of the CPAT application.
+
+    Cloud Premigration Advisor Tool completed with overall result: Action Required
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/blue_premigration_advisor_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/blue_premigration_advisor_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/blue_premigration_advisor_report.txt
+    [CDB23:oracle@holserv1:~]$ ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod DATAPUMP_DBLINK --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output/3_adbs_datapump/ --outfileprefix red
+    CPAT-1018: Informational: The amount of memory available to CPAT is 3926 MB. Oracle recommends running CPAT using a 64-bit JVM on a system with at least 8 GB of memory.
+    Increase the memory by setting _JAVA_OPTIONS=-Xmx4g or higher if additional memory is available.
+
+    Cloud Premigration Advisor Tool Version 25.2.0
+    CPAT-4007: Warning: the build date for this version of the Cloud Premigration Advisor Tool is over 137 days.  Please run "premigration.sh --updatecheck" to see if a more recent version of this tool is available.
+    Please download the latest available version of the CPAT application.
+
+    Cloud Premigration Advisor Tool completed with overall result: Review Required
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/red_premigration_advisor_report.json
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/red_premigration_advisor_report.html
+    Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/red_premigration_advisor_report.txt
+    ```
+    </details>
+
+## Task 6: Check issues that will affect this migration
+
+Now that we executed CPAT for both PDBs on our specific migration scenarios, let's take a look on the CPAT files:
+
+1. Open and explore the HTML files.
+
+    ``` shell
+    <copy>
+    cd ~/cpat_output/3_adbs_datapump/
     firefox blue_premigration_advisor_report.html red_premigration_advisor_report.html &
     </copy>
 
@@ -456,7 +551,7 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
    ![Blue Summary](images/blue_summary_adb.png)
 
-   * Action Requireds reduced from 10 to 5 (1 on Source Database + 4 on Target Database)
+   * Action Requireds reduced now to just 5 (1 on Source Database + 4 on Target Database)
    * The checks that will need a closer attention are:
      + "User Defined Objects in SYS" (Action Required)
      + "Role Privileges" (Action Required)
@@ -475,7 +570,7 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
    ![Red Summary](images/red_summary_adb.png)
 
-   * Action Requireds reduced from 3 to 0
+   * Action Requireds reduced to 0
    * The only check that will need a closer attention is:
      + "Directories" (Review Required)
    + However, it only lists internal directories that don't exists in ADB, but are not being used by the application. So this can be safelly ignored

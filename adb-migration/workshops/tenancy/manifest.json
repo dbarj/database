@@ -39,9 +39,9 @@
       "filename": "../../05-latency-test/latency-test.md"
     },
     {
-      "title": "Lab 6: Customizing Data Pump Jobs",
-      "description": "Customizing Data Pump Jobs",
-      "filename": "../../06-customize/customize.md"
+      "title": "Lab 6: Blue PDB migration",
+      "description": "Blue PDB migration",
+      "filename": "../../06-blue-migration/blue-migration.md"
     },
     {
       "title": "Lab 7: Checksum and Encryption",

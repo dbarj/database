@@ -34,7 +34,7 @@ Data Pump can move data into any higher release Oracle Database. Data Pump was i
     -- Be sure to hit RETURN
     ```
 
-2. In this task, you perform a full database export. In lab 6, *Customizing Data Pump Jobs*, you looked at the object paths included in various export modes. A full export has the most object paths included. Look at the object paths that are part of a full export.
+2. In this task, you perform a full database export. In lab 6, *Blue PDB migration*, you looked at the object paths included in various export modes. A full export has the most object paths included. Look at the object paths that are part of a full export.
 
     ```
     <copy>

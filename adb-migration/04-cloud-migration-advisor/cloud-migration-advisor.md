@@ -70,7 +70,7 @@ In this lab, we will use it on a simple mode, just to get the recommended method
 
 ![CMA Guided](images/cma-guided-4.png)
 
-6. First, click on the Home shortcut in the left menu and load: *cpat\_output\_generic/BLUE/BLUE\_premigration\_advisor\_report.json*.
+6. First, click on the Home shortcut in the left menu and load: *cpat\_output/2\_adbs/blue_premigration\_advisor\_report.json*.
 
 ![CMA Guided](images/cma-guided-5.png)
 
@@ -78,7 +78,7 @@ In this lab, we will use it on a simple mode, just to get the recommended method
 
 ![CMA Guided](images/cma-guided-6.png)
 
-8. Repeat the steps above to load now *cpat\_output\_generic/RED/RED\_premigration\_advisor\_report.json*.
+1. Repeat the steps above to load now *cpat\_output/2\_adbs/red\_premigration\_advisor\_report.json*.
 
 [CMA Guided](images/cma-guided-7.png)
 
@@ -96,16 +96,16 @@ When the Solution Report page is opened, we can see that:
 
 ![CMA Report](images/cma-report.png)
 
-1. CMA is recommending using for both databases the "Datapump Conventional Export/Import" method. Please note we used the generic CPAT file where other methods were collected, like "GoldenGate" and "Data Pump with DBLink", so CMA knows which one would be the most simple.
+1. CMA is recommending using for both databases the "Datapump Conventional Export/Import" method. Please note we used the ADB CPAT file where other methods were collected, like "GoldenGate" and "Data Pump with DBLink", so CMA scans and shows which one would be the most simple.
 
-2. CMA is showing that RED database is less complex to move (scored 9.28) than the BLUE database (scored 8.78). This is because RED has less CPAT findings than BLUE:
+2. CMA is showing that RED database is less complex to move (scored 9.40) than the BLUE database (scored 8.88). This is because RED has less CPAT findings than BLUE:
   + 0 x 5 in Actions Required.
-  + 2 x 4 in Review Required.
-  + 5 x 8 in Review Suggested.
+  + 1 x 4 in Review Required.
+  + 4 x 7 in Review Suggested.
 
-  Note:
+3. Click on the "Solution #" link at the breadcumb bar. On the new page that opens, click on "Checks Report".
 
-  * There are more issues on the "Generic CPAT" compared to the "ADB CPAT" as the source properties were not collected before. So CPAT flagged some false positive issues.
+4. In this page, you can view all CPAT checks for both databases and their CPAT status. Click on the row "has_directories", now scroll down to the end of the page. Notice that on the "Databases" report table at the bottom, you can check the list of affected objects for that specific check.
 
 You may now *proceed to the next lab*.
 
