@@ -224,7 +224,7 @@ In lab 5, you learned about the interactive console and the `STATUS` command. Yo
     ```
 
     * Hit `CTRL+C` only once.
-    * In lab 5, *Faster Imports*, you learned how to use the interactive console.
+    * In lab 5, *Latency Test*, you learned how to use the interactive console.
 
 9. Now, kill the job.
 

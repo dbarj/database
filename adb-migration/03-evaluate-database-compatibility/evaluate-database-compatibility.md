@@ -31,10 +31,10 @@ The tool was already pre-downloaded on this lab and is available at */home/oracl
 
 1. Use the *yellow* terminal 🟨. Unzip CPAT file.
 
-    ```
+    ``` shell
     <copy>
     mkdir -p /home/oracle/cpat
-    unzip /home/oracle/stage/p32613591_112048_Generic.zip -d /home/oracle/cpat
+    unzip /home/oracle/scripts/p32613591_112048_Generic.zip -d /home/oracle/cpat
     ls -l /home/oracle/cpat
     </copy>
 
@@ -44,16 +44,41 @@ The tool was already pre-downloaded on this lab and is available at */home/oracl
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    [CDB23:oracle@holserv1:~]$ ls -la /home/oracle/cpat
-    total 48
-    drwxr-xr-x.  2 oracle oinstall    59 Feb 10 14:09 bin
-    drwxr-xr-x.  2 oracle oinstall  4096 Feb 10 14:09 lib
-    -rw-r--r--.  1 oracle oinstall  6069 Feb 10 14:09 LICENSE.txt
-    drwxr-xr-x.  2 oracle oinstall    35 Feb 10 14:09 misc
-    -rw-r--r--.  1 oracle oinstall   139 Feb 10 14:09 premigration.cmd
-    -rwxr-xr-x.  1 oracle oinstall 10519 Feb 10 14:09 premigration.sh
-    -rw-r--r--.  1 oracle oinstall  1782 Feb 10 14:09 README.txt
-    -rw-r--r--.  1 oracle oinstall 11533 Feb 10 14:09 THIRD_PARTY_LICENSES.txt
+    [oracle@holserv1:~]$ mkdir -p /home/oracle/cpat
+    [oracle@holserv1:~]$ unzip /home/oracle/scripts/p32613591_112048_Generic.zip -d /home/oracle/cpat
+    Archive:  /home/oracle/scripts/p32613591_112048_Generic.zip
+      inflating: /home/oracle/cpat/README.txt
+      inflating: /home/oracle/cpat/LICENSE.txt
+      inflating: /home/oracle/cpat/THIRD_PARTY_LICENSES.txt
+      creating: /home/oracle/cpat/bin/
+      inflating: /home/oracle/cpat/bin/cma.cmd
+      inflating: /home/oracle/cpat/bin/cma.sh
+      inflating: /home/oracle/cpat/bin/premigration.ps1
+      inflating: /home/oracle/cpat/premigration.cmd
+      inflating: /home/oracle/cpat/premigration.sh
+      creating: /home/oracle/cpat/lib/
+      inflating: /home/oracle/cpat/lib/premigration.jar
+      inflating: /home/oracle/cpat/lib/ojdbc8-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/ucp-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/oraclepki-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/osdt_core-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/osdt_cert-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/orai18n-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/ons-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/simplefan-19.3.0.0.jar
+      inflating: /home/oracle/cpat/lib/commons-cli-1.9.0.jar
+      creating: /home/oracle/cpat/misc/
+      inflating: /home/oracle/cpat/misc/CPATReportSchema.json
+    [oracle@holserv1:~]$ ls -l /home/oracle/cpat
+    total 44
+    drwxr-xr-x. 2 oracle oinstall    59 Feb 10 14:09 bin
+    drwxr-xr-x. 2 oracle oinstall  4096 Feb 10 14:09 lib
+    -rw-r--r--. 1 oracle oinstall  6069 Feb 10 14:09 LICENSE.txt
+    drwxr-xr-x. 2 oracle oinstall    35 Feb 10 14:09 misc
+    -rw-r--r--. 1 oracle oinstall   139 Feb 10 14:09 premigration.cmd
+    -rwxr-xr-x. 1 oracle oinstall 10519 Feb 10 14:09 premigration.sh
+    -rw-r--r--. 1 oracle oinstall  1782 Feb 10 14:09 README.txt
+    -rw-r--r--. 1 oracle oinstall 11533 Feb 10 14:09 THIRD_PARTY_LICENSES.txt
     ```
     </details>
 
@@ -63,7 +88,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
 1. Execute CPAT for both *BLUE* and *RED* PDBs, generating a generic report.
 
-    ```
+    ``` shell
     <copy>
     . cdb23
     ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --targetcloud ALL --migrationmethod ALL --reportformat JSON HTML TEXT --outdir ~/cpat_output_generic/
@@ -74,7 +99,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
     * To get all the possible parameter options for CPAT, run *~/cpat/premigration.sh -help*.
     * *--connectstring jdbc:oracle:oci:@ --sysdba* is used for OS Authentication.
-      + It will connect on cdb23 as it is the currently exported *ORACLE_HOME* and *ORACLE_SID*.
+      + It will connect on cdb23 as it is the currently exported *ORACLE\_HOME* and *ORACLE\_SID*.
       + It will run CPAT for all opened PDBs: *BLUE* and *RED*.
     * *--targetcloud ALL* is used to run checks against all possible targets, like ATP, ADW and Exadata.
     * *--migrationmethod ALL* is used to run checks for all possible migration methods.
@@ -104,7 +129,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
 2. Check the generated report files.
 
-    ```
+    ``` shell
     <copy>
     ls -l ~/cpat_output_generic/
     </copy>
@@ -134,7 +159,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
 3. Open and explore the TEXT files.
 
-    ```
+    ``` shell
     <copy>
     cd ~/cpat_output_generic/
     cat premigration_advisor_summary_report.txt
@@ -199,7 +224,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
     Now take a look on the contents of the text report for the *RED* PDB.
 
-    ```
+    ``` shell
     <copy>
     head -n 100 RED/RED_premigration_advisor_report.txt
     </copy>
@@ -209,7 +234,7 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
 4. Open and explore the HTML files.
 
-    ```
+    ``` shell
     <copy>
     cd ~/cpat_output_generic/
     firefox premigration_advisor_summary_report.html &
@@ -253,7 +278,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
     Use the *yellow* terminal 🟨. Run it first for the *SAPPHIRE* ADB:
 
-    ```
+    ``` shell
     <copy>
     . adb
     ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix sapphire
@@ -278,7 +303,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
     Next, run for the *RUBY* ADB:
 
-    ```
+    ``` shell
     <copy>
     . adb
     ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@ruby_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output_adb/ --outfileprefix ruby
@@ -304,7 +329,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
     Verify the generated property files:
 
-    ```
+    ``` shell
     <copy>
     ls -l ~/cpat_output_adb/
     </copy>
@@ -326,7 +351,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
     Check the contents:
 
-    ```
+    ``` shell
     <copy>
     cat ~/cpat_output_adb/ruby_premigration_advisor_analysis.properties
     </copy>
@@ -371,7 +396,7 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
 2. Now, execute CPAT for *BLUE* and *RED* PDBs, generating a specific report.
 
-    ```
+    ``` shell
     <copy>
     . cdb23
     ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output_adb/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output_adb/ --outfileprefix blue
@@ -417,7 +442,7 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
 1. Open and explore the HTML files.
 
-    ```
+    ``` shell
     <copy>
     cd ~/cpat_output_adb/
     firefox blue_premigration_advisor_report.html red_premigration_advisor_report.html &
@@ -438,6 +463,7 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
      + "XML Schema Objects" (Action Required)
      + "XML Type Tables" (Action Required)
      + "XML Type Columns" (Action Required)
+     + "Database Links" (Review Required)
      + "External Tables for Serverless" (Review Required)
      + "Directories" (Review Required)
      + "Non-Exported Object Grants" (Review Required)

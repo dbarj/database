@@ -29,14 +29,14 @@
       "filename": "../../03-evaluate-database-compatibility/evaluate-database-compatibility.md"
     },
     {
-      "title": "Lab 4: Best Practices and Other Settings",
-      "description": "Best Practices and Other Settings",
-      "filename": "../../04-settings-and-best-practices/settings-and-best-practices.md"
+      "title": "Lab 4: Cloud Migration Advisor",
+      "description": "Cloud Migration Advisor",
+      "filename": "../../04-cloud-migration-advisor/cloud-migration-advisor.md"
     },
     {
-      "title": "Lab 5: Faster Imports",
-      "description": "Faster Imports",
-      "filename": "../../05-faster-imports/faster-imports.md"
+      "title": "Lab 5: Latency Test",
+      "description": "Latency Test",
+      "filename": "../../05-latency-test/latency-test.md"
     },
     {
       "title": "Lab 6: Customizing Data Pump Jobs",
