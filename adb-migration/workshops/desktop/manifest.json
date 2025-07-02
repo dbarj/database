@@ -41,7 +41,7 @@
     {
       "title": "Lab 6: Migration using Data Pump with NFS",
       "description": "Migration using Data Pump with NFS",
-      "filename": "../../06-blue-migration/data-pump-nfs.md"
+      "filename": "../../06-data-pump-nfs/data-pump-nfs.md"
     },
     {
       "title": "Lab 7: Migration using Data Pump with DB Link",
