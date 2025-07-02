@@ -26,6 +26,8 @@ This lab assumes:
 
 - You have completed Lab 1: Initialize Environment
 
+This is an optional lab. You can skip it if you are already familiar with ADBPing.
+
 ## Task 1: Download ADBPing
 
 ADBPing tool is available in *My Oracle Support*, on Doc ID 2863450.1.

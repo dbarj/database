@@ -96,7 +96,7 @@ When the Solution Report page is opened, we can see that:
 
 ![CMA Report](images/cma-report.png)
 
-1. CMA is recommending using for both databases the "Datapump Conventional Export/Import" method. Please note we used the ADB CPAT file where other methods were collected, like "GoldenGate" and "Data Pump with DBLink", so CMA scans and shows which one would be the most simple.
+1. CMA is recommending using for both databases the "Datapump Conventional Export/Import" method. Please note we used the ADB CPAT file where other methods were collected, like "GoldenGate" and "Data Pump with DB Link", so CMA scans and shows which one would be the most simple.
 
 2. CMA is showing that RED database is less complex to move (scored 9.40) than the BLUE database (scored 8.88). This is because RED has less CPAT findings than BLUE:
   + 0 x 5 in Actions Required.
