@@ -24,7 +24,7 @@ In this lab, you will:
 
 This lab assumes:
 
-- You have completed Lab 3: Evaluate Database Compatibility
+- You have completed Lab 1: Initialize Environment
 
 ## Task 1: Setup NFS server
 
@@ -351,9 +351,11 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     ```
     </details>
 
-## Task 3: Share NFS with ADB
+## Task 3: Modify profile in ADB
 
-1. Connect on the *SAPPHIRE* ADB to create a directory.
+In this task, we will change the default profile so passwords for imported users will not expire and match the profile setting from the source database. 
+
+1. Connect on the *SAPPHIRE* ADB to modify the default profile.
 
     ``` shell
     <copy>
@@ -385,7 +387,30 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     ```
     </details>
 
-2. Create a directory pointing to *nfs-server:/exports*.
+2. Alter the profile.
+
+    ``` shell
+    <copy>
+    alter profile default limit PASSWORD_LIFE_TIME unlimited;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    SQL> alter profile default limit PASSWORD_LIFE_TIME unlimited;
+
+    Profile DEFAULT altered.
+
+    SQL>
+    ```
+    </details>
+
+## Task 4: Share NFS with ADB
+
+1. Create a directory pointing to *nfs-server:/exports*.
 
     ``` shell
     <copy>
@@ -439,7 +464,7 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     ```
     </details>
 
-## Task 4: Import schemas in ADB
+## Task 5: Import schemas in ADB
 
 1. Import all the 5 schemas on *SAPPHIRE* ADB.
 

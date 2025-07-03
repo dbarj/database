@@ -26,7 +26,7 @@ In this lab, you will:
 
 This lab assumes:
 
-- You have completed Lab 3: Evaluate Database Compatibility
+- You have completed Lab 1: Initialize Environment
 
 ## Task 1: Test mTLS to *RED* PDB
 
@@ -209,13 +209,11 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
     ```
     </details>
 
-## Task 2: Create a Database Link on ADB
+## Task 2: Modify profile in ADB
 
-Now we need to create a database link from our ADB to the PDB.
+In this task, we will change the default profile so passwords for imported users will not expire and match the profile setting from the source database. 
 
-First, we need to upload the *RED* wallet to ADB directory.
-
-1. Let's first connect on ADB:
+1. Connect on the *RUBY* ADB to modify the default profile.
 
     ``` shell
     <copy>
@@ -223,10 +221,8 @@ First, we need to upload the *RED* wallet to ADB directory.
     sql admin/Welcome_1234@ruby_tp
     </copy>
 
-    # Be sure to hit RETURN
+    -- Be sure to hit RETURN
     ```
-
-    * Note the listener is also running on port *1522* using *TCPS*
 
     <details>
     <summary>*click to see the output*</summary>
@@ -234,11 +230,12 @@ First, we need to upload the *RED* wallet to ADB directory.
     [CDB23:oracle@holserv1:~]$ . adb
     [ADB:oracle@holserv1:~]$ sql admin/Welcome_1234@ruby_tp
 
-    SQLcl: Release 25.1 Production on Wed Jul 02 15:17:06 2025
+    SQL*Plus: Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on Tue Jul 1 19:42:28 2025
+    Version 23.8.0.25.04
 
     Copyright (c) 1982, 2025, Oracle.  All rights reserved.
 
-    Last Successful login time: Wed Jul 02 2025 15:17:06 +00:00
+    Last Successful login time: Tue Jul 01 2025 17:37:59 +00:00
 
     Connected to:
     Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
@@ -248,11 +245,11 @@ First, we need to upload the *RED* wallet to ADB directory.
     ```
     </details>
 
-2. Create a directory to keep the wallet files.
+2. Alter the profile.
 
     ``` shell
     <copy>
-    create directory dblink_wallet_dir as 'dblink_wallet_dir';
+    alter profile default limit PASSWORD_LIFE_TIME unlimited;
     </copy>
 
     -- Be sure to hit RETURN
@@ -261,17 +258,25 @@ First, we need to upload the *RED* wallet to ADB directory.
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> create directory dblink_wallet_dir as 'dblink_wallet_dir';
+    SQL> alter profile default limit PASSWORD_LIFE_TIME unlimited;
 
-    Directory DBLINK_WALLET_DIR created.
+    Profile DEFAULT altered.
+
+    SQL>
     ```
     </details>
 
-3. Next, let's upload the local wallet files to this directory.
+## Task 3: Create a Database Link on ADB
+
+Now we need to create a database link from our ADB to the PDB.
+
+First, we need to upload the *RED* wallet to ADB directory.
+
+1. Create a directory to keep the wallet files.
 
     ``` shell
     <copy>
-    @~/scripts/adb-07-upload_file.sql /home/oracle/client_tls_wallet/cwallet.sso DBLINK_WALLET_DIR cwallet.sso
+    create directory red_dblink_wallet_dir as 'red_dblink_wallet_dir';
     </copy>
 
     -- Be sure to hit RETURN
@@ -280,10 +285,29 @@ First, we need to upload the *RED* wallet to ADB directory.
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> @~/scripts/adb-07-upload_file.sql /home/oracle/client_tls_wallet/cwallet.sso DBLINK_WALLET_DIR cwallet.sso
+    SQL> create directory red_dblink_wallet_dir as 'red_dblink_wallet_dir';
+
+    Directory RED_DBLINK_WALLET_DIR created.
+    ```
+    </details>
+
+2. Next, let's upload the local wallet files to this directory.
+
+    ``` shell
+    <copy>
+    @~/scripts/adb-07-upload_file.sql /home/oracle/client_tls_wallet/cwallet.sso RED_DBLINK_WALLET_DIR cwallet.sso
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    SQL> @~/scripts/adb-07-upload_file.sql /home/oracle/client_tls_wallet/cwallet.sso RED_DBLINK_WALLET_DIR cwallet.sso
     Starting upload_file.js script...
     Local file path: /home/oracle/client_tls_wallet/cwallet.sso
-    Oracle directory: DBLINK_WALLET_DIR
+    Oracle directory: RED_DBLINK_WALLET_DIR
     Target file name: cwallet.sso
     Creating BLOB and opening binary stream...
     Reading local file into stream...
@@ -294,11 +318,11 @@ First, we need to upload the *RED* wallet to ADB directory.
     ```
     </details>
 
-4. Check if file was uploaded.
+3. Check if file was uploaded.
 
     ``` shell
     <copy>
-    select * from dbms_cloud.list_files('dblink_wallet_dir');
+    select * from dbms_cloud.list_files('red_dblink_wallet_dir');
     </copy>
 
     -- Be sure to hit RETURN
@@ -307,7 +331,7 @@ First, we need to upload the *RED* wallet to ADB directory.
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> select * from dbms_cloud.list_files('dblink_wallet_dir');
+    SQL> select * from dbms_cloud.list_files('red_dblink_wallet_dir');
 
     OBJECT_NAME       BYTES CHECKSUM    CREATED                                LAST_MODIFIED
     ______________ ________ ___________ ______________________________________ ______________________________________
@@ -315,13 +339,13 @@ First, we need to upload the *RED* wallet to ADB directory.
     ```
     </details>
 
-5. Create the DB link credentials.
+4. Create the DB link credentials.
 
     ``` shell
     <copy>
     begin
       dbms_cloud.create_credential(
-        credential_name => 'DBLINK_CRED',
+        credential_name => 'SYSTEM_RED_CRED',
         username => 'SYSTEM',
         password => 'oracle');
     end;
@@ -338,7 +362,7 @@ First, we need to upload the *RED* wallet to ADB directory.
     ``` text
     SQL> begin
       2    dbms_cloud.create_credential(
-      3      credential_name => 'DBLINK_CRED',
+      3      credential_name => 'SYSTEM_RED_CRED',
       4      username => 'SYSTEM',
       5      password => 'oracle');
       6  end;
@@ -348,22 +372,22 @@ First, we need to upload the *RED* wallet to ADB directory.
     ```
     </details>
 
-6. Create the DB link and test it.
+5. Create the DB link and test it.
 
     ``` shell
     <copy>
     begin
       dbms_cloud_admin.create_database_link(
-        db_link_name => 'RED_DBLINK',
+        db_link_name => 'SOURCE_DBLINK',
         hostname => 'holserv1.livelabs.oraclevcn.com',
         port => '1522',
         service_name => 'red',
         ssl_server_cert_dn => 'CN=serverdb',
-        credential_name => 'DBLINK_CRED',
-        directory_name => 'DBLINK_WALLET_DIR');
+        credential_name => 'SYSTEM_RED_CRED',
+        directory_name => 'RED_DBLINK_WALLET_DIR');
     end;
     /
-    select * from dual@RED_DBLINK;
+    select * from dual@SOURCE_DBLINK;
     </copy>
 
     -- Be sure to hit RETURN
@@ -374,19 +398,19 @@ First, we need to upload the *RED* wallet to ADB directory.
     ``` text
     SQL> begin
       2    dbms_cloud_admin.create_database_link(
-      3      db_link_name => 'RED_DBLINK',
+      3      db_link_name => 'SOURCE_DBLINK',
       4      hostname => 'holserv1.livelabs.oraclevcn.com',
       5      port => '1522',
       6      service_name => 'red',
       7      ssl_server_cert_dn => 'CN=serverdb',
-      8      credential_name => 'DBLINK_CRED',
-      9      directory_name => 'DBLINK_WALLET_DIR');
+      8      credential_name => 'SYSTEM_RED_CRED',
+      9      directory_name => 'RED_DBLINK_WALLET_DIR');
      10  end;
      11* /
 
     PL/SQL procedure successfully completed.
 
-    SQL> select * from dual@RED_DBLINK;
+    SQL> select * from dual@SOURCE_DBLINK;
 
     DUMMY
     ________
@@ -394,7 +418,7 @@ First, we need to upload the *RED* wallet to ADB directory.
     ```
     </details>
 
-## Task 3: Import schema in ADB
+## Task 4: Import schema in ADB
 
 1. Create a directory pointing to *nfs-server:/exports* to store log files.
 
@@ -463,7 +487,7 @@ First, we need to upload the *RED* wallet to ADB directory.
     logtime=all \
     metrics=true \
     directory=nfs_dir \
-    network_link=red_dblink \
+    network_link=source_dblink \
     logfile=schemas_import_dblink.log \
     parallel=2
     </copy>
@@ -484,7 +508,7 @@ First, we need to upload the *RED* wallet to ADB directory.
     Copyright (c) 1982, 2025, Oracle and/or its affiliates.  All rights reserved.
 
     Connected to: Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    02-JUL-25 17:24:15.698: Starting "ADMIN"."SYS_IMPORT_SCHEMA_01":  userid=admin/********@ruby_tpurgent schemas=F1 logtime=all metrics=true directory=nfs_dir network_link=red_dblink logfile=schemas_import_dblink.log parallel=2
+    02-JUL-25 17:24:15.698: Starting "ADMIN"."SYS_IMPORT_SCHEMA_01":  userid=admin/********@ruby_tpurgent schemas=F1 logtime=all metrics=true directory=nfs_dir network_link=source_dblink logfile=schemas_import_dblink.log parallel=2
     02-JUL-25 17:24:37.288: W-1 Startup on instance 1 took 22 seconds
     02-JUL-25 17:24:39.919: W-1 Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
     02-JUL-25 17:24:39.967: W-1      Estimated 14 TABLE_DATA objects in 2 seconds
