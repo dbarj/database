@@ -36,6 +36,7 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
 
     ``` shell
     <copy>
+    cd
     sudo podman restart nfs-server
     </copy>
 
@@ -75,44 +76,22 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
 
 ## Task 2: Export the *BLUE* PDB
 
-1. Connect on the *BLUE* PDB to create a directory.
+1. Still in the *yellow* 🟨 terminal, connect on the *BLUE* PDB to create a directory.
 
     ``` shell
     <copy>
     . cdb23
-    sqlplus sys/oracle@//localhost:1521/blue as sysdba
+    sql sys/oracle@//localhost:1521/blue as sysdba
     </copy>
 
     -- Be sure to hit RETURN
     ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    [CDB23:oracle@holserv1:~]$ . cdb23
-    [CDB23:oracle@holserv1:~]$ sqlplus sys/oracle@//localhost:1521/blue as sysdba
-
-    SQL*Plus: Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on Tue Jul 1 19:21:07 2025
-    Version 23.8.0.25.04
-
-    Copyright (c) 1982, 2025, Oracle.  All rights reserved.
-
-    Last Successful login time: Tue Jul 01 2025 19:20:34 +00:00
-
-    Connected to:
-    Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    Version 23.8.0.25.04
-
-    SQL>
-    ```
-    </details>
 
 2. Create a directory pointing to */nfs_mount*.
 
     ``` shell
     <copy>
     create directory nfs_dir as '/nfs_mount';
-    exit;
     </copy>
 
     -- Be sure to hit RETURN
@@ -124,14 +103,20 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     SQL> create directory nfs_dir as '/nfs_mount';
 
     Directory created.
-
-    SQL> exit;
-    Disconnected from Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    Version 23.8.0.25.04
     ```
     </details>
 
-3. Export all the schemas of *BLUE* PDB.
+3. Now close SQLcl:
+
+    ``` shell
+    <copy>
+    exit;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+4. Export all the schemas of *BLUE* PDB.
 
     ``` shell
     <copy>
@@ -149,8 +134,8 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     # Be sure to hit RETURN
     ```
     * *logtime* and *metrics* for a better verbose output.
-    * *dumpfile=schemas_export_%L.dmp* and *parallel=2* to use parallelism.
-    * *flashback_time* for having a consistent output.
+    * *dumpfile=schemas\_export\_%L.dmp* and *parallel=2* to use parallelism.
+    * *flashback\_time* for having a consistent output.
 
     <details>
     <summary>*click to see the output*</summary>
@@ -329,7 +314,7 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     ```
     </details>
 
-4. Verify that the dump file was generated on the NFS folder.
+5. Verify that the dump file was generated on the NFS folder.
 
     ``` shell
     <copy>
@@ -355,7 +340,7 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
 
 In this task, we will change the default profile so passwords for imported users will not expire and match the profile setting from the source database. 
 
-1. Connect on the *SAPPHIRE* ADB to modify the default profile.
+1. Still in the *yellow* 🟨 terminal, connect on the *SAPPHIRE* ADB to modify the default profile.
 
     ``` shell
     <copy>
@@ -371,6 +356,7 @@ In this task, we will change the default profile so passwords for imported users
     ``` shell
     <copy>
     alter profile default limit PASSWORD_LIFE_TIME unlimited;
+    alter profile default limit PASSWORD_GRACE_TIME unlimited;
     </copy>
 
     -- Be sure to hit RETURN
@@ -380,6 +366,10 @@ In this task, we will change the default profile so passwords for imported users
     <summary>*click to see the output*</summary>
     ``` text
     SQL> alter profile default limit PASSWORD_LIFE_TIME unlimited;
+
+    Profile DEFAULT altered.
+
+    SQL> alter profile default limit PASSWORD_GRACE_TIME unlimited;
 
     Profile DEFAULT altered.
 
@@ -443,9 +433,19 @@ In this task, we will change the default profile so passwords for imported users
     ```
     </details>
 
+2. Now close SQLcl:
+
+    ``` shell
+    <copy>
+    exit;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
 ## Task 5: Import schemas in ADB
 
-1. Import all the 5 schemas on *SAPPHIRE* ADB.
+1. Still in the *yellow* 🟨 terminal, import all the 5 schemas on *SAPPHIRE* ADB.
 
     ``` shell
     <copy>

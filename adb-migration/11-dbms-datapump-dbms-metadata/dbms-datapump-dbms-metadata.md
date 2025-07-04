@@ -173,12 +173,14 @@ A lot of the Data Pump functionality is in the `DBMS_DATAPUMP` package. If you u
     * You could also build your own loop and query some of the Data Pump views.
     * If you get `ORA-31623: a job is not attached to this session via the specified handle` the job is already completed.
 
-10. Exit SQL*Plus.
+10. Now close SQLcl:
 
-    ```
+    ``` shell
     <copy>
-    exit
+    exit;
     </copy>
+
+    -- Be sure to hit RETURN
     ```
 
 11. Look for the Data Pump dump files and log file.
@@ -222,7 +224,7 @@ A lot of the Data Pump functionality is in the `DBMS_DATAPUMP` package. If you u
     ```
     </details> 
     
-13. If you need inspiration on how to use `DBMS_DATAPUMP`. You can enable SQL trace on a database and start the job via `expdp` or `impdp`. Find the matching trace file (not dm or dw trace files, but the session trace file). You will be able to see the `DBMS_DATAPUMP` calls made by `expdp` or `impdp`. This is what you did in lab 9, *Monitoring, Troubleshooting and Tracing*.
+13. If you need inspiration on how to use `DBMS_DATAPUMP`. You can enable SQL trace on a database and start the job via `expdp` or `impdp`. Find the matching trace file (not dm or dw trace files, but the session trace file). You will be able to see the `DBMS_DATAPUMP` calls made by `expdp` or `impdp`. This is what you did in lab 9, *Database Actions, Monitoring and Troubleshooting*.
 
 
 **Congratulations!** This is the end of the lab.

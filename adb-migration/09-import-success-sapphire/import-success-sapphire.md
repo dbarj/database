@@ -29,7 +29,7 @@ This lab assumes:
     </copy>
     ```
 
-    * The last line for *schemas_import_nfs.log* says *completed with 1 error*.
+    * The last line for *schemas\_import\_nfs.log* says *completed with 1 error*.
     * You need to examine the entire log file if you want to find the details.
 
     <details>
@@ -44,11 +44,11 @@ This lab assumes:
 
     ```
     <copy>
-    grep -A 2 -B 1 'ORA-' /nfs_mount/schemas_import_nfs.log
+    grep -B 1 -A 2 'ORA-' /nfs_mount/schemas_import_nfs.log
     </copy>
     ```
 
-    * We are getting all lines containing 'ORA-', plus the 2 lines before and 1 line after it.
+    * We are getting all lines containing 'ORA-', plus the 1 line before (-B) and 2 lines after (-A) it.
     * Notice there was a *insufficient privileges* error when trying to create a DB Link.
 
     <details>
@@ -85,7 +85,7 @@ This is also again a good opportunity to read the CPAT file for any other findin
 
 ## Task 3: Fix the database link error
 
-In ADB Serverless, the syntax to create a database link is different. We must use DBMS_CLOUD_ADMIN. Let's fix it.
+In ADB Serverless, the syntax to create a database link is different. We must use DBMS\_CLOUD\_ADMIN. Let's fix it.
 
 First, this DB Link was connecting from (*BLUE* -> *RED*).
 
@@ -191,6 +191,7 @@ We need to upload the *RED* wallet to ADB directory.
     ``` shell
     <copy>
     conn sh/oracle@sapphire_tp
+
     begin
       dbms_cloud.create_credential(
         credential_name => 'F1_RUBY_CRED',
@@ -238,6 +239,7 @@ We need to upload the *RED* wallet to ADB directory.
         directory_name => 'RUBY_DBLINK_WALLET_DIR');
     end;
     /
+
     select count(*) from F1_RESULTS@F1;
     </copy>
 
@@ -271,11 +273,21 @@ We need to upload the *RED* wallet to ADB directory.
     ```
     </details>
 
-## Task 4: Comparing objects metadata on *SAPPHIRE*
+7. Now close SQLcl:
+
+    ``` shell
+    <copy>
+    exit;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+## Task 4: Comparing objects metadata
 
 Let's now try the same code on the *SAPPHIRE* database. However, we need to create a database link to the source environment first.
 
-1. Still in the *yellow* terminal 🟨. Connect to the *SAPPHIRE* ADB. This is our target database.
+1. Still in the *yellow* 🟨 terminal, connect to the *SAPPHIRE* ADB. This is our target database.
 
     ```
     <copy>
@@ -401,6 +413,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
         directory_name => 'BLUE_DBLINK_WALLET_DIR');
     end;
     /
+
     select * from dual@SOURCE_DBLINK;
     </copy>
 
@@ -444,7 +457,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     -- Be sure to hit RETURN
     ```
 
-    <summary>*output*</summary>
+    <summary>*Output:*</summary>
     ``` text
     OBJECT_TYPE       COUNT(*)
     ______________ ___________
@@ -459,8 +472,8 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
 
     ``` shell
     <copy>
-    ! cat /home/oracle/scripts/adb-08-dba_tables-compare.sql
-    @/home/oracle/scripts/adb-08-dba_tables-compare.sql
+    ! cat /home/oracle/scripts/adb-09-dba_tables-compare.sql
+    @/home/oracle/scripts/adb-09-dba_tables-compare.sql
     </copy>
 
     -- Be sure to hit RETURN
@@ -469,7 +482,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> ! cat /home/oracle/scripts/adb-08-dba_tables-compare.sql
+    SQL> ! cat /home/oracle/scripts/adb-09-dba_tables-compare.sql
     with src_tab as (select /*+ materialize */ owner,table_name,logging,iot_type,monitoring,segment_created,external from dba_tables@source_dblink where owner in ('F1','HR','PM','IX','SH','BI')),
          dst_tab as (select /*+ materialize */ owner,table_name,logging,iot_type,monitoring,segment_created,external from dba_tables where owner in ('F1','HR','PM','IX','SH','BI'))
     select *
@@ -489,7 +502,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     order by owner, table_name, env desc
     ;
 
-    SQL> @/home/oracle/scripts/adb-08-dba_tables-compare.sql
+    SQL> @/home/oracle/scripts/adb-09-dba_tables-compare.sql
 
     ENV    OWNER    TABLE_NAME                LOGGING    IOT_TYPE        MONITORING    SEGMENT_CREATED    EXTERNAL
     ______ ________ _________________________ __________ _______________ _____________ __________________ ___________
@@ -523,27 +536,127 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
 
     * HR.COUNTRIES was IOT in source but was converted to HEAP on target.
 
-    Index-organized tables are not supported, but attempting to create one does not generate an error.
-    Instead, a heap-organized table with a primary key index is created.
-    Therefore, if you use index-organized tables, you should test the applications that use index-organized tables to confirm that they work using heap-organized tables with a primary key indexes.
+        Index-organized tables are not supported, but attempting to create one does not generate an error.
+        Instead, a heap-organized table with a primary key index is created.
+        Therefore, if you use index-organized tables, you should test the applications that use index-organized tables to confirm that they work using heap-organized tables with a primary key indexes.
 
-    * SH.SALES_TRANSACTIONS_EXT was HEAP in source but was converted to HEAP on target.
+    * SH.SALES\_TRANSACTIONS\_EXT was HEAP in source but was converted to HEAP on target.
 
-    This is a problem we have to fix.
+        This is a problem we have to fix.
 
-    * *SYS_IOT_OVER_NNNNN* tables are internal objects that only differ on the sequence and can be ignored.
+    * *SYS\_IOT\_OVER\_NNNNN* tables are internal objects that only differ on the sequence and can be ignored.
 
-    This can be ignored.
+        This can be ignored.
 
-## Task 5: Fix the External Table issue on *SAPPHIRE*
+## Task 5: Fix the Directories issue
 
-In ADB Serverless, the syntax to create an external table is different. We must use DBMS_CLOUD. Let's fix it.
+When we perform a Data Pump schema export/import, directories are not moved as those objects are owner by SYS. On the CPAT report, we could check there are some directories that are used by those schemas. As External Tables depends on Directories, let's fix it first.
+
+1. Create same directories as source database:
+
+    First connect on the *SAPPHIRE* ADB:
+
+    ``` shell
+    <copy>
+    . adb
+    sql admin/Welcome_1234@sapphire_tp
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    Now let's check the directories that needs to be created:
+
+    ``` shell
+    <copy>
+    select grantee,directory_name,directory_path,privilege
+    from dba_tab_privs@source_dblink t1, dba_directories@source_dblink t2
+    where t1.table_name = t2.directory_name
+    and   t1.grantee in ('HR','PM','IX','SH','BI');
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <summary>Output</summary>
+    ``` text
+    GRANTEE    DIRECTORY_NAME    DIRECTORY_PATH                                PRIVILEGE
+    __________ _________________ _____________________________________________ ____________
+    SH         DATA_FILE_DIR     /u01/app/oracle/sample-apps/sales_history/    READ
+    PM         MEDIA_DIR         /u01/app/oracle/sample-apps/product_media/    READ
+    SH         LOG_FILE_DIR      /u01/app/oracle/sample-apps/log               READ
+    SH         LOG_FILE_DIR      /u01/app/oracle/sample-apps/log               WRITE
+    ```
+
+    Create directories and grant permissions to users:
+
+    ``` shell
+    <copy>
+    create directory data_file_dir as 'sample-apps/sales_history';
+
+    grant read on directory data_file_dir to SH;
+
+    create directory log_file_dir as 'sample-apps/log';
+
+    grant read,write on directory log_file_dir to SH;
+
+    create directory media_dir as 'sample-apps/product_media';
+
+    grant read on directory log_file_dir to PM;
+
+    grant read on directory data_pump_dir to SH;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    * Please note we also added *DATA\_PUMP\_DIR* as this is a requirement for external tables as of 23.8.
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    SQL> create directory data_file_dir as 'sample-apps/sales_history';
+
+    Directory DATA_FILE_DIR created.
+
+    SQL> grant read on directory data_file_dir to SH;
+
+    Grant succeeded.
+
+    SQL> create directory log_file_dir as 'sample-apps/log';
+
+    Directory LOG_FILE_DIR created.
+
+    SQL> grant read,write on directory log_file_dir to SH;
+
+    Grant succeeded.
+
+    SQL> create directory media_dir as 'sample-apps/product_media';
+
+    Directory MEDIA_DIR created.
+
+    SQL> grant read on directory log_file_dir to PM;
+
+    Grant succeeded.
+
+    SQL> grant read on directory data_pump_dir to SH;
+
+    Grant succeeded.
+
+    SQL>
+    ```
+    </details>
+
+## Task 6: Fix the External Table issue
+
+In ADB Serverless, the syntax to create an external table is different. We must use DBMS\_CLOUD. Let's fix it.
 
 1. Let's first check if the objects are really different on ADB:
 
     ``` shell
     <copy>
     select count(*) from sh.sales_transactions_ext;
+
     select count(*) from sh.sales_transactions_ext@source_dblink;
     </copy>
 
@@ -575,11 +688,13 @@ In ADB Serverless, the syntax to create an external table is different. We must 
     ``` shell
     <copy>
     . adb
+
     impdp userid=admin/Welcome_1234@sapphire_tp \
     directory=nfs_dir \
     dumpfile=schemas_export_%L.dmp \
     sqlfile=sh.sales_transactions_ext.sql \
     tables=sh.sales_transactions_ext
+
     cat /nfs_mount/sh.sales_transactions_ext.sql
     </copy>
 
@@ -701,94 +816,9 @@ In ADB Serverless, the syntax to create an external table is different. We must 
        REJECT LIMIT 100 ;
     ```
 
-    We can see it points to 2 directories that are yet not created (*DATA_FILE_DIR* and *LOG_FILE_DIR*).
+    We can see it points to 2 just created directories: *DATA\_FILE\_DIR* and *LOG\_FILE\_DIR*.
 
-4. Create same directories as source database:
-
-    First connect on the *SAPPHIRE* ADB:
-
-    ``` shell
-    <copy>
-    . adb
-    sql admin/Welcome_1234@sapphire_tp
-    </copy>
-
-    -- Be sure to hit RETURN
-    ```
-
-    Now let's check the directories that needs to be created:
-
-    ``` shell
-    <copy>
-    select grantee,directory_name,directory_path,privilege
-    from dba_tab_privs@source_dblink t1, dba_directories@source_dblink t2
-    where t1.table_name = t2.directory_name
-    and   t1.grantee in ('HR','PM','IX','SH','BI');
-    </copy>
-
-    -- Be sure to hit RETURN
-    ```
-
-    <summary>Output</summary>
-    ``` text
-    GRANTEE    DIRECTORY_NAME    DIRECTORY_PATH                                PRIVILEGE
-    __________ _________________ _____________________________________________ ____________
-    SH         DATA_FILE_DIR     /u01/app/oracle/sample-apps/sales_history/    READ
-    PM         MEDIA_DIR         /u01/app/oracle/sample-apps/product_media/    READ
-    SH         LOG_FILE_DIR      /u01/app/oracle/sample-apps/log               READ
-    SH         LOG_FILE_DIR      /u01/app/oracle/sample-apps/log               WRITE
-    ```
-
-    Create directories and grant permissions to users:
-
-    ``` shell
-    <copy>
-    create directory data_file_dir as 'sample-apps/sales_history';
-    grant read on directory data_file_dir to SH;
-    create directory log_file_dir as 'sample-apps/log';
-    grant read,write on directory log_file_dir to SH;
-    create directory media_dir as 'sample-apps/product_media';
-    grant read on directory log_file_dir to PM;
-    grant read on directory data_pump_dir to SH;
-    </copy>
-
-    -- Be sure to hit RETURN
-    ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> create directory data_file_dir as 'sample-apps/sales_history';
-
-    Directory DATA_FILE_DIR created.
-
-    SQL> grant read on directory data_file_dir to SH;
-
-    Grant succeeded.
-
-    SQL> create directory log_file_dir as 'sample-apps/log';
-
-    Directory LOG_FILE_DIR created.
-
-    SQL> grant read,write on directory log_file_dir to SH;
-
-    Grant succeeded.
-
-    SQL> create directory media_dir as 'sample-apps/product_media';
-
-    Directory MEDIA_DIR created.
-
-    SQL> grant read on directory log_file_dir to PM;
-
-    Grant succeeded.
-
-    SQL> grant read on directory data_pump_dir to SH;
-
-    Grant succeeded.
-    ```
-    </details>
-
-5. Next, let's upload the local external table file to this directory.
+4. Now, switch back to the *yellow* terminal 🟨. Next, let's upload the local external table file, *sale1v3.dat*, to the same directory.
 
     ``` shell
     <copy>
@@ -815,7 +845,7 @@ In ADB Serverless, the syntax to create an external table is different. We must 
     ```
     </details>
 
-6. Check if file was uploaded.
+5. Check if file was uploaded.
 
     ``` shell
     <copy>
@@ -836,15 +866,18 @@ In ADB Serverless, the syntax to create an external table is different. We must 
     ```
     </details>
 
-7. Now connect as SH user. Create the external table and test it.
+6. Now connect as SH user. Create the external table and test it.
 
     ``` shell
     <copy>
-    select count(*) from sh.sales_transactions_ext@source_dblink;
     conn sh/oracle@sapphire_tp
+
     ! cat /home/oracle/scripts/adb-08-sales_transactions_ext.sql
-    rename sales_transactions_ext to sales_transactions_ext_heap;
+
+    rename sales_transactions_ext to sales_transactions_ext_old;
+
     @/home/oracle/scripts/adb-08-sales_transactions_ext.sql
+
     select count(*) from sales_transactions_ext;
     </copy>
 
@@ -856,12 +889,6 @@ In ADB Serverless, the syntax to create an external table is different. We must 
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    SQL> select count(*) from sh.sales_transactions_ext@source_dblink;
-
-       COUNT(*)
-    ___________
-         916039
-
     SQL> conn sh/oracle@sapphire_tp
 
     Connected.
@@ -904,7 +931,7 @@ In ADB Serverless, the syntax to create an external table is different. We must 
        END;
     /
 
-    SQL> rename sales_transactions_ext to sales_transactions_ext_heap;
+    SQL> rename sales_transactions_ext to sales_transactions_ext_old;
 
     Table renamed.
 
@@ -919,6 +946,189 @@ In ADB Serverless, the syntax to create an external table is different. We must 
          916039
     ```
     </details>
+
+    * Now the external table is fixed and returning the same ammount of rows as on the source environment.
+
+## Task 7: What about the MEDIA\_DIR directory?
+
+After creating the missing directories, *DATA\_FILE\_DIR* and *LOG\_FILE\_DIR* were used by the *SH* external table. What about the MEDIA\_DIR directory?
+
+Actually, this directory is used by BFILEs of the PM.PRINT\_MEDIA. We need to fix that.
+
+* BFILEs are large data objects stored in the server's operating system files outside the database tablespaces. 
+
+1. Still in the *yellow* 🟨 terminal, check the PM.PRINT\_MEDIA table structure.
+
+    ```
+    <copy>
+    desc PM.PRINT_MEDIA
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    SQL> desc PM.PRINT_MEDIA
+
+    Name                Null?       Type
+    ___________________ ___________ __________________
+    PRODUCT_ID          NOT NULL    NUMBER(6)
+    AD_ID               NOT NULL    NUMBER(6)
+    AD_COMPOSITE                    BLOB
+    AD_SOURCETEXT                   CLOB
+    AD_FINALTEXT                    CLOB
+    AD_FLTEXTN                      NCLOB
+    AD_TEXTDOCS_NTAB                TEXTDOC_TAB
+    AD_PHOTO                        BLOB
+    AD_GRAPHIC                      BINARY FILE LOB
+    AD_HEADER                       ADHEADER_TYP
+
+    SQL>
+    ```
+    </details>
+
+2. Check what are the files and directories refenced by this table
+
+    ```
+    <copy>
+    WITH
+      FUNCTION GET_DIR_NAME (BF BFILE) RETURN VARCHAR2 IS
+        DIR_ALIAS VARCHAR2(255);
+        FILE_NAME VARCHAR2(255);
+      BEGIN
+        IF BF IS NULL THEN
+          RETURN NULL;
+        ELSE
+          DBMS_LOB.FILEGETNAME(BF, DIR_ALIAS, FILE_NAME);
+          RETURN DIR_ALIAS || ' ' || FILE_NAME;
+        END IF;
+      END;
+    SELECT GET_DIR_NAME(AD_GRAPHIC)
+      FROM PM.PRINT_MEDIA;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <summary>*Output:*</summary>
+    ``` text
+    GET_DIR_NAME(AD_GRAPHIC)
+    ___________________________
+    MEDIA_DIR monitor.jpg
+    MEDIA_DIR mousepad.jpg
+    MEDIA_DIR keyboard.jpg
+    MEDIA_DIR modem.jpg
+    ```
+
+    * There are just 4 files that we need to replicate from the original directory to ADB directory.
+    * Ideally, this could be a good opportunity for having this directory now converted to a object storage or NFS.
+
+3. Move the missing files do ADB.
+
+    We need to connect back with ADMIN, as PM user has no *WRITE* privileges under this directory. 
+
+    ``` shell
+    <copy>
+    @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/monitor.jpg MEDIA_DIR monitor.jpg
+
+    @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/mousepad.jpg MEDIA_DIR mousepad.jpg
+
+    @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/keyboard.jpg MEDIA_DIR keyboard.jpg
+
+    @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/modem.jpg MEDIA_DIR modem.jpg
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    SQL> @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/monitor.jpg MEDIA_DIR monitor.jpg
+    Starting upload_file.js script...
+    Local file path: /u01/app/oracle/sample-apps/product_media/monitor.jpg
+    Oracle directory: MEDIA_DIR
+    Target file name: monitor.jpg
+    Creating BLOB and opening binary stream...
+    Reading local file into stream...
+    File read and copied into BLOB stream.
+    Saving BLOB to Oracle Directory...
+    File successfully written to Oracle directory.
+    File uploaded successfully.
+    SQL> @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/mousepad.jpg MEDIA_DIR mousepad.jpg
+    Starting upload_file.js script...
+    Local file path: /u01/app/oracle/sample-apps/product_media/mousepad.jpg
+    Oracle directory: MEDIA_DIR
+    Target file name: mousepad.jpg
+    Creating BLOB and opening binary stream...
+    Reading local file into stream...
+    File read and copied into BLOB stream.
+    Saving BLOB to Oracle Directory...
+    File successfully written to Oracle directory.
+    File uploaded successfully.
+    SQL> @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/keyboard.jpg MEDIA_DIR keyboard.jpg
+    Starting upload_file.js script...
+    Local file path: /u01/app/oracle/sample-apps/product_media/keyboard.jpg
+    Oracle directory: MEDIA_DIR
+    Target file name: keyboard.jpg
+    Creating BLOB and opening binary stream...
+    Reading local file into stream...
+    File read and copied into BLOB stream.
+    Saving BLOB to Oracle Directory...
+    File successfully written to Oracle directory.
+    File uploaded successfully.
+    SQL> @~/scripts/adb-07-upload_file.sql /u01/app/oracle/sample-apps/product_media/modem.jpg MEDIA_DIR modem.jpg
+    Starting upload_file.js script...
+    Local file path: /u01/app/oracle/sample-apps/product_media/modem.jpg
+    Oracle directory: MEDIA_DIR
+    Target file name: modem.jpg
+    Creating BLOB and opening binary stream...
+    Reading local file into stream...
+    File read and copied into BLOB stream.
+    Saving BLOB to Oracle Directory...
+    File successfully written to Oracle directory.
+    File uploaded successfully.
+    SQL>
+    ```
+    </details>
+
+4. Check if table now validates the BFILEs.
+
+    ``` shell
+    <copy>
+    select dbms_lob.fileexists(ad_graphic) from pm.print_media;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    * The "1" output means that the files could be located. 
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    SQL> select dbms_lob.fileexists(ad_graphic) from pm.print_media;
+
+       DBMS_LOB.FILEEXISTS(AD_GRAPHIC)
+    __________________________________
+                                     1
+                                     1
+                                     1
+                                     1
+        ```
+    </details>
+
+5. Now close SQLcl:
+
+    ``` shell
+    <copy>
+    exit;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
 
 You may now *proceed to the next lab*.
 

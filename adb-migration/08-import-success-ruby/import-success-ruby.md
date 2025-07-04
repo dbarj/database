@@ -207,12 +207,14 @@ The `DBMS_COMPARISON` package allows you to compare the rows of the same table i
     ```
     </details>
 
-2. Exit SQLcl.
+2. Now close SQLcl:
 
-    ```
+    ``` shell
     <copy>
-    exit
+    exit;
     </copy>
+
+    -- Be sure to hit RETURN
     ```
 
 You may now *proceed to the next lab*.

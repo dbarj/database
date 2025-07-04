@@ -184,7 +184,7 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
     ```
     </details>
 
-    Now close SQLcl:
+3. Now close SQLcl:
 
     ``` shell
     <copy>
@@ -193,15 +193,6 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
 
     -- Be sure to hit RETURN
     ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    SQL> exit;
-    Disconnected from Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    Version 23.8.0.25.04
-    ```
-    </details>
 
 ## Task 2: Modify profile in ADB
 
@@ -223,6 +214,7 @@ In this task, we will change the default profile so passwords for imported users
     ``` shell
     <copy>
     alter profile default limit PASSWORD_LIFE_TIME unlimited;
+    alter profile default limit PASSWORD_GRACE_TIME unlimited;
     </copy>
 
     -- Be sure to hit RETURN
@@ -232,6 +224,10 @@ In this task, we will change the default profile so passwords for imported users
     <summary>*click to see the output*</summary>
     ``` text
     SQL> alter profile default limit PASSWORD_LIFE_TIME unlimited;
+
+    Profile DEFAULT altered.
+
+    SQL> alter profile default limit PASSWORD_GRACE_TIME unlimited;
 
     Profile DEFAULT altered.
 
@@ -408,7 +404,6 @@ First, we need to upload the *RED* wallet to ADB directory.
     end;
     /
     select * from dbms_cloud.list_files('nfs_dir');
-    exit;
     </copy>
 
     -- Be sure to hit RETURN
@@ -445,13 +440,21 @@ First, we need to upload the *RED* wallet to ADB directory.
     schemas_export_02.dmp           53248                        02-JUL-25 01.38.11.014962000 PM GMT
     schemas_import_nfs.log          21866                        02-JUL-25 01.43.13.371612000 PM GMT
 
-    SQL> exit;
-    Disconnected from Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    Version 23.8.0.25.05
+    SQL>
     ```
     </details>
 
-2. Import the F1 schema on *RUBY* ADB.
+3. Now close SQLcl:
+
+    ``` shell
+    <copy>
+    exit;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+4. Still in the *blue* 🟦 terminal, import the F1 schema on *RUBY* ADB.
 
     ``` shell
     <copy>

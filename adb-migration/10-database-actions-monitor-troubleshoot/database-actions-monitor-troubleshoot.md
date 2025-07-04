@@ -1,4 +1,4 @@
-# Monitoring, Troubleshooting and Tracing
+# Database Actions, Monitoring and Troubleshooting
 
 ## Introduction
 
@@ -209,7 +209,7 @@ In lab 5, you learned about the interactive console and the `STATUS` command. Yo
     ```
     </details> 
 
-7. Exit SQL*Plus.
+7. Exit SQLcl.
 
     ```
     <copy>
@@ -280,7 +280,7 @@ In lab 5, you learned about the interactive console and the `STATUS` command. Yo
 
 The control table contains information about the data and metadata in the dump file. Plus, Data Pump uses it to keep track of the job.
 
-1. Still in the *yellow* terminal 🟨. Start the import from task 1 again. However, this time you import just the control table from the dump file.
+1. Still in the *yellow* 🟨 terminal. Start the import from task 1 again. However, this time you import just the control table from the dump file.
 
     ```
     <copy>
@@ -421,7 +421,7 @@ The control table contains information about the data and metadata in the dump f
     ```
     </details> 
 
-6. Exit SQL*Plus.
+6. Exit SQLcl.
 
     ```
     <copy>
@@ -778,7 +778,7 @@ The control table contains information about the data and metadata in the dump f
 
 Here's a good way to generate trace information to solve a specific functional or performance problem.
 
-1. Still in the *yellow* terminal 🟨. Connect to the *FTEX* database. 
+1. Still in the *yellow* 🟨 terminal. Connect to the *FTEX* database. 
 
     ```
     <copy>
@@ -842,7 +842,7 @@ Here's a good way to generate trace information to solve a specific functional o
     ```
     </details>
 
-5. Exit SQL*Plus.
+5. Exit SQLcl.
 
     ```
     <copy>
@@ -1085,7 +1085,7 @@ Here's a good way to generate trace information to solve a specific functional o
     ```
     </details> 
 
-10. Exit SQL*Plus.
+10. Exit SQLcl.
 
     ```
     <copy>

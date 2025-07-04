@@ -149,9 +149,9 @@ For moving a database to ADB, we need to perform basically 4 steps:
     ```
     </details>
 
-4. Close SQLcl.
+4. Now close SQLcl:
 
-    ```
+    ``` shell
     <copy>
     exit;
     </copy>
@@ -356,9 +356,9 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
     ```
     </details>
 
-5. Close SQLcl.
+5. Now close SQLcl:
 
-    ```
+    ``` shell
     <copy>
     exit;
     </copy>

@@ -514,6 +514,8 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
    Now that we know what needs to be adapted before moving to ADB, we can move to the next lab.
 
+   Close Firefox.
+
 You may now *proceed to the next lab*.
 
 ## Additional information
