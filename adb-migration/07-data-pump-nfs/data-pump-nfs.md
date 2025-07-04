@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Now, after performing all the analysis, it's time to start our migration.
+Now, it's time to start our migration of our *BLUE* PDB. This one is more complex than the *RED*.
 
 In this lab, we will migrate the *BLUE* PDB to the *SAPPHIRE* ADB using Data Pump using NFS share.
 
@@ -365,27 +365,6 @@ In this task, we will change the default profile so passwords for imported users
 
     -- Be sure to hit RETURN
     ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    [CDB23:oracle@holserv1:~]$ . adb
-    [ADB:oracle@holserv1:~]$ sql admin/Welcome_1234@sapphire_tp
-
-    SQL*Plus: Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on Tue Jul 1 19:42:28 2025
-    Version 23.8.0.25.04
-
-    Copyright (c) 1982, 2025, Oracle.  All rights reserved.
-
-    Last Successful login time: Tue Jul 01 2025 17:37:59 +00:00
-
-    Connected to:
-    Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    Version 23.8.0.25.05
-
-    SQL>
-    ```
-    </details>
 
 2. Alter the profile.
 

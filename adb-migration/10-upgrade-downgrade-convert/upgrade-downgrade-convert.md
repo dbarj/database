@@ -28,7 +28,7 @@ Data Pump can move data into any higher release Oracle Database. Data Pump was i
     ```
     <copy>
     . ftex
-    sqlplus / as sysdba
+    sql / as sysdba
     </copy>
 
     -- Be sure to hit RETURN
@@ -306,7 +306,7 @@ Data Pump can move data into any higher release Oracle Database. Data Pump was i
     ```
     <copy>
     . cdb23
-    sqlplus / as sysdba
+    sql / as sysdba
     </copy>
 
     -- Be sure to hit RETURN

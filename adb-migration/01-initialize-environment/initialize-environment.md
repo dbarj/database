@@ -91,10 +91,10 @@ In this lab, you will:
     <copy>
     sudo podman start adb-free
     . cdb23
-    sqlplus / as sysdba <<< "startup"
+    sql / as sysdba <<< "startup"
     </copy>
 
-    -- Be sure to hit RETURN
+    # Be sure to hit RETURN
     ```
 
 You may now *proceed to the next lab*.

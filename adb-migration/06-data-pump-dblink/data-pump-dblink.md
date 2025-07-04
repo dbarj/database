@@ -2,9 +2,11 @@
 
 ## Introduction
 
+Now, after performing all the analysis, it's time to start our migration.
+
 In this lab, we will migrate the *RED* PDB to the *RUBY* ADB using Data Pump with database link.
 
-Differently from the previous method, with a database link, you don't need to create intermediate dump files. This makes this method very fast for smaller databases as we read and load at the same time.
+Differently from the "file method", with a database link, you don't need to create intermediate dump files. This makes this method very fast for smaller databases as we read and load at the same time.
 
 However, there are 2 issues with database link over dump files:
 
@@ -30,13 +32,13 @@ This lab assumes:
 
 ## Task 1: Test mTLS to *RED* PDB
 
-To create a Database Link from Autonomous Database to another non-ADB database, it is required to use mTLS connection.
+To create a database link from Autonomous Database to another non-ADB database, it is required to use mTLS connection.
 
 How it works? With Mutual TLS (mTLS), both the server and the client present certificates. They mutually authenticate each other. In this case, not only the *RUBY* database wallet would be required, but also the *RED* database wallet.
 
 All the databases used on this lab are listening also on port 1522 using mTLS. We can chech that using lsnrctl:
 
-1. Use the *yellow* terminal 🟨. Check that *RED* database also authenticates using mTLS.
+1. Use the *blue* 🟦 terminal. Check that *RED* database also authenticates using mTLS.
 
     ``` shell
     <copy>
@@ -76,31 +78,23 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
     (DESCRIPTION=(ADDRESS=(PROTOCOL=tcps)(HOST=holserv1.livelabs.oraclevcn.com)(PORT=1522)))
     Services Summary...
     Service "34386ccc92e05191e063e901000afc0f" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "3438e280c7587bece063e901000a1574" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "3438e280c75a7bece063e901000a1574" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "3438e280c75c7bece063e901000a1574" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "CDB23XDB" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
-    Service "FTEXXDB" has 1 instance(s).
-    Instance "FTEX", status READY, has 1 handler(s) for this service...
-    Service "UPGRXDB" has 1 instance(s).
-    Instance "UPGR", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "blue" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "cdb23" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
-    Service "ftex" has 1 instance(s).
-    Instance "FTEX", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "green" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     Service "red" has 1 instance(s).
-    Instance "CDB23", status READY, has 1 handler(s) for this service...
-    Service "upgr" has 1 instance(s).
-    Instance "UPGR", status READY, has 1 handler(s) for this service...
+      Instance "CDB23", status READY, has 1 handler(s) for this service...
     The command completed successfully
     ```
     </details>
@@ -114,7 +108,7 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
     # Be sure to hit RETURN
     ```
 
-    * All databases running on this *ORACLE_HOME* will read the *WALLET_LOCATION* of *sqlnet.ora* when a new connection is established and check if the provided certificate is available on this wallet.
+    * All databases running on this *ORACLE\_HOME* will read the *WALLET\_LOCATION* of *sqlnet.ora* when a new connection is established and check if the provided certificate is available on this wallet.
 
     <details>
     <summary>*click to see the output*</summary>
@@ -178,8 +172,6 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
     <details>
     <summary>*click to see the output*</summary>
     ``` text
-    [CDB23:oracle@holserv1:~]$ sql admin/admin@"tcps://localhost:1522/red?wallet_location=/home/oracle/client_tls_wallet&ssl_server_dn_match=false"
-
     SQLcl: Release 25.1 Production on Wed Jul 02 14:50:36 2025
 
     Copyright (c) 1982, 2025, Oracle.  All rights reserved.
@@ -187,6 +179,8 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
     Connected to:
     Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
     Version 23.8.0.25.04
+
+    SQL>
     ```
     </details>
 
@@ -211,9 +205,9 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
 
 ## Task 2: Modify profile in ADB
 
-In this task, we will change the default profile so passwords for imported users will not expire and match the profile setting from the source database. 
+In this task, we will change the default profile so passwords for imported users will not expire and match the profile setting from the source database.
 
-1. Connect on the *RUBY* ADB to modify the default profile.
+1. Still in the *blue* 🟦 terminal, connect on the *RUBY* ADB to modify the default profile.
 
     ``` shell
     <copy>
@@ -223,27 +217,6 @@ In this task, we will change the default profile so passwords for imported users
 
     -- Be sure to hit RETURN
     ```
-
-    <details>
-    <summary>*click to see the output*</summary>
-    ``` text
-    [CDB23:oracle@holserv1:~]$ . adb
-    [ADB:oracle@holserv1:~]$ sql admin/Welcome_1234@ruby_tp
-
-    SQL*Plus: Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on Tue Jul 1 19:42:28 2025
-    Version 23.8.0.25.04
-
-    Copyright (c) 1982, 2025, Oracle.  All rights reserved.
-
-    Last Successful login time: Tue Jul 01 2025 17:37:59 +00:00
-
-    Connected to:
-    Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    Version 23.8.0.25.05
-
-    SQL>
-    ```
-    </details>
 
 2. Alter the profile.
 
@@ -266,7 +239,7 @@ In this task, we will change the default profile so passwords for imported users
     ```
     </details>
 
-## Task 3: Create a Database Link on ADB
+## Task 3: Create a database link on ADB
 
 Now we need to create a database link from our ADB to the PDB.
 
@@ -382,7 +355,7 @@ First, we need to upload the *RED* wallet to ADB directory.
         hostname => 'holserv1.livelabs.oraclevcn.com',
         port => '1522',
         service_name => 'red',
-        ssl_server_cert_dn => 'CN=serverdb',
+        ssl_server_cert_dn => 'CN=holserv1',
         credential_name => 'SYSTEM_RED_CRED',
         directory_name => 'RED_DBLINK_WALLET_DIR');
     end;
@@ -402,7 +375,7 @@ First, we need to upload the *RED* wallet to ADB directory.
       4      hostname => 'holserv1.livelabs.oraclevcn.com',
       5      port => '1522',
       6      service_name => 'red',
-      7      ssl_server_cert_dn => 'CN=serverdb',
+      7      ssl_server_cert_dn => 'CN=holserv1',
       8      credential_name => 'SYSTEM_RED_CRED',
       9      directory_name => 'RED_DBLINK_WALLET_DIR');
      10  end;

@@ -51,22 +51,26 @@ For moving a database to ADB, we need to perform basically 4 steps:
 
 ## Task 2: Test connection on the source PDBs: Blue and Red
 
-To connect on the ADB instance, you must use a ADB Wallet, which is already uncompressed and available at _/home/oracle/adb\_tls\_wallet_.
-
 1. Use the *yellow* terminal 🟨. Let's connect to the cdb23.
 
     ```
     <copy>
     . cdb23
-    sqlplus / as sysdba
-    show pdbs
+    sql / as sysdba
     </copy>
 
     -- Be sure to hit RETURN
     ```
 
-    * Note that TNS\_ADMIN was set to /home/oracle/adb\_tls\_wallet.
-    * On ADB, a similar Wallet can be download from the web UI.
+    List the PDBS:
+
+    ```
+    <copy>
+    show pdbs
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
 
     <details>
     <summary>*click to see the output*</summary>
@@ -145,7 +149,7 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
     ```
     </details>
 
-4. Close sqlplus.
+4. Close SQLcl.
 
     ```
     <copy>
@@ -164,6 +168,7 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
     ```
     <copy>
     . adb
+    echo $TNS_ADMIN
     ls -l $TNS_ADMIN
     cat $TNS_ADMIN/tnsnames.ora
     </copy>
@@ -177,6 +182,8 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
     <details>
     <summary>*click to see the output*</summary>
     ``` text
+    [ADB:oracle@holserv1:~]$ echo $TNS_ADMIN
+    /home/oracle/adb_tls_wallet
     [ADB:oracle@holserv1:~]$ ls -l $TNS_ADMIN
     total 48
     -rw-------. 1 oracle oinstall  996 Jun 18 13:49 adb_container.cert
@@ -280,7 +287,7 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
     ```
     <copy>
     . adb
-    sqlplus admin/Welcome_1234@sapphire_tp
+    sql admin/Welcome_1234@sapphire_tp
     </copy>
 
     -- Be sure to hit RETURN
@@ -348,6 +355,16 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
     ORDS_PUBLIC_USER2
     ```
     </details>
+
+5. Close SQLcl.
+
+    ```
+    <copy>
+    exit;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
 
 You may now *proceed to the next lab*.
 

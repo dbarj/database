@@ -49,9 +49,14 @@
       "filename": "../../07-data-pump-dblink/data-pump-dblink.md"
     },
     {
-      "title": "Lab 8: Determining Import Success",
-      "description": "Determining Import Success",
-      "filename": "../../08-import-success/import-success.md"
+      "title": "Lab 8: Check Ruby Migration",
+      "description": "Check Ruby Migration",
+      "filename": "../../08-import-success-ruby/import-success-ruby.md"
+    },
+    {
+      "title": "Lab 9: Check Sapphire Migration",
+      "description": "Check Sapphire Migration",
+      "filename": "../../09-import-success-sapphire/import-success-sapphire.md"
     },
     {
       "title": "Lab 9: Monitoring, Troubleshooting and Tracing",

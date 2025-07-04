@@ -15,6 +15,7 @@ In this workshop, you will:
 * Learn about the ADB architecture
 * Check your environment for readiness before you move
 * Use Cloud Migration Analyser to get the recommended move approach
+* Check if the latency between your system and ADB is acceptable.
 * Export data with Data Pump and import into ADB
 * Move data using Data Pump with DB Link method
 * Monitor, troubleshoot and analyse ADB performance

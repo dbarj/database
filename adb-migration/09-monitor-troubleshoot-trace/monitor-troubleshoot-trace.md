@@ -114,7 +114,7 @@ In lab 5, you learned about the interactive console and the `STATUS` command. Yo
     ```
     <copy>
     . cdb23
-    sqlplus / as sysdba
+    sql / as sysdba
     </copy>
 
     -- Be sure to hit RETURN
@@ -243,7 +243,7 @@ In lab 5, you learned about the interactive console and the `STATUS` command. Yo
     ```
     <copy>
     . cdb23
-    sqlplus / as sysdba<<EOF
+    sql / as sysdba<<EOF
        alter session set container=red;
        drop user constr_validate cascade;
     EOF
@@ -741,7 +741,7 @@ The control table contains information about the data and metadata in the dump f
     ```
     <copy>
     . cdb23
-    sqlplus / as sysdba<<EOF
+    sql / as sysdba<<EOF
        alter session set container=red;
        drop user constr_validate cascade;
     EOF
@@ -783,7 +783,7 @@ Here's a good way to generate trace information to solve a specific functional o
     ```
     <copy>
     . ftex
-    sqlplus / as sysdba
+    sql / as sysdba
     </copy>
 
     -- Be sure to hit RETURN
@@ -931,7 +931,7 @@ Here's a good way to generate trace information to solve a specific functional o
     <copy>
     cd /home/oracle
     . ftex
-    sqlplus / as sysdba
+    sql / as sysdba
     </copy>
 
     -- Be sure to hit RETURN
@@ -1166,7 +1166,7 @@ Here's a good way to generate trace information to solve a specific functional o
 
     ```
     <copy>
-    sqlplus / as sysdba<<EOF
+    sql / as sysdba<<EOF
        alter system set events 'sql_trace {process: pname = dw | process: pname = dm} level=1';
     EOF
     </copy>

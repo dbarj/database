@@ -40,6 +40,7 @@ The tool was already pre-downloaded on this lab and is available at */home/oracl
 
     ``` shell
     <copy>
+    cd
     mkdir -p /home/oracle/adbping
     unzip /home/oracle/scripts/adbping_Linux.X64_230127.zip -d /home/oracle/adbping
     ls -l /home/oracle/adbping
@@ -126,7 +127,7 @@ ADBPing can evaluate multiple connection methods, like java or sqlplus.
     Interpreting the results:
 
        * In 10 seconds, 670 times the session was opened and *select 1 from dual* was executed.
-       * The time to execute each SQL was avg 0.478 ms, which is very fast.
+       * The time to execute each SQL was avg 0.478 ms. This is less than 1 ms, which is very fast.
        * The time to connect and execute was about 127 ms.
          + The connection time accounted almost 100% of the total time.
 
@@ -167,7 +168,7 @@ ADBPing can evaluate multiple connection methods, like java or sqlplus.
        * In 10 seconds, 123896 times the session was opened and *select 1 from dual* was executed. This is almost 200x more than using sqlplus method.
        * The time to execute each SQL was avg 0.826 ms, less than 1 ms, which is still very fast.
        * The time to connect and execute was about 0.858 ms.
-         + The connection time accounted less than 1% of the total time.
+         + The connection time accounted less than 1% of the total time now.
          + Reason for all this gain is because java will connect once and use a pool to run the statements.
 
 ## Task 3: Compare result with current PDBs
@@ -227,8 +228,7 @@ In this lab, we will run it against the *BLUE* PDB and compare the results with 
     # Be sure to hit RETURN
     ```
 
-    What we are doing here?
-       * Same thing as before, but connecting to ADB using java method.
+    What we are doing here? Same thing as before, but connecting to ADB using java method.
 
     ``` shell
     [ADB:oracle@holserv1:~/adbping]$ ./adbping -u system -p oracle -w $TNS_ADMIN -c java -s //localhost:1521/blue -d 10 -t 10
@@ -258,7 +258,7 @@ After mesuring and comparing the total latency for ADB vs the local PDB, we can 
 
 However, both runs so fast that the difference is only spotted at the sub-milisecond layer.
 
-As this difference will not offerrepresent any problem to our application, we can move forward with this migration. In case the latency passes any threshold defined, it would be needed to move the application closer to ADB before moving forward with the process.
+As this difference will not represent any problem to our application, we can move forward with this migration. In case the latency passes any threshold defined by the application team, it would be needed to move the application closer to ADB, before moving forward with the process.
 
 You may now *proceed to the next lab*.
 
