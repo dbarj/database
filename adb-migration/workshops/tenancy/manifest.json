@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "ADB - Migration",
+  "workshoptitle": "Autonomous Migration Bootcamp",
   "support": "https://community.oracle.com/mosc/categories/oracle_database",
   "help": "livelabs-help-db_us@oracle.com",
   "tutorials": [
@@ -59,14 +59,9 @@
       "filename": "../../09-import-success-sapphire/import-success-sapphire.md"
     },
     {
-      "title": "Lab 10: Database Actions, Monitoring and Troubleshooting",
-      "description": "Database Actions, Monitoring and Troubleshooting",
-      "filename": "../../10-database-actions-monitor-troubleshoot/database-actions-monitor-troubleshoot.md"
-    },
-    {
-      "title": "Lab 11: Using DBMS_DATAPUMP",
-      "description": "Using DBMS_DATAPUMP",
-      "filename": "../../11-dbms-datapump-dbms-metadata/dbms-datapump-dbms-metadata.md"
+      "title": "Lab 10: Database Actions",
+      "description": "Database Actions",
+      "filename": "../../10-database-actions/database-actions.md"
     },
     {
       "title": "Need Help?",

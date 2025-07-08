@@ -37,6 +37,7 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     ``` shell
     <copy>
     cd
+
     sudo podman restart nfs-server
     </copy>
 
@@ -56,7 +57,9 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     ``` shell
     <copy>
     sudo mkdir -p /nfs_mount
+
     sudo mount -t nfs nfs-server:/exports /nfs_mount
+
     ls -l /nfs_mount
     </copy>
 
@@ -384,6 +387,7 @@ In this task, we will change the default profile so passwords for imported users
     ``` shell
     <copy>
     create directory nfs_dir as 'nfs';
+
     begin
       dbms_cloud_admin.attach_file_system (
           file_system_name      => 'nfs',
@@ -393,6 +397,7 @@ In this task, we will change the default profile so passwords for imported users
       );
     end;
     /
+
     select * from dbms_cloud.list_files('nfs_dir');
     </copy>
 
@@ -450,6 +455,7 @@ In this task, we will change the default profile so passwords for imported users
     ``` shell
     <copy>
     . adb
+
     impdp userid=admin/Welcome_1234@sapphire_tpurgent \
     schemas=HR,PM,IX,SH,BI \
     logtime=all \

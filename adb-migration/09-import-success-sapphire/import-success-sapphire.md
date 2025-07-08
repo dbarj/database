@@ -63,7 +63,41 @@ This lab assumes:
 
 3.  These are just examples of the errors you might encounter. In each situation, you must investigate the situation and determine whether or not it influences the integrity of the data you're moving.
 
-## Task 2: Revisiting the CPAT checks.
+## Task 2: Comparing total rows on Data Pump export/import logs
+
+1. You can also compare total rows returned in both import/export logs. This is a good way for tracking overall missing objects and errors.
+
+    ```
+    <copy>
+    grep -w exported /nfs_mount/schemas_export.log | grep -w rows | awk '{print $7,$10}' | sort > /nfs_mount/schemas_export_rows.log
+    grep -w imported /nfs_mount/schemas_import_nfs.log | grep -w rows | awk '{print $7,$10}' | sort > /nfs_mount/schemas_import_nfs_rows.log
+    head /nfs_mount/schemas_export_rows.log
+    diff -s /nfs_mount/schemas_export_rows.log /nfs_mount/schemas_import_nfs_rows.log
+    </copy>
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+    ``` text
+    [ADB:oracle@holserv1:~]$ grep -w exported /nfs_mount/schemas_export.log | grep -w rows | awk '{print $7,$10}' | sort > /nfs_mount/schemas_export_rows.log
+    [ADB:oracle@holserv1:~]$ grep -w imported /nfs_mount/schemas_import_nfs.log | grep -w rows | awk '{print $7,$10}' | sort > /nfs_mount/schemas_import_nfs_rows.log
+    [ADB:oracle@holserv1:~]$ head /nfs_mount/schemas_export_rows.log
+    "HR"."COUNTRIES" 25
+    "HR"."DEPARTMENTS" 27
+    "HR"."EMPLOYEES" 107
+    "HR"."JOB_HISTORY" 10
+    "HR"."JOBS" 19
+    "HR"."LOCATIONS" 23
+    "HR"."REGIONS" 4
+    "IX"."AQ$_ORDERS_QUEUETABLE_G" 0
+    "IX"."AQ$_ORDERS_QUEUETABLE_H" 0
+    "IX"."AQ$_ORDERS_QUEUETABLE_I" 0
+    [ADB:oracle@holserv1:~]$ diff -s /nfs_mount/schemas_export_rows.log /nfs_mount/schemas_import_nfs_rows.log
+    Files /nfs_mount/schemas_export_rows.log and /nfs_mount/schemas_import_nfs_rows.log are identical
+    ```
+    </details>
+
+## Task 3: Revisiting the CPAT checks.
 
 When we executed CPAT for the *BLUE* database, there were some items on the "Review Required" action that we had for the target database:
 
@@ -83,7 +117,7 @@ So it's not a surprise that some issues will need to be fixed after the migratio
 
 This is also again a good opportunity to read the CPAT file for any other finding, including the "Review Suggested" ones.
 
-## Task 3: Fix the database link error
+## Task 4: Fix the database link error
 
 In ADB Serverless, the syntax to create a database link is different. We must use DBMS\_CLOUD\_ADMIN. Let's fix it.
 
@@ -283,7 +317,7 @@ We need to upload the *RED* wallet to ADB directory.
     -- Be sure to hit RETURN
     ```
 
-## Task 4: Comparing objects metadata
+## Task 5: Comparing objects metadata
 
 Let's now try the same code on the *SAPPHIRE* database. However, we need to create a database link to the source environment first.
 
@@ -445,7 +479,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     ```
     </details>
 
-1. Count the number of objects grouped by types in the target database and compare it to the source database.
+7. Count the number of objects grouped by types in the target database and compare it to the source database.
 
     ```
     <copy>
@@ -468,7 +502,29 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     * It does not mean that there are no differences between the source and target.
     * This is just a simple count.
 
-7. Even though total number of tables match, let's compare now dba_tables:
+8. Also, check the total number of constraints, as they are not on dba_objects, grouped by tables, in the target database and compare it to the source database.
+
+    ```
+    <copy>
+    select owner, table_name, count(table_name) 
+    from dba_constraints where owner in ('HR','PM','IX','SH','BI') group by owner, table_name
+    minus
+    select owner, table_name, count(table_name) 
+    from dba_constraints@source_dblink where owner in ('HR','PM','IX','SH','BI') group by owner, table_name;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <summary>*Output:*</summary>
+    ``` text
+    no rows selected
+    ```
+
+    * Again, it does not mean that there are no differences between the source and target.
+    * This is just a simple count.
+
+9. Even though total number of tables match, let's compare now the dba_tables:
 
     ``` shell
     <copy>
@@ -519,7 +575,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     ```
     </details>
 
-8. From the output, we can check that:
+10. From the output, we can check that:
 
     ``` text
     ENV    OWNER    TABLE_NAME                LOGGING    IOT_TYPE        MONITORING    SEGMENT_CREATED    EXTERNAL
@@ -548,7 +604,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
 
         This can be ignored.
 
-## Task 5: Fix the Directories issue
+## Task 6: Fix the Directories issue
 
 When we perform a Data Pump schema export/import, directories are not moved as those objects are owner by SYS. On the CPAT report, we could check there are some directories that are used by those schemas. As External Tables depends on Directories, let's fix it first.
 
@@ -647,7 +703,7 @@ When we perform a Data Pump schema export/import, directories are not moved as t
     ```
     </details>
 
-## Task 6: Fix the External Table issue
+## Task 7: Fix the External Table issue
 
 In ADB Serverless, the syntax to create an external table is different. We must use DBMS\_CLOUD. Let's fix it.
 
@@ -949,7 +1005,7 @@ In ADB Serverless, the syntax to create an external table is different. We must 
 
     * Now the external table is fixed and returning the same ammount of rows as on the source environment.
 
-## Task 7: What about the MEDIA\_DIR directory?
+## Task 8: What about the MEDIA\_DIR directory?
 
 After creating the missing directories, *DATA\_FILE\_DIR* and *LOG\_FILE\_DIR* were used by the *SH* external table. What about the MEDIA\_DIR directory?
 

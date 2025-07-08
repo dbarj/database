@@ -40,9 +40,10 @@ The tool was already pre-downloaded on this lab and is available at */home/oracl
 
     ``` shell
     <copy>
-    cd
     mkdir -p /home/oracle/adbping
+
     unzip /home/oracle/scripts/adbping_Linux.X64_230127.zip -d /home/oracle/adbping
+
     ls -l /home/oracle/adbping
     </copy>
 
@@ -98,7 +99,9 @@ ADBPing can evaluate multiple connection methods, like java or sqlplus.
     ``` shell
     <copy>
     . adb
+
     cd ~/adbping/
+
     ./adbping -u admin -p Welcome_1234 -w $TNS_ADMIN -c sqlplus -s sapphire_tp -d 10 -t 10
     </copy>
 

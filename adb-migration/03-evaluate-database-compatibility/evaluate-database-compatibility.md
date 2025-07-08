@@ -179,8 +179,9 @@ CPAT can evaluate multiple different migration methods, like golden gate and dat
 
     ``` shell
     <copy>
-    cd ~/cpat_output/1_generic/
-    firefox premigration_advisor_summary_report.html &
+    ls -1 ~/cpat_output/1_generic/
+
+    firefox ~/cpat_output/1_generic/premigration_advisor_summary_report.html &
     </copy>
 
     # Be sure to hit RETURN
@@ -226,7 +227,6 @@ So, let's create a CPAT report where we only list issues for those specifics ADB
 
     ``` shell
     <copy>
-    cd
     . adb
     ~/cpat/premigration.sh --connectstring jdbc:oracle:thin:@sapphire_tp?TNS_ADMIN=$TNS_ADMIN --username ADMIN --gettargetprops --outdir ~/cpat_output/props/ --outfileprefix sapphire
     </copy>
@@ -387,8 +387,9 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
     ``` shell
     <copy>
-    cd ~/cpat_output/2_adbs/
-    firefox blue_premigration_advisor_report.html red_premigration_advisor_report.html &
+    ls -1 ~/cpat_output/2_adbs/
+
+    firefox ~/cpat_output/2_adbs/{blue_premigration_advisor_report.html,red_premigration_advisor_report.html} &
     </copy>
 
     # Be sure to hit RETURN
@@ -431,7 +432,6 @@ So, let's create a CPAT report where we only list issues for this specific migra
 
     ``` shell
     <copy>
-    cd
     . cdb23
     ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname BLUE --targetcloud ATPS --migrationmethod DATAPUMP --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/sapphire_premigration_advisor_analysis.properties --outdir ~/cpat_output/3_adbs_datapump/ --outfileprefix blue
     ~/cpat/premigration.sh --connectstring jdbc:oracle:oci:@ --sysdba --pdbname RED --targetcloud ATPS --migrationmethod DATAPUMP_DBLINK --reportformat JSON HTML TEXT --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties --outdir ~/cpat_output/3_adbs_datapump/ --outfileprefix red
@@ -480,12 +480,14 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
     ``` shell
     <copy>
-    cd ~/cpat_output/3_adbs_datapump/
-    firefox blue_premigration_advisor_report.html red_premigration_advisor_report.html &
+    ls -1 ~/cpat_output/3_adbs_datapump/
+
+    firefox ~/cpat_output/3_adbs_datapump/{blue_premigration_advisor_report.html,red_premigration_advisor_report.html} &
     </copy>
 
     # Be sure to hit RETURN
     ```
+
 2. Check the issues on *BLUE* PDB.
 
    On the first tab, which is the *BLUE* PDB, explore the CPAT findings. If you click on *Premigration Advisor Report Summary*, you can see there are significantly less issues to be analysed.
