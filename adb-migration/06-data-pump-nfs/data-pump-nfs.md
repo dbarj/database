@@ -120,7 +120,7 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 
@@ -138,8 +138,6 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
        parallel=2 \
        flashback_time=systimestamp
     </copy>
-
-    # Be sure to hit RETURN
     ```
 
     * You are performing a schema-based export of the schemas holding the data. For migrations to ADB, Oracle recommends using a schema-based approach. A full database export is not recommended.
@@ -332,8 +330,6 @@ In this lab, we will setup a NFS Server that is going to be visible by both our 
     <copy>
     ls -l /nfs_mount
     </copy>
-
-    # Be sure to hit RETURN
     ```
 
     <details>
@@ -370,6 +366,7 @@ In this task, we will change the default profile so passwords for imported users
     ``` sql
     <copy>
     alter profile default limit PASSWORD_LIFE_TIME unlimited;
+
     alter profile default limit PASSWORD_GRACE_TIME unlimited;
     </copy>
 
@@ -457,7 +454,7 @@ In this task, we will change the default profile so passwords for imported users
 
     ``` sql
     <copy>
-    exit;
+    exit
     </copy>
     ```
 

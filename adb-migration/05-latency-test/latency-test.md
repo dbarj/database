@@ -30,7 +30,7 @@ This is an optional lab. You can skip it if you are already familiar with ADBPin
 
 ## Task 1: Download ADBPing
 
-ADBPing tool is available in *My Oracle Support*, on Doc ID 2863450.1.
+ADBPing tool is available in *My Oracle Support*, on [Doc ID 2863450.1](https://support.oracle.com/epmos/faces/DocContentDisplay?id=2863450.1).
 
 ![ADBPing](./images/mos-adbping.png)
 
@@ -113,11 +113,12 @@ ADBPing can evaluate multiple connection methods, like Java or SQL*Plus. It conn
     # Be sure to hit RETURN
     ```
 
-    * The tool runs the test for 10 seconds (*-d 10*). 
+    * The tool runs the test for 10 seconds (*-d 10*).
     * It opens 10 threads in parallel (*-t 10*).
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     $ ./adbping -u admin -p Welcome_1234 -w $TNS_ADMIN -c sqlplus -s sapphire_tp -d 10 -t 10
     +++Test Summary+++
@@ -131,7 +132,8 @@ ADBPing can evaluate multiple connection methods, like Java or SQL*Plus. It conn
        SQL Execution Time(ms) : Min:0 Max:10 Avg:0.478 Median:0 Perc90:0 Perc95:0 Perc99:10
        Connect + SQL Execution Time(ms) : Min:104.76 Max:304.012 Avg:127.897 Median:125.965 Perc90:135.369 Perc95:137.86 Perc99:261.863
     ```
-    </details>    
+
+    </details>
 
     * In 10 seconds, 670 times the session was opened and *select 1 from dual* was executed.
     * The time to execute each SQL was avg 0.478 ms. This is less than 1 ms, which is very fast.
@@ -144,14 +146,13 @@ ADBPing can evaluate multiple connection methods, like Java or SQL*Plus. It conn
     <copy>
     ./adbping -u admin -p Welcome_1234 -w $TNS_ADMIN -c java -s sapphire_tp -d 10 -t 10
     </copy>
-
-    # Be sure to hit RETURN
     ```
 
     * *-c java* tells the tool to use a Java connection instead.
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     $ ./adbping -u admin -p Welcome_1234 -w $TNS_ADMIN -c java -s sapphire_tp -d 10 -t 10
     +++Test Summary+++
@@ -166,7 +167,8 @@ ADBPing can evaluate multiple connection methods, like Java or SQL*Plus. It conn
        SQL Execution Time(ms) : Min:0.108 Max:1052.673 Avg:0.826 Median:0.213 Perc90:0.302 Perc95:0.336 Perc99:0.458
        Connect + SQL Execution Time(ms) : Min:0.114 Max:1052.705 Avg:0.858 Median:0.235 Perc90:0.355 Perc95:0.392 Perc99:0.582
     ```
-    </details>    
+
+    </details>
 
     * Java connects once and create a connection pool, that saves all the time it takes for the authentication handshake process.
     * In 10 seconds, 123896 times the session was opened and *select 1 from dual* was executed. This is almost 200x more than using SQL*Plus method.
@@ -196,6 +198,7 @@ In this lab, we will run it against the *BLUE* PDB and compare the results with 
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     $ ./adbping -u system -p oracle -w $TNS_ADMIN -c sqlplus -s //localhost:1521/blue -d 10 -t 2
     +++Test Summary+++
@@ -207,8 +210,9 @@ In this lab, we will run it against the *BLUE* PDB and compare the results with 
        Test start date: 2025-07-01 17:20:48.866061+00:00
        Test end date: 2025-07-01 17:20:58.895275+00:00
        SQL Execution Time(ms) : Min:0 Max:10 Avg:0.368 Median:0 Perc90:0 Perc95:0 Perc99:10
-       Connect + SQL Execution Time(ms) : Min:46.792 Max:62.586 Avg:49.405 Median:48.921 Perc90:50.691 Perc95:52.303 Perc99:60.038    
+       Connect + SQL Execution Time(ms) : Min:46.792 Max:62.586 Avg:49.405 Median:48.921 Perc90:50.691 Perc95:52.303 Perc99:60.038
     ```
+
     </details>
 
     * In 10 seconds, 380 times the session was opened and *select 1 from dual* was executed.
@@ -230,6 +234,7 @@ In this lab, we will run it against the *BLUE* PDB and compare the results with 
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     $ ./adbping -u system -p oracle -w $TNS_ADMIN -c java -s //localhost:1521/blue -d 10 -t 10
     +++Test Summary+++
@@ -244,7 +249,8 @@ In this lab, we will run it against the *BLUE* PDB and compare the results with 
        SQL Execution Time(ms) : Min:0.074 Max:8.441 Avg:0.145 Median:0.131 Perc90:0.194 Perc95:0.22 Perc99:0.289
        Connect + SQL Execution Time(ms) : Min:0.079 Max:12.98 Avg:0.162 Median:0.144 Perc90:0.223 Perc95:0.25 Perc99:0.334
     ```
-    </details>    
+
+    </details>
 
     * In 10 seconds, 555099 times the session was opened and *select 1 from dual* was executed.
     * This is about 1500x faster than using SQL*Plus method.

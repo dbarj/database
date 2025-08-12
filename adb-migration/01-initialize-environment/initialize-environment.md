@@ -47,8 +47,6 @@ In this lab, you will:
     <copy>
     ps -ef | grep LISTENER | grep -v grep
     </copy>
-
-    # Be sure to hit RETURN
     ```
 
     <details>
@@ -70,8 +68,6 @@ In this lab, you will:
     <copy>
     ps -ef | grep ora_ | grep pmon | grep -v grep
     </copy>
-
-    # Be sure to hit RETURN
     ```
 
     * You might see other databases started as well. It doesn't matter.

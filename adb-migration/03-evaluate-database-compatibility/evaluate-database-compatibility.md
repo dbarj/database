@@ -23,7 +23,7 @@ This lab assumes:
 
 ## Task 1: Download CPAT
 
-CPAT tool is available in *My Oracle Support*, on Doc ID 2758371.1.
+CPAT tool is available in *My Oracle Support*, on [Doc ID 2758371.1](https://support.oracle.com/epmos/faces/DocContentDisplay?id=2758371.1).
 
 ![CPAT](./images/mos-cpat.png)
 
@@ -156,11 +156,12 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
     * Note that the output folder contains 3 different file types: JSON, TEXT and HTML.
       * The JSON file will be later consumed by CMA in the next lab.
       * The TEXT file can be read in a terminal.
-      * The HTML file can be opened in a brownser.
+      * The HTML file can be opened in a browser.
     * Only the *BLUE* and *RED* PDBs were checked. As *GREEN* PDB was closed, it was skipped.
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     $ ls -l ~/cpat_output/1_generic/
     total 40
@@ -169,10 +170,10 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
     -rw-r--r--. 1 oracle oinstall 17072 Jun 27 12:44 premigration_advisor_summary_report.html
     -rw-r--r--. 1 oracle oinstall  1289 Jun 27 12:44 premigration_advisor_summary_report.json
     -rw-r--r--. 1 oracle oinstall  2185 Jun 27 12:44 premigration_advisor_summary_report.txt
-    drwxr-xr-x. 2 oracle oinstall   173 Jun 27 12:44 RED    
+    drwxr-xr-x. 2 oracle oinstall   173 Jun 27 12:44 RED
     ```
-    </details>
 
+    </details>
 
 3. Open and explore the text-based summary.
 
@@ -187,22 +188,23 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     ====================================================================================================================================
     Cloud Premigration Advisor Tool (CPAT) Report
     ====================================================================================================================================
-    
+
     Report Details
     --------------
       CPAT Application Version: 25.6.0
       Report Generated On:      2025-08-04T06:55:15Z
       OPEN PDBs:                BLUE, RED
       CLOSED PDBs:              GREEN
-    
+
     ------------------------------------------------------------------------------------------------------------------------------------
     List of PDB Analysis Summaries
     ------------------------------------------------------------------------------------------------------------------------------------
-    
+
     PDB Analysis Summary
     --------------------
       PDB Name:              BLUE
@@ -215,7 +217,7 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
         HTML:                BLUE/BLUE_premigration_advisor_report.html
         TEXT:                BLUE/BLUE_premigration_advisor_report.txt
     ------------------------------------------------------------------------------------------------------------------------------------
-    
+
     PDB Analysis Summary
     --------------------
       PDB Name:              RED
@@ -228,9 +230,10 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
         HTML:                RED/RED_premigration_advisor_report.html
         TEXT:                RED/RED_premigration_advisor_report.txt
     ------------------------------------------------------------------------------------------------------------------------------------
-    ====================================================================================================================================    
+    ====================================================================================================================================
     ```
-    </details>    
+
+    </details>
 
 4. Take a look at the text report for the *RED* PDB.
 
@@ -249,11 +252,12 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     ====================================================================================================================================
     Cloud Premigration Advisor Tool (CPAT) Report
     ====================================================================================================================================
-    
+
     Report Details
     --------------
       Analysis Mode:            FULL
@@ -263,7 +267,7 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
       Migration Method(s):      DATAPUMP, DATAPUMP_DBLINK, GOLDENGATE
       Report Generated On:      2025-08-04T06:55:16Z
       Report Result:            Action Required
-    
+
     Database Details
     --------------
       Source Database Applications:                                             No Known Applications Detected
@@ -282,7 +286,7 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
       Source DB Size of LOG File Usage in GB:                                   0.586
       Source DB Size of CONTROL File Usage in GB:                               0.018
       Source Database Username:                                                 SYS
-    
+
     Report Analysis Notes
     ---------------------
       Note # Note Info
@@ -308,7 +312,7 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
              FROM DBA_SEGMENTS s WHERE s.OWNER=u.USERNAME AND ROWNUM=1) AND p.GRANTEE(+)=u.USERNAME AND p.PRIVILEGE(+) =
              'UNLIMITED TABLESPACE' AND q.USERNAME(+)=u.USERNAME AND NVL(DECODE(p.privilege, 'UNLIMITED TABLESPACE', 'NO',
              DECODE(q.max_bytes, -1, 'NO')),'YES' ) = 'YES' ORDER BY USERNAME, TABLESPACE_NAME;
-    
+
     Source Database Version Information
     -----------------------------------
       PRODUCT                                  VERSION    VERSION_FULL STATUS
@@ -316,7 +320,7 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
       Oracle Database 23ai Enterprise Edition  23.0.0.0.0 23.9.0.25.07 for Oracle Cloud and Engineered Systems
       Source Database Compatible Version: 23.0.0
       Source Database Version:            23.9.0.25.07
-    
+
     Source Database Patch Information
     ---------------------------------
       COMMENTS                                                          SOURCE_VERSION TARGET_VERSION ACTION     ACTION_TIME
@@ -329,7 +333,7 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
       Installed RU 23.9.0.25.07                                         23.9.0.25.07                  RU_INSTALL 03-MAY-2025 09:22:24
       DATAPUMP BUNDLE PATCH 23.9.0.25.07                                23.9.0.25.07   23.9.0.25.07   APPLY      03-MAY-2025 09:21:36
       Database Release Update : 23.9.0.25.07 (37701421) Gold Image      23.9.0.25.07   23.9.0.25.07   APPLY      03-MAY-2025 09:22:24
-    
+
     ------------------------------------------------------------------------------------------------------------------------------------
     Premigration Advisor Report Check Summary
     ------------------------------------------------------------------------------------------------------------------------------------
@@ -349,9 +353,10 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
                                       relevant objects)
       Review Suggested Checks:        There were 7 checks with Review Suggested results: has_enabled_scheduler_jobs (12 relevant
                                       objects), modified_db_parameters_dedicated (3 relevant objects),
-                                      modified_db_parameters_serverless (3 relevant objects), has_default_tablespace_not_data    
+                                      modified_db_parameters_serverless (3 relevant objects), has_default_tablespace_not_data
     ```
-    </details>    
+
+    </details>
 
 5. A text-based report might be hard to read. The HTML report gives a much better overview.
 
@@ -383,10 +388,9 @@ CPAT can evaluate multiple different migration methods, like GoldenGate and Data
     * Note that some of the checks that have "Action Required" are related to GoldenGate, which is not the migration method we will use on this lab.
     * Also, there are some false positive results related to "Timezone Version" under "Additional Tasks". This is because CPAT has no information about the target ADB.
 
-8. Close Firefox.    
+8. Close Firefox.
 
 9. The report you just created were a generic report because you didn't specify a target. CPAT had to list all possible issues. In the next task, you will specify a target which enables CPAT to list only issues related to that target type.
-
 
 ## Task 3: Collect target info to reduce CPAT warnings
 
@@ -491,14 +495,16 @@ Knowing the target type enables you to create a much more specific report.
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     $ ls -l ~/cpat_output/props/
     -rw-r--r--. 1 oracle oinstall   8326 Jun 27 13:26 ruby_premigration_advisor_analysis.properties
     -rw-r--r--. 1 oracle oinstall   7098 Jun 27 13:26 ruby_premigration_advisor.log
     -rw-r--r--. 1 oracle oinstall   8326 Jun 27 13:26 sapphire_premigration_advisor_analysis.properties
-    -rw-r--r--. 1 oracle oinstall   7110 Jun 27 13:26 sapphire_premigration_advisor.log    
+    -rw-r--r--. 1 oracle oinstall   7110 Jun 27 13:26 sapphire_premigration_advisor.log
     ```
-    </details>    
+
+    </details>
 
 4. Check the contents of the *RUBY* properties file.
 
@@ -509,7 +515,7 @@ Knowing the target type enables you to create a much more specific report.
     ```
 
     * This is a key-value format text file.
-    * This is information about the target ADB, *RUBY*. 
+    * This is information about the target ADB, *RUBY*.
     * Examine the output.
 
     <details>
@@ -544,9 +550,10 @@ Knowing the target type enables you to create a much more specific report.
     TargetInstanceProp.MAX_STRING_SIZE=EXTENDED
     TargetInstanceProp.PROFILES=DEFAULT,ORA_ADMIN_PROFILE,ORA_APP_PROFILE,ORA_CIS_PROFILE,ORA_EXTAPP_PROFILE,ORA_MANDATORY_PROFILE,ORA_MANDATORY_PROFILE_GOV,ORA_PROTECTED_PROFILE,ORA_STIG_PROFILE
     ```
+
     </details>
 
-5. Now, generate a new CPAT reoirt for *BLUE* and *RED* PDBs. This time, generate a specific using the property files that you just generated.
+5. Now, generate a new CPAT report for *BLUE* PDB. This time, generate a specific using the property files that you just generated.
 
     ``` bash
     <copy>
@@ -561,31 +568,20 @@ Knowing the target type enables you to create a much more specific report.
        --reportformat JSON HTML TEXT \
        --outdir ~/cpat_output/2_adbs/ \
        --outfileprefix blue
-
-    ~/cpat/premigration.sh \
-       --connectstring jdbc:oracle:oci:@ --sysdba \
-       --pdbname RED \
-       --targetcloud ATPS \
-       --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties \
-       --migrationmethod ALL \
-       --reportformat JSON HTML TEXT \
-       --outdir ~/cpat_output/2_adbs/ \
-       --outfileprefix red
     </copy>
 
     # Be sure to hit RETURN
     ```
 
-    * You run CPAT twice, connecting to different PDBs using the *pdbname* parameter.
-    * Since you know the target type and have a property file, you can add that to CPAT using *targetcloud* and *analysisprops*. 
-    * You still don't know which method to use, so you specify *migrationmethod ALL*. 
-    * Generate the output in different formats and prefix each of the reports using *outfileprefix*. 
+    * Since you know the target type and have a property file, you can add that to CPAT using *targetcloud* and *analysisprops*.
+    * You still don't know which method to use, so you specify *migrationmethod ALL*.
+    * Generate the output in different formats and prefix each of the reports using *outfileprefix*.
 
     <details>
     <summary>*click to see the output*</summary>
 
     ``` text
-    ~/cpat/premigration.sh \
+    $ ~/cpat/premigration.sh \
     >   --connectstring jdbc:oracle:oci:@ --sysdba \
     >   --pdbname BLUE \
     >   --targetcloud ATPS \
@@ -605,7 +601,31 @@ Knowing the target type enables you to create a much more specific report.
     Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/blue_premigration_advisor_report.json
     Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/blue_premigration_advisor_report.html
     Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/2_adbs/blue_premigration_advisor_report.txt
+    ```
+
+    </details>
+
+6. Next, let's do the same for *RED* PDB.
+
+    ``` bash
+    <copy>
     ~/cpat/premigration.sh \
+       --connectstring jdbc:oracle:oci:@ --sysdba \
+       --pdbname RED \
+       --targetcloud ATPS \
+       --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties \
+       --migrationmethod ALL \
+       --reportformat JSON HTML TEXT \
+       --outdir ~/cpat_output/2_adbs/ \
+       --outfileprefix red
+    </copy>
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+
+    ``` text
+    $ ~/cpat/premigration.sh \
     >   --connectstring jdbc:oracle:oci:@ --sysdba \
     >   --pdbname RED \
     >   --targetcloud ATPS \
@@ -667,7 +687,7 @@ Now that we executed CPAT for both PDBs on our specific migration scenarios, let
 
 ## Task 5: Generate and open a CPAT report for our lab
 
-So far, you have generated reports for all possible migration methods. When you know which method you will use for the migration, you can specify that when you create the CPAT reports. This will generate precise reports which just the relevant information. 
+So far, you have generated reports for all possible migration methods. When you know which method you will use for the migration, you can specify that when you create the CPAT reports. This will generate precise reports which just the relevant information.
 
 In this lab, you will be moving:
 
@@ -676,7 +696,7 @@ In this lab, you will be moving:
 
 By specifying the migration method, you can create a CPAT report with the most accurate recommendations.
 
-1. Execute CPAT for *BLUE* and *RED* PDBs, generating a specific report.
+1. Execute CPAT for *BLUE* PDB, generating a specific report.
 
     ``` bash
     <copy>
@@ -691,23 +711,13 @@ By specifying the migration method, you can create a CPAT report with the most a
        --reportformat JSON HTML TEXT \
        --outdir ~/cpat_output/3_adbs_datapump/ \
        --outfileprefix blue
-
-    ~/cpat/premigration.sh \
-       --connectstring jdbc:oracle:oci:@ --sysdba \
-       --pdbname RED \
-       --targetcloud ATPS \
-       --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties \
-       --migrationmethod DATAPUMP_DBLINK \
-       --reportformat JSON HTML TEXT \
-       --outdir ~/cpat_output/3_adbs_datapump/ \
-       --outfileprefix red
     </copy>
 
     # Be sure to hit RETURN
     ```
 
     * The commands are similar to the previous commands except for *migrationmethod*.
-    * We changed from *--migrationmethod ALL* to *--migrationmethod DATAPUMP* (for BLUE) and *--migrationmethod DATAPUMP_DBLINK* (for RED).
+    * We changed from *--migrationmethod ALL* to *--migrationmethod DATAPUMP*.
     * This enables CPAT to produce more accurate findings.
 
     <details>
@@ -734,6 +744,34 @@ By specifying the migration method, you can create a CPAT report with the most a
     Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/blue_premigration_advisor_report.json
     Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/blue_premigration_advisor_report.html
     Cloud Premigration Advisor Tool generated report location: /home/oracle/cpat_output/3_adbs_datapump/blue_premigration_advisor_report.txt
+    ```
+
+    </details>
+
+2. Next, let's do the same for *RED* PDB, generating a specific report.
+
+    ``` bash
+    <copy>
+    ~/cpat/premigration.sh \
+       --connectstring jdbc:oracle:oci:@ --sysdba \
+       --pdbname RED \
+       --targetcloud ATPS \
+       --analysisprops ~/cpat_output/props/ruby_premigration_advisor_analysis.properties \
+       --migrationmethod DATAPUMP_DBLINK \
+       --reportformat JSON HTML TEXT \
+       --outdir ~/cpat_output/3_adbs_datapump/ \
+       --outfileprefix red
+    </copy>
+
+    # Be sure to hit RETURN
+    ```
+
+    * We changed from *--migrationmethod ALL* to *--migrationmethod DATAPUMP_DBLINK*.
+
+    <details>
+    <summary>*click to see the output*</summary>
+
+    ``` text
     $ ~/cpat/premigration.sh \
     >   --connectstring jdbc:oracle:oci:@ --sysdba \
     >   --pdbname RED \

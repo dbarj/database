@@ -30,11 +30,11 @@ For moving a database to ADB, we need to perform basically four steps:
 
     The purpose of the Cloud Premigration Advisor Tool (CPAT) is to help plan successful migrations to Oracle Databases in the Oracle Cloud or on-premises. It analyzes the compatibility of the source database with your database target and chosen migration method, and suggests a course of action for potential incompatibilities. CPAT provides you with information to consider for different migration tools.
 
-2. Evaluating the best migration method
+2. Evaluating the best migration method.
 
-    There are multiple ways of migrating a database. You could ether use Data Pump, database links, Oracle GoldenGate, Database Migration Service or Zero Downtime Migration, to name a few. In this lab, we will check how Oracle Cloud Migration Advisor (CMA) brings you the expert technical knowledge of Oracle Database upgrade and migration to give you the best possible migration advice.
+    There are multiple ways of migrating a database. You could ether use Data Pump, database links, Oracle GoldenGate, Database Migration Service or Zero Downtime Migration, to name a few. In this lab, we will check how Oracle Cloud Migration Advisor (CMA) enables you to complete a successful migration to Oracle Autonomous Database.
 
-3. Performing the migration
+3. Performing the migration.
 
     Next, we will move:
 
@@ -45,7 +45,7 @@ For moving a database to ADB, we need to perform basically four steps:
 
     We will explore both options allowing you to evaluate which method would suit your own migration.
 
-4. Post-migration steps
+4. Post-migration steps.
 
     After finishing a migration, you will check how to perform some maintainance tasks using the ADB "Database Actions" page.
 
@@ -158,7 +158,7 @@ For moving a database to ADB, we need to perform basically four steps:
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 
@@ -314,8 +314,6 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
      order by 1
     /
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     * `ADMIN` is the default DBA user on ADB.
@@ -375,7 +373,7 @@ To connect on the ADB instance, you must use a ADB Wallet, which is already unco
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 

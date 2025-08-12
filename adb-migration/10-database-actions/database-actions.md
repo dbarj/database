@@ -27,7 +27,7 @@ This lab assumes:
 
     ![Click shortcut to start a Database Actions](./images/desktop-adb_actions.png)
 
-2. On the first tab, connect as *ADMIN* / *Welcome\_1234*
+2. On the first tab, connect as *ADMIN* / *Welcome\_1234* .
 
     ![Provide username and password](./images/login.png)
 
@@ -78,7 +78,7 @@ In this task, we will play with the *SQL Navigator*, which looks very familiar t
 
     ![PM schema](./images/sql-2.png)
 
-3. Right click on the *PM.PRINT_MEDIA* table and select *OPEN*
+3. Right click on the *PM.PRINT_MEDIA* table and select *OPEN*.
 
     ![PRINT_MEDIA table](./images/sql-3.png)
 
@@ -119,19 +119,19 @@ In this task, we will create another administrator user for this *SAPPHIRE* ADB.
 
     ![Show code](./images/user-3.png)
 
-4. Click "Create User". 
+4. Click "Create User".
 
 5. Click on the "down arrow" in the upper right corner. Select "Sign Out".
 
-5. Let's connect as the newly created *DEV\_USER* (password *Welcome\_1234*).
+6. Let's connect as the newly created *DEV\_USER* (password *Welcome\_1234*).
 
     ![DEV_USER Connect](./images/user-4.png)
 
-6. Now, click on the *hamburger icon* on the top left menu. Note that some sections like *Performance Hub* and *APEX Workspace* are **not** available.
+7. Now, click on the *hamburger icon* on the top left menu. Note that some sections like *Performance Hub* and *APEX Workspace* are **not** available.
 
     ![Main Page](./images/user-5.png)
 
-7. Click "Sign Out" on the right top menu and connect back as *ADMIN* (password *Welcome\_1234*).
+8. Click "Sign Out" on the right top menu and connect back as *ADMIN* (password *Welcome\_1234*).
 
 ## Task 4: *Database Actions* | *Performance Hub*
 
@@ -159,6 +159,7 @@ In this task, we will use the *Performance Hub* to check performance issues on t
     ``` sql
     <copy>
     ! cat ~/scripts/adb-10-sh_query.sql
+
     @~/scripts/adb-10-sh_query.sql
     </copy>
 

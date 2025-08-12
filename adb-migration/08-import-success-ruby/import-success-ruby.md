@@ -38,7 +38,7 @@ During export and import, Data Pump may face errors or situations that can't be 
 
 1. When we executed CPAT for the *RED* database, the only "Review Required" action that we had for the target database was "Directories".
 
-![Directories](./images/red-directories.png)
+    ![Directories](./images/red-directories.png)
 
 2. However, as all the directories mentioned on this check are Oracle internal and were not in use by the *F1* schema, we are good to go.
 
@@ -69,8 +69,6 @@ After moving data you can perform simple checks to validate the outcome. You wil
     minus
     select object_type, count(*) from dba_objects@source_dblink where owner='F1' group by object_type;
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     * *No rows selected* means the count of different object types matches.
@@ -90,7 +88,7 @@ After moving data you can perform simple checks to validate the outcome. You wil
 
     </details>
 
-3. If you want to compare the amount of rows, you can do that too
+3. If you want to compare the amount of rows, you can do that too.
 
     ``` sql
     <copy>
@@ -99,8 +97,6 @@ After moving data you can perform simple checks to validate the outcome. You wil
        (select /*+parallel*/ count(*) from f1.f1_laptimes) as target
     from dual;
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     * You can use parallel query to speed up the process, however, selects over a database link can't use parallel query.
@@ -129,12 +125,13 @@ The `DBMS_COMPARISON` package allows you to compare the rows of the same table i
     ``` sql
     <copy>
     ! cat /home/oracle/scripts/adb-08-dbms_compare.sql
+
     @/home/oracle/scripts/adb-08-dbms_compare.sql
     </copy>
 
     -- Be sure to hit RETURN
     ```
-    
+
     * The code creates a comparison and uses `SCAN_MODE` set to full because it is a small database.
     * If you have bigger tables, you can select just a sample.
     * In the end, it reports the findings for each table.
@@ -219,7 +216,7 @@ The `DBMS_COMPARISON` package allows you to compare the rows of the same table i
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 

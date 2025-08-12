@@ -111,6 +111,7 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     LISTENER =
       (DESCRIPTION_LIST =
@@ -119,10 +120,11 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
           (ADDRESS = (PROTOCOL = TCPS)(HOST = holserv1.livelabs.oraclevcn.com)(PORT = 1522))
         )
     )
-    
-    WALLET_LOCATION = (SOURCE=(METHOD=FILE)(METHOD_DATA=(DIRECTORY=/u01/app/oracle/tls_wallet)))    
+
+    WALLET_LOCATION = (SOURCE=(METHOD=FILE)(METHOD_DATA=(DIRECTORY=/u01/app/oracle/tls_wallet)))
     ```
-    </details>    
+
+    </details>
 
 3. The database link between the two databases must also use TCPS, so a proper configuration in *sqlnet.ora* is required.
 
@@ -173,11 +175,11 @@ All the databases used on this lab are listening also on port 1522 using mTLS. W
 
     </details>
 
-3. Close SQLcl.
+5. Close SQLcl.
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 
@@ -201,6 +203,7 @@ In this task, we will change the default profile so passwords for imported users
     ``` sql
     <copy>
     alter profile default limit PASSWORD_LIFE_TIME unlimited;
+
     alter profile default limit PASSWORD_GRACE_TIME unlimited;
     </copy>
 
@@ -312,8 +315,6 @@ First, we need to upload the *RED* wallet to ADB directory.
     end;
     /
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     * Please note that *username* and *password* are case sensitive.
@@ -449,7 +450,7 @@ First, we need to upload the *RED* wallet to ADB directory.
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 

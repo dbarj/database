@@ -116,15 +116,15 @@ This lab assumes:
 
 When we executed CPAT for the *BLUE* database, there were some items on the "Review Required" action that we had for the target database:
 
-1. Database Links
+1. Database Links.
 
     ![Database Links](./images/blue-dblinks.png)
 
-2. External Tables
+2. External Tables.
 
     ![External Tables](./images/blue-external-tables.png)
 
-3. Directories
+3. Directories.
 
     ![Directories](./images/blue-directories.png)
 
@@ -154,8 +154,11 @@ First, this DB Link was connecting from (*BLUE* -> *RED*). As both databases wer
     ``` sql
     <copy>
     create directory ruby_dblink_wallet_dir as 'ruby_dblink_wallet_dir';
+
     grant execute on dbms_cloud to SH;
+
     grant execute on dbms_cloud_admin to SH;
+
     grant read on directory ruby_dblink_wallet_dir to SH;
     </copy>
 
@@ -220,8 +223,6 @@ First, this DB Link was connecting from (*BLUE* -> *RED*). As both databases wer
     <copy>
     select * from dbms_cloud.list_files('ruby_dblink_wallet_dir');
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <details>
@@ -332,7 +333,7 @@ First, this DB Link was connecting from (*BLUE* -> *RED*). As both databases wer
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 
@@ -357,8 +358,6 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     <copy>
     create directory blue_dblink_wallet_dir as 'blue_dblink_wallet_dir';
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <details>
@@ -407,8 +406,6 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     <copy>
     select * from dbms_cloud.list_files('blue_dblink_wallet_dir');
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <details>
@@ -436,8 +433,6 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     end;
     /
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     * Please note that *username* and *password* are case sensitive.
@@ -516,8 +511,6 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     minus
     select object_type, count(*) from dba_objects@source_dblink where owner in ('HR','PM','IX','SH','BI') group by object_type;
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <summary>*Output:*</summary>
@@ -542,8 +535,6 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     select owner, table_name, count(table_name)
     from dba_constraints@source_dblink where owner in ('HR','PM','IX','SH','BI') group by owner, table_name;
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <summary>*Output:*</summary>
@@ -560,6 +551,7 @@ Let's now try the same code on the *SAPPHIRE* database. However, we need to crea
     ``` sql
     <copy>
     ! cat /home/oracle/scripts/adb-09-dba_tables-compare.sql
+
     @/home/oracle/scripts/adb-09-dba_tables-compare.sql
     </copy>
 
@@ -652,8 +644,6 @@ When we perform a Data Pump schema export/import, directories are not moved as t
     where t1.table_name = t2.directory_name
     and   t1.grantee in ('HR','PM','IX','SH','BI');
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <summary>Output</summary>
@@ -938,8 +928,6 @@ In ADB Serverless, the syntax to create an external table is different. We must 
     <copy>
     select * from dbms_cloud.list_files('data_file_dir');
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <details>
@@ -1085,7 +1073,7 @@ Actually, this directory is used by BFILEs of the PM.PRINT\_MEDIA. We need to fi
 
     </details>
 
-2. Check what are the files and directories refenced by this table
+2. Check what are the files and directories refenced by this table.
 
     ``` sql
     <copy>
@@ -1104,8 +1092,6 @@ Actually, this directory is used by BFILEs of the PM.PRINT\_MEDIA. We need to fi
     SELECT GET_DIR_NAME(AD_GRAPHIC)
       FROM PM.PRINT_MEDIA;
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <summary>*Output:*</summary>
@@ -1201,8 +1187,6 @@ Actually, this directory is used by BFILEs of the PM.PRINT\_MEDIA. We need to fi
     <copy>
     select dbms_lob.fileexists(ad_graphic) from pm.print_media;
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     * The "1" output means that the files could be located.
@@ -1227,7 +1211,7 @@ Actually, this directory is used by BFILEs of the PM.PRINT\_MEDIA. We need to fi
 
     ``` bash
     <copy>
-    exit;
+    exit
     </copy>
     ```
 

@@ -39,7 +39,7 @@ In this lab, CMA is already configured and available at *[https://localhost/ords
     ![Click tab to move to CMA](./images/cma-tab.png)
 
 3. Connect to CMA.
-    
+
     * Username: *CMA*
     * Password: *Welcome\_1234*
 
@@ -99,11 +99,11 @@ Cloud Migration Advisor is a tool with many options and flows. In this lab, we w
 
     ![CMA Report](./images/cma-report.png)
 
-2. Click on the *Solution# 1* link at the breadcrumb bar. 
+2. Click on the *Solution# 1* link at the breadcrumb bar.
 
 3. On the *Solution* overview, click on *Checks Report* button in the upper right corner.
 
-4. When the *Checks Report* open, you can view all CPAT checks for both databases, and their CPAT status. 
+4. When the *Checks Report* open, you can view all CPAT checks for both databases, and their CPAT status.
 
     ![CMA Checks](./images/cma-checks.png)
 
