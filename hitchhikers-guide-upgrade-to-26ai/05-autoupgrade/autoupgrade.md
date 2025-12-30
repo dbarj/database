@@ -42,13 +42,13 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     <summary>*click to see the output*</summary>
 
     ``` text
-    build.version 25.4.250730
-    build.date 2025/07/30 16:33:06 +0000
-    build.hash d12ffb74e
-    build.hash_date 2025/07/24 14:59:09 +0000
+    build.version 25.6.251016
+    build.date 2025/10/16 00:04:36 +0000
+    build.hash 54a1e2442
+    build.hash_date 2025/10/15 21:11:40 +0000
     build.supported_target_versions 12.2,18,19,21,23
     build.type production
-    build.label (HEAD, tag: v25.4, origin/stable_devel, stable_devel)
+    build.label (HEAD, tag: v25.6, origin/stable_devel, stable_devel)
     build.MOS_NOTE 2485457.1
     build.MOS_LINK https://support.oracle.com/epmos/faces/DocumentDisplay?id=2485457.1
     ```
@@ -85,15 +85,15 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     # :::  Sample config file for upgrade :::
     #
-    # Build version 25.4.250730
-    # Build date    2025/07/30 16:33:06 +0000
+    # Build version 25.6.251016
+    # Build date    2025/10/16 00:04:36 +0000
     #
     # # Directory includes the following:
     #   (1) upgrade's global directory
     #   (2) Any logs tied to a job
     #
     ################################################################
-    
+
     ################################################################
     #
     # ::: MANDATORY PARAMETERS :::
@@ -112,8 +112,8 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     global.global_log_dir=<$ORACLE_BASE/cfgtoollogs/upgrade or /tmp/upgrade>
     upg1.sid=<$ORACLE_SID or {SID}}>
     upg1.source_home=<$ORACLE_HOME or /u01/app/oracle/product/12.2/dbhome_1>
-    upg1.target_home=<$ORACLE_TARGET_HOME or /u01/app/oracle/product/26/dbhome_1>
-    
+    upg1.target_home=<$ORACLE_TARGET_HOME or /u01/app/oracle/product/23/dbhome_1>
+
     ################################################################
     #
     # global.keystore
@@ -122,7 +122,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #global.keystore=/u01/app/oracle/admin/ORCL/keystore
-    
+
     ################################################################
     #
     # <prefix>.drop_grp_after_upgrade
@@ -131,7 +131,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.drop_grp_after_upgrade=
-    
+
     ################################################################
     #
     # <prefix>.restoration
@@ -140,7 +140,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.restoration=
-    
+
     ################################################################
     #
     # <prefix>.add_after_upgrade_pfile
@@ -149,7 +149,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.add_after_upgrade_pfile=
-    
+
     ################################################################
     #
     # <prefix>.drop_after_upgrade_pfile
@@ -158,7 +158,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.drop_after_upgrade_pfile=
-    
+
     ################################################################
     #
     # <prefix>.before_action
@@ -166,7 +166,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.before_action=/u01/app/oracle/admin/ORCL/before_upgrade.sh
-    
+
     ################################################################
     #
     # <prefix>.after_action
@@ -174,7 +174,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.after_action=/u01/app/oracle/admin/ORCL/after_upgrade.sh
-    
+
     ################################################################
     #
     # <prefix>.drop_win_src_service
@@ -183,15 +183,15 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.drop_win_src_service=
-    
+
     ################################################################
     #
     # <prefix>.wincredential
-    # 	Location of a Microsoft Windows credential object file that you have previously generated with the upgrade command-line parameter        load_win_credential.
+    # 	Location of a Microsoft Windows credential object file that you have previously generated with the upgrade command-line parameter load_win_credential.
     #
     ################################################################
     #upg1.wincredential=C:Usersoraclecred
-    
+
     ################################################################
     #
     # <prefix>.log_dir
@@ -200,7 +200,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.log_dir=/u01/app/oracle/admin/ORCL/upgrade_logs
-    
+
     ################################################################
     #
     # <prefix>.raise_compatible
@@ -210,7 +210,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.raise_compatible=
-    
+
     ################################################################
     #
     # <prefix>.run_dictionary_health
@@ -219,7 +219,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     ################################################################
     #upg1.run_dictionary_health=
-    
+
     ################################################################
     #
     # <prefix>.timezone_upg
@@ -254,15 +254,15 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     # :::  Sample config file for upgrade :::
     #
-    # Build version 25.4.250730
-    # Build date    2025/07/30 16:33:06 +0000
+    # Build version 25.6.251016
+    # Build date    2025/10/16 00:04:36 +0000
     #
     # # Directory includes the following:
     #   (1) upgrade's global directory
     #   (2) Any logs tied to a job
     #
     ################################################################
-    
+
     ################################################################
     #
     # ::: MANDATORY PARAMETERS :::
@@ -285,13 +285,13 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     upg1.sid=UPGR
     upg1.source_home=/u01/app/oracle/product/19
     #upg1.target_home=/u01/app/oracle/product/21
-    #upg1.target_home=/u01/app/oracle/product/23
+    #upg1.target_home=/u01/app/oracle/product/26
     upg1.log_dir=/home/oracle/autoConfig
-    
+
     ################################################################
     #
     ```
-    </details>    
+    </details>
 
 3. For this lab, you will use a pre-created config file. Examine the pre-created config file.
 
@@ -315,7 +315,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     ``` text
     global.autoupg_log_dir=/home/oracle/logs/autoupgrade-UPGR
     upg1.source_home=/u01/app/oracle/product/19
-    upg1.target_home=/u01/app/oracle/product/23
+    upg1.target_home=/u01/app/oracle/product/26
     upg1.sid=UPGR
     upg1.target_cdb=CDB26
     upg1.restoration=no

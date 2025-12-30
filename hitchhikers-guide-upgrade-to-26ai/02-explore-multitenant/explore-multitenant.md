@@ -240,15 +240,15 @@ You connect to the CDB, find a list of PDBs and connect to them using different 
     <summary>*click to see the output (output may vary)*</summary>
 
     ``` text
-    LSNRCTL for Linux: Version 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on 23-MAY-2024 13:11:02
+    LSNRCTL for Linux: Version 23.26.0.0.0 - for Oracle Cloud and Engineered Systems on 23-MAY-2024 13:11:02
 
-    Copyright (c) 1991, 2024, Oracle.  All rights reserved.
+    Copyright (c) 1991, 2025, Oracle.  All rights reserved.
 
     Connecting to (ADDRESS=(PROTOCOL=tcp)(HOST=)(PORT=1521))
     STATUS of the LISTENER
     ------------------------
     Alias                     LISTENER
-    Version                   TNSLSNR for Linux: Version 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
+    Version                   TNSLSNR for Linux: Version 23.26.0.0.0 - for Oracle Cloud and Engineered Systems
     Start Date                23-MAY-2024 13:09:53
     Uptime                    0 days 0 hr. 1 min. 8 sec
     Trace Level               off
@@ -261,9 +261,7 @@ You connect to the CDB, find a list of PDBs and connect to them using different 
     .
     .
     .
-    Service "CDB26" has 1 instance(s).
-      Instance "CDB26", status READY, has 1 handler(s) for this service...
-    Service "CDB26XDB" has 1 instance(s).
+    Service "cdb26" has 1 instance(s).
       Instance "CDB26", status READY, has 1 handler(s) for this service...
     Service "blue" has 1 instance(s).
       Instance "CDB26", status READY, has 1 handler(s) for this service...
@@ -271,7 +269,10 @@ You connect to the CDB, find a list of PDBs and connect to them using different 
       Instance "CDB26", status READY, has 1 handler(s) for this service...
     Service "red" has 1 instance(s).
       Instance "CDB26", status READY, has 1 handler(s) for this service...
-    The command completed successfully
+    Service "ftex" has 1 instance(s).
+      Instance "FTEX", status READY, has 1 handler(s) for this service...
+    Service "upgr" has 1 instance(s).
+      Instance "UPGR", status READY, has 1 handler(s) for this service...
     ```
 
     </details>
@@ -780,10 +781,10 @@ You want to run a script in a CDB including all PDBs.
     <summary>*click to see the output*</summary>
 
     ``` text
-    SQL*Plus: Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on Sat Jun 8 06:20:21 2024
-    Version 23.9.0.25.07
+    SQL*Plus: Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems on Sat Jun 8 06:20:21 2024
+    Version 23.26.0.0.0
 
-    Copyright (c) 1982, 2024, Oracle.  All rights reserved.
+    Copyright (c) 1982, 2025, Oracle.  All rights reserved.
 
     SQL> Connected.
     SQL>   2
@@ -818,8 +819,8 @@ You want to run a script in a CDB including all PDBs.
 
     SQL> SQL> ========== PROCESS ENDED ==========
     SQL> ========== Process Terminated by catcon ==========
-    SQL> Disconnected from Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
-    Version 23.9.0.25.07
+    SQL> Disconnected from Oracle AI Database 26ai Enterprise Edition Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems
+    Version 23.26.0.0.0
     ```
 
     </details>

@@ -181,7 +181,7 @@ You check the source database for upgrade readiness.
     ``` text
     global.autoupg_log_dir=/home/oracle/logs/ftex-refresh
     upg1.source_home=/u01/app/oracle/product/19
-    upg1.target_home=/u01/app/oracle/product/23
+    upg1.target_home=/u01/app/oracle/product/26
     upg1.sid=FTEX
     upg1.target_cdb=CDB26
     upg1.source_dblink.FTEX=CLONEPDB 60

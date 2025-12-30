@@ -543,12 +543,12 @@ You need a few more changes to the new PDB before you can start the import.
     <summary>*click to see the output*</summary>
 
     ``` text
-    Import: Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on Wed May 29 14:01:10 2024
-    Version 23.9.0.25.07
+    Import: Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems on Wed May 29 14:01:10 2024
+    Version 23.26.0.0.0
 
-    Copyright (c) 1982, 2024, Oracle and/or its affiliates.  All rights reserved.
+    Copyright (c) 1982, 2025, Oracle and/or its affiliates.  All rights reserved.
 
-    Connected to: Oracle Database 23ai Enterprise Edition Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems
+    Connected to: Oracle AI Database 26ai Enterprise Edition Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems
     29-MAY-24 14:01:13.959: W-1 Startup on instance 1 took 0 seconds
     29-MAY-24 14:01:15.408: W-1 Master table "FTEXUSER"."SYS_IMPORT_TRANSPORTABLE_01" successfully loaded/unloaded
     29-MAY-24 14:01:15.943: W-1 Source time zone is +02:00 and target time zone is +00:00.

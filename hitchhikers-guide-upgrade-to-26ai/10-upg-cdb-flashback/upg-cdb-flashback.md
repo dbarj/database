@@ -155,7 +155,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     ``` text
     global.autoupg_log_dir=/home/oracle/logs/upg-cdb-flashback
     upg1.source_home=/u01/app/oracle/product/19
-    upg1.target_home=/u01/app/oracle/product/23
+    upg1.target_home=/u01/app/oracle/product/26
     upg1.sid=CDBRES
     upg1.restoration=yes
     upg1.timezone_upg=NO
@@ -281,7 +281,7 @@ Suppose your tests find a critical error and you would like to go back to Oracle
     <summary>*click to see the output*</summary>
 
     ``` text
-    CDBRES:/u01/app/oracle/product/23:N
+    CDBRES:/u01/app/oracle/product/26:N
     ```
 
     </details>
