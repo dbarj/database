@@ -1035,7 +1035,7 @@ Data Pump is a very versatile utility. It allows you to import data into a highe
 
 You can avoid an in-place upgrade and PDB conversion by using Data Pump. The source database is left untouched in case a rollback is needed.
 
-* Documentation, [Oracle Data Pump Export Modes](https://docs.oracle.com/en/database/oracle/oracle-database/23/sutil/oracle-data-pump-export-utility.html#GUID-8E497131-6B9B-4CC8-AA50-35F480CAC2C4)
+* Documentation, [Oracle Data Pump Export Modes](https://docs.oracle.com/en/database/oracle/oracle-database/26/sutil/oracle-data-pump-export-utility.html#GUID-8E497131-6B9B-4CC8-AA50-35F480CAC2C4)
 * Webinar, [Data Pump Best Practices and Real World Scenarios](https://www.youtube.com/watch?v=960ToLE-ZE8)
 * Slides, [Data Pump Best Practices and Real World Scenarios](https://dohdatabase.com/wp-content/uploads/2023/04/vc15_datapump_masterdeck_final.pdf)
 

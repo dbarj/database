@@ -651,7 +651,7 @@ Refreshable clone PDB is a good technique for multitenant migration. It leaves t
 
 You can even use refreshable clone PDB for databases that are already a PDB. Very useful for unplug-plug upgrades.
 
-* Documentation, [Local Parameters for the AutoUpgrade Configuration File](https://docs.oracle.com/en/database/oracle/oracle-database/23/upgrd/local-parameters-autoupgrade-config-file.html#GUID-005B5435-1CA6-4577-B265-F60D44168DE7)
+* Documentation, [Local Parameters for the AutoUpgrade Configuration File](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/local-parameters-autoupgrade-config-file.html#GUID-005B5435-1CA6-4577-B265-F60D44168DE7)
 * Webinar, [Move to Oracle Database 23ai – Everything you need to know about Oracle Multitenant – Part 1](https://www.youtube.com/watch?v=k0wCWbp-htU&t=3960s)
 * Slides, [Move to Oracle Database 23ai – Everything you need to know about Oracle Multitenant – Part 1](https://dohdatabase.com/wp-content/uploads/2024/05/vc19_multitenant_part1.pdf)
 * Blog post, [Upgrade Oracle Base Database Service to Oracle Database 23ai](https://dohdatabase.com/2024/05/21/upgrade-oracle-base-database-service-to-oracle-database-23ai/)

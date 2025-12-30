@@ -1210,7 +1210,7 @@ Full Transportable Export/Import (FTEX) is a good way of moving your data. You c
 
 You can avoid an in-place upgrade and PDB conversion by using FTEX. The source database is left untouched in case a rollback is needed.
 
-* Documentation, [Oracle Data Pump Export Modes](https://docs.oracle.com/en/database/oracle/oracle-database/23/sutil/oracle-data-pump-export-utility.html#GUID-8E497131-6B9B-4CC8-AA50-35F480CAC2C4)
+* Documentation, [Oracle Data Pump Export Modes](https://docs.oracle.com/en/database/oracle/oracle-database/26/sutil/oracle-data-pump-export-utility.html#GUID-8E497131-6B9B-4CC8-AA50-35F480CAC2C4)
 * Webinar, [Cross Platform Migration – Transportable Tablespaces to the Extreme](https://youtu.be/DwUBvjQrPxs)
 * Slides, [Cross Platform Migration – Transportable Tablespaces to the Extreme](https://dohdatabase.com/wp-content/uploads/2024/03/cross-platform-migration-transportable-tablespace-to-the-extreme.pdf)
 

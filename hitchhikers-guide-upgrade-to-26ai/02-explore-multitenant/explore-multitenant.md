@@ -805,7 +805,7 @@ You want to run a script in a CDB including all PDBs.
     SQL>
     END_RUNNING
     --------------------------------------------------------------------------------
-    ==== @/u01/app/oracle/product/23/rdbms/admin/utlrp.sql Container:GREEN Id:5 24-0
+    ==== @/u01/app/oracle/product/26/rdbms/admin/utlrp.sql Container:GREEN Id:5 24-0
     6-08 06:20:38 Proc:0 ====
 
 
@@ -828,7 +828,7 @@ You may now [*proceed to the next lab*](#next).
 
 ## Learn More
 
-* Documentation, [Multitenant Administrator's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/23/multi/introduction-to-the-multitenant-architecture.html#GUID-5C3D6692-B935-46CB-BF5B-B10D7640003C)
+* Documentation, [Multitenant Administrator's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/26/multi/introduction-to-the-multitenant-architecture.html#GUID-5C3D6692-B935-46CB-BF5B-B10D7640003C)
 * Webinar, [Move to Oracle Database 23ai – Everything you need to know about Oracle Multitenant – Part 1](https://youtu.be/k0wCWbp-htU)
 
 ## Acknowledgements
