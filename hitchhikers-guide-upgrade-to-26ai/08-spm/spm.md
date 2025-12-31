@@ -424,4 +424,4 @@ In this context, a plan includes all plan-related information (for example, SQL 
 
 * **Author** - Daniel Overby Hansen - Scripts provided by: Carlos Sierra
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
-* **Last Updated By/Date** - Rodrigo Jorge, August 2025
+* **Last Updated By/Date** - Rodrigo Jorge, January 2026

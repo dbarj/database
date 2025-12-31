@@ -310,4 +310,4 @@ You can submit one or more SQL statements as input to the advisor and receive ad
 
 * **Author** - Daniel Overby Hansen
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
-* **Last Updated By/Date** - Rodrigo Jorge, August 2025
+* **Last Updated By/Date** - Rodrigo Jorge, January 2026

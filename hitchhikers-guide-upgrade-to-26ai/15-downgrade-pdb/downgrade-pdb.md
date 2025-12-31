@@ -466,7 +466,7 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
     VERSION_FULL
     ---------------
-    19.27.0.0.0
+    19.28.0.0.0
 
     1 row selected.
     ```
@@ -566,4 +566,4 @@ In order to downgrade, it is a requirement that you haven't changed the `COMPATI
 
 * **Author** - Daniel Overby Hansen
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
-* **Last Updated By/Date** - Rodrigo Jorge, August 2025
+* **Last Updated By/Date** - Rodrigo Jorge, January 2026

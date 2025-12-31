@@ -237,7 +237,7 @@ You need to prepare a few things before you can start FTEX.
 
     ``` text
     Export: Release 19.0.0.0.0 - Production on Wed May 29 13:31:09 2024
-    Version 19.27.0.0.0
+    Version 19.28.0.0.0
 
     Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
 
@@ -1218,4 +1218,4 @@ You can avoid an in-place upgrade and PDB conversion by using FTEX. The source d
 
 * **Author** - Daniel Overby Hansen
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
-* **Last Updated By/Date** - Rodrigo Jorge, August 2025
+* **Last Updated By/Date** - Rodrigo Jorge, January 2026

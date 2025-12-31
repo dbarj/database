@@ -187,8 +187,8 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     [Job ID] 100
     ==========================================
     [DB Name]                cdbres
-    [Version Before Upgrade] 19.27.0.0.0
-    [Version After Upgrade]  23.9.0.25.07
+    [Version Before Upgrade] 19.28.0.0.0
+    [Version After Upgrade]  23.26.0.0.0
     ------------------------------------------
     [Stage Name]    GRP
     [Status]        SUCCESS
@@ -440,4 +440,4 @@ AutoUpgrade completely automates restoration of a database. By default, AutoUpgr
 
 * **Author** - Daniel Overby Hansen
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
-* **Last Updated By/Date** - Rodrigo Jorge, August 2025
+* **Last Updated By/Date** - Rodrigo Jorge, January 2026

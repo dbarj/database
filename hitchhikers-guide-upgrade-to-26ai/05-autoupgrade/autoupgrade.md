@@ -343,7 +343,7 @@ It is best practice to first analyze your database for upgrade readiness. It is 
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 25.4.250730 launched with default internal options
+    AutoUpgrade 25.6.251016 launched with default internal options
     Processing config file ...
     +--------------------------------+
     | Starting AutoUpgrade execution |
@@ -385,8 +385,8 @@ It is best practice to first analyze your database for upgrade readiness. It is 
     [Job ID] 100
     ==========================================
     [DB Name]                UPGR
-    [Version Before Upgrade] 19.21.0.0.0
-    [Version After Upgrade]  23.9.0.25.07
+    [Version Before Upgrade] 19.28.0.0.0
+    [Version After Upgrade]  23.26.0.0.0
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS
@@ -434,7 +434,7 @@ You determined that the database is ready to upgrade. Start AutoUpgrade in *depl
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 25.4.250730 launched with default internal options
+    AutoUpgrade 25.6.251016 launched with default internal options
     Processing config file ...
     +--------------------------------+
     | Starting AutoUpgrade execution |
@@ -728,4 +728,4 @@ AutoUpgrade completely automates upgrades and incorporates our best practices. A
 
 * **Author** - Daniel Overby Hansen
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
-* **Last Updated By/Date** - Rodrigo Jorge, August 2025
+* **Last Updated By/Date** - Rodrigo Jorge, January 2026
