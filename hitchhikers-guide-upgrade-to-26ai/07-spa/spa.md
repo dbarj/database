@@ -60,7 +60,106 @@ This lab assumes:
 
     </details>
 
-3. The idea of the *Performance Stability Prescription* is to identify bad performance after upgrade. However, the workload in this lab runs faster in the new version of Oracle AI Database. To get the best benefit out of the lab, you simulate bad performance. This lab changes optimizer behavior (*optimizer\_index\_cost\_adj*) which has a negative impact on the workload.
+3. The next exercises require the SQL ID *0cwuxyv314wcg* to be present in AWR. However, depending on the environment, this statement may not appear because it can execute very quickly. Let’s verify whether it is available.:
+
+    ``` sql
+    <copy>
+    select sql_text
+    from dba_sqlset_statements
+    where sqlset_name = 'STS_CaptureAWR'
+    and sql_id = '0cwuxyv314wcg';
+    </copy>
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+
+    ``` text
+    SQL_TEXT
+    ________________________________________________________________________________
+    SELECT ROWID FROM CUSTOMER WHERE C_W_ID = :B3 AND C_D_ID = :B2 AND C_LAST = :B1
+    ```
+
+    </details>
+
+    If the previous query returned **“no rows selected”**, run the following script to explicitly load the required SQL into the SQL Tuning Set.:
+
+    ``` sql
+    <copy>
+    @/home/oracle/scripts/upg-07-sts-load.sql
+    </copy>
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+
+    ``` text
+    Table SYSTEM.STAGE_TABLE_SQLSET dropped.
+
+
+    Directory STG_DIR dropped.
+
+
+    Directory STG_DIR created.
+
+    Loading STS staging table. Please wait..
+
+    Import: Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems on Fri Jan 2 00:25:11 2026
+    Version 23.26.0.0.0
+
+    Copyright (c) 1982, 2025, Oracle and/or its affiliates.  All rights reserved.
+
+    Connected to: Oracle AI Database 26ai Enterprise Edition Release 23.26.0.0.0 - for Oracle Cloud and Engineered  Systems
+    Master table "SYSTEM"."SYS_IMPORT_TABLE_01" successfully loaded/unloaded
+    Starting "SYSTEM"."SYS_IMPORT_TABLE_01":  system/********@localhost/upgr directory=stg_dir dumpfile=upg-07-sts. dmp tables=system.stage_table_sqlset nologfile=yes
+    Processing object type TABLE_EXPORT/TABLE/TABLE
+    Processing object type TABLE_EXPORT/TABLE/TABLE_DATA
+    . . imported "SYSTEM"."STAGE_TABLE_SQLSET"                26.3 KB     234 rows
+    Processing object type TABLE_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+    Processing object type TABLE_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+    Job "SYSTEM"."SYS_IMPORT_TABLE_01" successfully completed at Fri Jan 2 00:25:42 2026 elapsed 0 00:00:28
+
+
+
+    NAME                   COUNT(DISTINCTSQL_ID)
+    ______________________ _____________________
+    STS_CaptureCursorCache                    39
+    STS_CaptureAWR                            18
+
+
+    PL/SQL procedure successfully completed.
+
+
+    PL/SQL procedure successfully completed.
+
+
+    PL/SQL procedure successfully completed.
+
+
+    PL/SQL procedure successfully completed.
+
+
+    PL/SQL procedure successfully completed.
+
+
+    PL/SQL procedure successfully completed.
+
+
+    Directory STG_DIR dropped.
+
+
+    Table SYSTEM.STAGE_TABLE_SQLSET dropped.
+
+
+    COUNT(*) SQLSET_NAME
+    ________ ______________________
+          18 STS_CaptureAWR
+          39 STS_CaptureCursorCache
+    ```
+
+    </details>
+
+4. The idea of the *Performance Stability Prescription* is to identify bad performance after upgrade. However, the workload in this lab runs faster in the new version of Oracle AI Database. To get the best benefit out of the lab, you simulate bad performance. This lab changes optimizer behavior (*optimizer\_index\_cost\_adj*) which has a negative impact on the workload.
 
     You should imagine that this workload performs bad without any changes after the upgrade.
 
@@ -111,23 +210,17 @@ This lab assumes:
 
     </details>
 
-4. Analyze performance in the upgraded database. Using the workload captured in SQL Tuning Sets before the upgrade as a baseline, the database now *test executes* the workload stored in the SQL Tuning Sets, but this time in an upgraded database. Now you can see the effect of the new optimizer. First, you compare *CPU\_TIME*.
+5. Analyze performance in the upgraded database. Using the workload captured in SQL Tuning Sets before the upgrade as a baseline, the database now *test executes* the workload stored in the SQL Tuning Sets, but this time in an upgraded database. Now you can see the effect of the new optimizer. First, you compare *CPU\_TIME*.
 
     ``` sql
     <copy>
-    ! sed -i 's/STS_CaptureAWR/STS_CaptureCursorCache/g' /home/oracle/scripts/upg-07-spa_cpu.sql
-
     @/home/oracle/scripts/upg-07-spa_cpu.sql
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     The script will:
 
-    * Change upg-07-spa_cpu.sql to use `STS_CaptureCursorCache` instead of `STS_CaptureAWR`.
-    * Convert the information from `STS_CaptureCursorCache` into the right format.
-    * Simulate the execution of all statements in `STS_CaptureCursorCache`.
+    * Simulate the execution of all statements in `STS_CaptureAWR`.
     * Compare before/after.
     * Report on the results based on *CPU\_TIME*.
 
@@ -144,7 +237,7 @@ This lab assumes:
 
     </details>
 
-5. Generate the HTML Report containing the results below.
+6. Generate the HTML Report containing the results below.
 
     ``` sql
     <copy>
@@ -152,19 +245,15 @@ This lab assumes:
     </copy>
     ```
 
-6. Then repeat this for *ELAPSED\_TIME*. First, analyze performance.
+7. Then repeat this for *ELAPSED\_TIME*. First, analyze performance.
 
     ``` sql
     <copy>
-    ! sed -i 's/STS_CaptureAWR/STS_CaptureCursorCache/g' /home/oracle/scripts/upg-07-spa_elapsed.sql
-
     @/home/oracle/scripts/upg-07-spa_elapsed.sql
     </copy>
-
-    -- Be sure to hit RETURN
     ```
 
-7. Next, generate a report.
+8. Next, generate a report.
 
     ``` sql
     <copy>
@@ -172,7 +261,7 @@ This lab assumes:
     </copy>
     ```
 
-8. Exit SQLcl.
+9. Exit SQLcl.
 
     ``` sql
     <copy>
@@ -180,7 +269,7 @@ This lab assumes:
     </copy>
     ```
 
-9. Open the two SPA reports. Put them side-by-side.
+10. Open the two SPA reports. Put them side-by-side.
 
     ``` bash
     <copy>
@@ -199,7 +288,7 @@ This lab assumes:
         * Numbers might vary in your database.
     * *Conclusion:* The workload runs much slower in the upgraded database.
 
-10. Scroll down to *Top nn SQL ...*. The list shows the SQLs sorted by impact.
+11. Scroll down to *Top nn SQL ...*. The list shows the SQLs sorted by impact.
 
     ![recognize regressed statements and statements with plan change](./images/spa-report-top-sql-23ai.png " ")
 
@@ -209,18 +298,18 @@ This lab assumes:
     * All regressing SQLs (the red rows) have a plan change.
     * The second table, on the right, uses elapsed time as metric instead of CPU time.
 
-11. In the first report, find the details on SQL ID *0cwuxyv314wcg* and see the difference in execution plans.
+12. In the first report, find the details on SQL ID *0cwuxyv314wcg* and see the difference in execution plans.
 
     ![See details on individual SQLs](./images/spa-plan-compare-23ai.png " ")
 
     * Notice how the plan changes. Before upgrade, the optimizer used an index to find the rows. After upgrade, the optimizer chooses a full table scan. This is a consequence of the change to *optimizer\_index\_cost\_adj*.
     * Since only a few rows are needed, an index lookup is much faster than the full table scan
 
-12. Examine the other parts of the SPA reports.
+13. Examine the other parts of the SPA reports.
 
-13. Close Firefox.
+14. Close Firefox.
 
-14. Reconnect to the database.
+15. Reconnect to the database.
 
     ``` sql
     <copy>
@@ -231,7 +320,7 @@ This lab assumes:
     -- Be sure to hit RETURN
     ```
 
-15. Switch to the *UPGR* database, then implement a change and re-test workload. Imagine you have found the root cause of the bad performance. In this case, you know it is *optimizer\_index\_cost\_adj*. Now, you change the parameter back to the default value (100) and repeat the test.
+16. Switch to the *UPGR* database, then implement a change and re-test workload. Imagine you have found the root cause of the bad performance. In this case, you know it is *optimizer\_index\_cost\_adj*. Now, you change the parameter back to the default value (100) and repeat the test.
 
     ``` sql
     <copy>
@@ -247,7 +336,7 @@ This lab assumes:
 
     * In a real situation, you could make many other changes. Change statistics preferences, gather new statistics, toggle optimizer fixes with `DBMS_OPTIM_BUNDLE`, or many other things.
 
-16. Re-analyze the workload based on *ELAPSED\_TIME*. This allows you to see the impact of the change on the database.
+17. Re-analyze the workload based on *ELAPSED\_TIME*. This allows you to see the impact of the change on the database.
 
     ``` sql
     <copy>
@@ -255,7 +344,7 @@ This lab assumes:
     </copy>
     ```
 
-17. Generate a new report.
+18. Generate a new report.
 
     ``` sql
     <copy>
@@ -263,7 +352,7 @@ This lab assumes:
     </copy>
     ```
 
-18. Exit SQLcl.
+19. Exit SQLcl.
 
     ``` sql
     <copy>
@@ -271,7 +360,7 @@ This lab assumes:
     </copy>
     ```
 
-19. Open it with Firefox.
+20. Open it with Firefox.
 
     ``` bash
     <copy>
@@ -279,14 +368,14 @@ This lab assumes:
     </copy>
     ```
 
-20. Find the details on SQL ID *0cwuxyv314wcg* again.
+21. Find the details on SQL ID *0cwuxyv314wcg* again.
 
     ![No change of plans](./images/spa-change-plan-compare-23ai.png " ")
 
     * Notice that the plan no longer changes. Without *optimizer\_index\_cost\_adj* the optimizer chooses the same plan after upgrade.
     * The new SPA report focuses on elapsed time. In this case, there is an improvement in the test execution (it is a green row).
 
-21. Close Firefox.
+22. Close Firefox.
 
 Normally, you would focus on the SQLs with a negative impact on your workload. The idea of such SPA runs is to accept the better plans and identify and cure the ones which are regressing.
 
