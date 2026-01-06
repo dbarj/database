@@ -53,6 +53,44 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
     -- Be sure to hit RETURN
     ```
 
+    If the previous query returned **“no rows selected”**, run the following script to explicitly load the required SQL into the Library Cache.:
+
+    ``` sql
+    <copy>
+    @/home/oracle/scripts/upg-08-load-sql.sql
+
+    select PLAN_HASH_VALUE phv, child_number child, operation, options, object_name
+    from v$sql_plan
+    where sql_id='0cwuxyv314wcg'
+    order by 1, child_number, position desc;
+    </copy>
+
+    -- Be sure to hit RETURN
+    ```
+
+    <details>
+    <summary>*click to see the output*</summary>
+
+    ``` text
+    SQL> @/home/oracle/scripts/upg-08-load-sql.sql
+
+    PL/SQL procedure successfully completed.
+
+    SQL> select PLAN_HASH_VALUE phv, child_number child, operation,     options, object_name
+      2  from v$sql_plan
+      3  where sql_id='0cwuxyv314wcg'
+      4* order by 1, child_number, position desc;
+
+    PHV       CHILD OPERATION        OPTIONS                OBJECT_NAME
+    _________ _____ ________________ ______________________ ___________
+    612465046     0 SELECT STATEMENT
+    612465046     0 TABLE ACCESS     BY INDEX ROWID BATCHED CUSTOMER
+    612465046     0 INDEX            RANGE SCAN             CUSTOMER_I1
+    612465046     0 SORT             ORDER BY
+    ```
+
+    </details>
+
     * The plan with hash value *612465046* is the good plan. It uses an index access path. You want this plan in your SQL plan baseline.
     * You might see a plan that uses a full table scan. This is a bad plan. You **don't** want that in your SQL plan baseline.
 
@@ -125,7 +163,7 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
     ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     UPGR
 
-    SQL> @spm/upg-08-spb_create.sql 0cwuxyv314wcg
+    SQL> @upg-08-spb_create.sql 0cwuxyv314wcg
 
     spb_create_cdb26_oraclevcn_com_upgr_0cwuxyv314wcg_20240813_084739.txt
 
@@ -422,6 +460,6 @@ In this context, a plan includes all plan-related information (for example, SQL 
 
 ## Acknowledgements
 
-* **Author** - Daniel Overby Hansen - Scripts provided by: Carlos Sierra
+* **Author** - Daniel Overby Hansen - Scripts provided by Carlos Sierra
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
 * **Last Updated By/Date** - Rodrigo Jorge, January 2026

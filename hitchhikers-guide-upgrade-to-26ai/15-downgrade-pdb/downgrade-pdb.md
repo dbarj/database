@@ -87,7 +87,7 @@ You start the downgrade process while the PDB is still on the new release of Ora
 
     ``` sql
     <copy>
-    select version from v$instance;
+    select version_full from v$instance;
     </copy>
     ```
 
@@ -95,11 +95,11 @@ You start the downgrade process while the PDB is still on the new release of Ora
     <summary>*click to see the output*</summary>
 
     ``` text
-    SQL> select version from v$instance;
+    SQL> select version_full from v$instance;
 
     VERSION_FULL
-    -----------------
-    23.0.0.0.0
+    ____________
+    23.26.0.0.0
     ```
 
     </details>
@@ -441,9 +441,9 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     ``` text
     SQL> select open_mode, restricted from v$pdbs;
 
-    OPEN_MODE  RES
-    ---------- ---
-    READ WRITE NO
+    OPEN_MODE        RESTRICTED
+    _____________ _____________
+    READ WRITE    NO
 
     1 row selected.
     ```
@@ -454,7 +454,7 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
     ``` sql
     <copy>
-    select version from v$instance;
+    select version_full from v$instance;
     </copy>
     ```
 
@@ -462,7 +462,7 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     <summary>*click to see the output*</summary>
 
     ``` text
-    SQL> select version from v$instance;
+    SQL> select version_full from v$instance;
 
     VERSION_FULL
     ---------------
@@ -487,25 +487,13 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     ``` text
     SQL> select comp_id, version, status from dba_registry;
 
-    COMP_ID                        VERSION
-    ------------------------------ ------------------------------
-    STATUS
-    --------------------------------------------
-    CATALOG                        19.0.0.0.0
-    VALID
-
-    CATPROC                        19.0.0.0.0
-    VALID
-
-    RAC                            19.0.0.0.0
-    OPTION OFF
-
-    XDB                            19.0.0.0.0
-    VALID
-
-    OWM                            19.0.0.0.0
-    VALID
-
+    COMP_ID          VERSION        STATUS
+    __________ _____________ _____________
+    CATALOG    19.0.0.0.0    VALID
+    CATPROC    19.0.0.0.0    VALID
+    RAC        19.0.0.0.0    OPTION OFF
+    XDB        19.0.0.0.0    VALID
+    OWM        19.0.0.0.0    VALID
 
     5 rows selected.
     ```
@@ -514,16 +502,14 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
 10. Gather dictionary and fixed objects statistics.
 
+    **(In the interest of time, you skip it in this lab.)**
+
     ``` sql
-    <copy>
     exec dbms_stats.gather_dictionary_stats;
     exec dbms_stats.gather_fixed_objects_stats;
-    </copy>
-
-    -- Be sure to hit RETURN
     ```
 
-    * In this lab, you gather fixed objects statistics immediately after the downgrade. In a realistic scenario, you would wait some time until the database is warmed up and in use.
+    * You gather fixed objects statistics immediately after the downgrade. In a realistic scenario, you would wait some time until the database is warmed up and in use.
 
     <details>
     <summary>*click to see the output*</summary>
@@ -548,9 +534,7 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     </copy>
     ```
 
-**Congratulations!** You have now downgraded a PDB from a newer release of Oracle AI Database to 19c.
-
-You may now [*proceed to the next lab*](#next).
+**Congratulations!** You have now downgraded a PDB from a newer release of Oracle AI Database to 19c. This is the end of *Hitchhiker's Guide for Upgrading to Oracle AI Database*.
 
 ## Learn More
 

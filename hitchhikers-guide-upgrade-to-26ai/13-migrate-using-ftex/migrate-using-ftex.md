@@ -48,15 +48,13 @@ You need to prepare a few things before you can start FTEX.
     -- Be sure to hit RETURN
     ```
 
-3. Gather dictionary statistics before starting Data Pump. Oracle recommends gathering dictionary stats before starting a Data Pump export job. In the interest of time, you can skip it.
+3. Gather dictionary statistics before starting Data Pump. Oracle recommends gathering dictionary stats before starting a Data Pump export job.
+
+    **(In the interest of time, you skip it in this lab.)**
 
     ``` sql
-    <copy>
     exec dbms_stats.gather_schema_stats('SYS');
     exec dbms_stats.gather_schema_stats('SYSTEM');
-    </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <details>
@@ -989,16 +987,14 @@ You need a few more changes to the new PDB before you can start the import.
     -- Be sure to hit RETURN
     ```
 
-9. Switch to *MAROON* and gather dictionary statistics. Oracle recommends gathering dictionary statistics immediately after an import. In the interest of time, you can skip it.
+9. Switch to *MAROON* and gather dictionary statistics. Oracle recommends gathering dictionary statistics immediately after an import.
+
+    **(In the interest of time, you skip it in this lab.)**
 
     ``` sql
-    <copy>
     alter session set container=maroon;
     exec dbms_stats.gather_schema_stats('SYS');
     exec dbms_stats.gather_schema_stats('SYSTEM');
-    </copy>
-
-    -- Be sure to hit RETURN
     ```
 
     <details>
@@ -1022,10 +1018,10 @@ You need a few more changes to the new PDB before you can start the import.
 
 10. Gather database statistics. In the export, you excluded statistics, so, you need to re-gather statistics.
 
+    **(In the interest of time, you skip it in this lab.)**
+
     ``` sql
-    <copy>
     exec dbms_stats.gather_database_stats;
-    </copy>
     ```
 
     * You could also transfer the old statistics from the source database using `DBMS_STATS`.
@@ -1045,8 +1041,11 @@ You need a few more changes to the new PDB before you can start the import.
 
     ``` sql
     <copy>
+    alter session set container=maroon;
     select object_type, count(*) from all_objects where owner='F1' group by object_type;
     </copy>
+
+    -- Be sure to hit RETURN
     ```
 
     * There should be 14 tables and 19 indexes.

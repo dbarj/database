@@ -65,11 +65,11 @@ You start by checking the *CDBRES* database. This database was originally on Ora
 
     </details>
 
-3. Verify that the database is on Oracle Database 23ai.
+3. Verify that the database is on Oracle Database 26ai.
 
     ``` sql
     <copy>
-    select instance_name, version from v$instance;
+    select banner from v$version;
     </copy>
     ```
 
@@ -77,11 +77,11 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     <summary>*click to see the output*</summary>
 
     ``` text
-    SQL> select instance_name, version from v$instance;
+    SQL> select banner from v$version;
 
-    INSTANCE_NAME    VERSION
-    ---------------- -----------------
-    CDBRES           23.0.0.0.0
+    BANNER
+    ________________________________________________________________________________________________________
+    Oracle AI Database 26ai Enterprise Edition Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems
     ```
 
     </details>

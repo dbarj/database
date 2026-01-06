@@ -48,7 +48,9 @@ You need to prepare a few things before you can start a Data Pump export.
     -- Be sure to hit RETURN
     ```
 
-3. Gather dictionary statistics before starting Data Pump. Oracle recommends gathering dictionary stats before starting a Data Pump export job. In the interest of time, you skip it in this lab.
+3. Gather dictionary statistics before starting Data Pump. Oracle recommends gathering dictionary stats before starting a Data Pump export job.
+
+    **(In the interest of time, you skip it in this lab.)**
 
     ``` sql
     exec dbms_stats.gather_schema_stats('SYS');
@@ -931,7 +933,9 @@ You need a few more changes to the new PDB before you can start the import.
     -- Be sure to hit RETURN
     ```
 
-8. Switch to *PURPLE* and gather dictionary statistics. Oracle recommends gathering dictionary statistics immediately after an import. In the interest of time, you skip it in this lab.
+8. Switch to *PURPLE* and gather dictionary statistics. Oracle recommends gathering dictionary statistics immediately after an import.
+
+    **(In the interest of time, you skip it in this lab.)**
 
     ``` sql
     alter session set container=purple;
@@ -939,7 +943,9 @@ You need a few more changes to the new PDB before you can start the import.
     exec dbms_stats.gather_schema_stats('SYSTEM');
     ```
 
-9. Gather database statistics. In the export, you excluded statistics, so, you need to re-gather statistics. In the interest of time, you skip it in this lab.
+9. Gather database statistics. In the export, you excluded statistics, so, you need to re-gather statistics.
+
+    **(In the interest of time, you skip it in this lab.)**
 
     ``` sql
     exec dbms_stats.gather_database_stats;
