@@ -403,8 +403,9 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
     ``` sql
     <copy>
-    shutdown immediate
-    startup
+    alter session set container=cdb$root;
+    alter pluggable database YELLOW close;
+    alter pluggable database YELLOW open;
     </copy>
 
     -- Be sure to hit RETURN
@@ -416,13 +417,17 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     <summary>*click to see the output*</summary>
 
     ``` text
-    SQL> shutdown immediate
+    SQL> alter session set container=cdb$root;
 
-    Pluggable Database closed.
+    Session altered.
 
-    SQL> startup
+    SQL> alter pluggable database YELLOW close;
 
-    Pluggable Database opened.
+    Pluggable database YELLOW altered.
+
+    SQL> alter pluggable database YELLOW open;
+
+    Pluggable database YELLOW altered.
     ```
 
     </details>
