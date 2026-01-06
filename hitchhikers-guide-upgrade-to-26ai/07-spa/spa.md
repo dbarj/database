@@ -54,8 +54,8 @@ This lab assumes:
     ``` text
     COUNT(*)   SQLSET_NAME
     ---------- ----------------------------------------
-    31         STS_CaptureAWR
-    41         STS_CaptureCursorCache
+    34         STS_CaptureAWR
+    43         STS_CaptureCursorCache
     ```
 
     </details>
@@ -124,7 +124,7 @@ This lab assumes:
     NAME                   COUNT(DISTINCTSQL_ID)
     ______________________ _____________________
     STS_CaptureCursorCache                    43
-    STS_CaptureAWR                            28
+    STS_CaptureAWR                            34
 
 
     PL/SQL procedure successfully completed.
@@ -153,7 +153,7 @@ This lab assumes:
 
     COUNT(*) SQLSET_NAME
     ________ ______________________
-          28 STS_CaptureAWR
+          34 STS_CaptureAWR
           43 STS_CaptureCursorCache
     ```
 
