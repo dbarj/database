@@ -436,14 +436,21 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
     ``` sql
     <copy>
+    alter session set container=YELLOW;
     select open_mode, restricted from v$pdbs;
     </copy>
+
+    -- Be sure to hit RETURN
     ```
 
     <details>
     <summary>*click to see the output*</summary>
 
     ``` text
+    SQL> alter session set container=YELLOW;
+
+    Session altered.
+
     SQL> select open_mode, restricted from v$pdbs;
 
     OPEN_MODE        RESTRICTED
