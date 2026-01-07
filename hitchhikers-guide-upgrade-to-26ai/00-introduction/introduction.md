@@ -46,7 +46,7 @@ You may now [*proceed to the next lab*](#next).
 
 ## Learn More
 
-* Documentation, [Database Upgrade Guide](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/intro-to-upgrading-oracle-database.html#GUID-FA024F34-A61A-4C4B-AA60-C123A9191A16)
+* Documentation, [Database Upgrade Guide](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/intro-to-upgrading-oracle-database.html)
 * Blog, [Upgrade your Database - NOW!](https://MikeDietrichDE.com)
 * My Oracle Support, [Release Schedule of Current Database Releases (Doc ID 742060.1)](https://support.oracle.com/epmos/faces/DocumentDisplay?id=742060.1&displayIndex=1)
 

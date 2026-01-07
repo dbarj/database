@@ -205,7 +205,7 @@ The Automatic Workload Repository (AWR) collects, processes, and maintains perfo
 Snapshots are sets of historical data for specific periods that are used for performance comparisons by ADDM. By default, Oracle AI Database automatically generates snapshots of the performance data once every hour and retains the statistics in the workload repository for 8 days. You can also manually create snapshots. In this lab, we will manually create snapshots.
 
 * [HammerDB](https://www.hammerdb.com/)
-* Documentation, [Managing AWR Snapshots](https://docs.oracle.com/en/database/oracle/oracle-database/19/tgdba/gathering-database-statistics.html#GUID-144711F9-85AE-4281-B548-3E01280F9A56)
+* Documentation, [Managing AWR Snapshots](https://docs.oracle.com/en/database/oracle/oracle-database/26/tgdba/managing-snapshots.html)
 * Webinar, [Performance Stability Prescription #1: Collect SQL Tuning Sets](https://www.youtube.com/watch?v=qCt1_Fc3JRs&t=3969s)
 
 ## Acknowledgements

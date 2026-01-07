@@ -385,7 +385,7 @@ You may now [*proceed to the next lab*](#next).
 
 You can run SQL Performance Analyzer on a production system or a test system that closely resembles the production system. It's highly recommended to execute the SQL Performance Analyzer runs on a test system rather than directly on the production system.
 
-* Documentation, [SQL Performance Analyzer](https://docs.oracle.com/en/database/oracle/oracle-database/19/ratug/introduction-to-sql-performance-analyzer.html#GUID-860FC707-B281-4D81-8B43-1E3857194A72)
+* Documentation, [SQL Performance Analyzer](https://docs.oracle.com/en/database/oracle/oracle-database/26/ratug/introduction-to-sql-performance-analyzer.html)
 * Webinar, [Performance Stability Prescription #3: SQL Performance Analyzer](https://www.youtube.com/watch?v=qCt1_Fc3JRs&t=4463s)
 
 ## Acknowledgements

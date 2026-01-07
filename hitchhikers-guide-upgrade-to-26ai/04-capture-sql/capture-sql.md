@@ -117,7 +117,7 @@ An SQL Tuning Set includes:
 
 A SQL Tuning Set allows you to transport this information between databases. You can export SQL Tuning Sets from one database to another, enabling transfer of SQL workloads between databases for remote performance diagnostics and tuning.
 
-* Documentation, [SQL Tuning Sets](https://docs.oracle.com/en/database/oracle/oracle-database/19/tgsql/managing-sql-tuning-sets.html#GUID-DD136837-9921-4C73-ABB8-9F1DC22542C5)
+* Documentation, [SQL Tuning Sets](https://docs.oracle.com/en/database/oracle/oracle-database/26/tgsql/managing-sql-tuning-sets.html)
 * Webinar, [Performance Stability Prescription #1: Collect SQL Tuning Sets](https://www.youtube.com/watch?v=qCt1_Fc3JRs&t=3969s)
 
 ## Acknowledgements

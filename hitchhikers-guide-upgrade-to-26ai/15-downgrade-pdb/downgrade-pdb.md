@@ -554,7 +554,7 @@ A downgrade is a very useful fallback option. You can use it even after go-live 
 A downgrade doesn't bring back the old data dictionary, but rather brings the data dictionary into a compatible state that can be used with the old release.
 In order to downgrade, it is a requirement that you haven't changed the `COMPATIBLE` parameter since the upgrade. The parameter must have the same value as on the previous release.
 
-* Documentation, [Downgrading a Single Pluggable Oracle Database (PDB)](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/downgrading-oracle-db-after-upgrade.html#GUID-66560D5D-A5C8-4ACC-82C0-46315465E77F)
+* Documentation, [Downgrading a Single Pluggable Oracle Database (PDB)](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/downgrading-single-pluggable-pdb-oracle-database.html)
 * Webinar, [Secure Your Job – Fallback Is Your Insurance](https://www.youtube.com/watch?v=P12UqVRzarw)
 * Slides, [Secure Your Job – Fallback Is Your Insurance](https://dohdatabase.com/wp-content/uploads/2021/11/emea11_fallback.pdf)
 

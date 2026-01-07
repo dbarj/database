@@ -179,7 +179,7 @@ Performance degradation of the database occurs when your database was performing
 
 An AWR Compare Periods report, shows the difference between two periods in time (or two AWR reports, which equates to four snapshots). Using AWR Compare Periods reports helps you to identify detailed performance attributes and configuration settings that differ between two time periods: before upgrade and after upgrade.
 
-* [Comparing Database Performance Over Time](https://docs.oracle.com/en/database/oracle/oracle-database/19/tgdba/comparing-database-performance-over-time.html#GUID-BEDBF986-1A69-459A-90F5-350B8A407516)
+* [Comparing Database Performance Over Time](https://docs.oracle.com/en/database/oracle/oracle-database/26/tgdba/comparing-database-performance-time.html)
 * Webinar, [Performance Stability Prescription #2: Compare AWR](https://www.youtube.com/watch?v=qCt1_Fc3JRs&t=4282s)
 
 ## Acknowledgements

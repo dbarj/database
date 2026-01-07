@@ -303,7 +303,7 @@ SQL Tuning Advisor is SQL diagnostic software in the Oracle AI Database Tuning P
 
 You can submit one or more SQL statements as input to the advisor and receive advice or recommendations for how to tune the statements, along with a rationale and expected benefit.
 
-* Documentation, [SQL Tuning Advisor](https://docs.oracle.com/en/database/oracle/oracle-database/19/tgsql/sql-tuning-advisor.html#GUID-8E1A39CB-A491-4254-8B31-9B1DF7B52AA1)
+* Documentation, [SQL Tuning Advisor](https://docs.oracle.com/en/database/oracle/oracle-database/26/tgsql/sql-tuning-advisor.html)
 * Webinar, [Performance Stability Prescription #4: SQL Tuning Advisor, SQL profiles and SQL patches](https://www.youtube.com/watch?v=qCt1_Fc3JRs&t=4923s)
 
 ## Acknowledgements

@@ -903,7 +903,7 @@ Since encrypted databases are becoming more popular, it's important to know how 
 
 For fully automated solutions, you should explore Secure External Password Stores which enables upgrades and migration of encrypted databases even without loading the password into AutoUpgrade's keystore.
 
-* Documentation, [The keystore parameter](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/global-parameters-autoupgrade-config-file.html#GUID-B0D91A5E-F2A1-4714-8908-3C7F4C557EDD)
+* Documentation, [The keystore parameter](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/common-parameters-autoupgrade-config-file.html#GUID-B0D91A5E-F2A1-4714-8908-3C7F4C557EDD)
 * Documentation, [Secure External Password Store](https://docs.oracle.com/en/database/oracle/oracle-database/26/refrn/EXTERNAL_KEYSTORE_CREDENTIAL_LOCATION.html#GUID-FD2C1839-E3CC-47E2-99B4-ECE29EB923B6)
 * Webinar, [AutoUpgrade 2.0 – New Features and Best Practices](https://www.youtube.com/watch?v=69Hx1WoJ_HE&t=1148s)
 * Slides, [AutoUpgrade 2.0 – New Features and Best Practices](https://dohdatabase.com/wp-content/uploads/2022/05/2022_05_05_emea14_autoupgrade_2_0-1.pdf)

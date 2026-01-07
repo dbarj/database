@@ -829,7 +829,7 @@ You may now [*proceed to the next lab*](#next).
 
 ## Learn More
 
-* Documentation, [Multitenant Administrator's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/26/multi/introduction-to-the-multitenant-architecture.html#GUID-5C3D6692-B935-46CB-BF5B-B10D7640003C)
+* Documentation, [Multitenant Administrator's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/26/multi/introduction-to-the-multitenant-architecture.html)
 * Webinar, [Move to Oracle Database 23ai – Everything you need to know about Oracle Multitenant – Part 1](https://youtu.be/k0wCWbp-htU)
 
 ## Acknowledgements
