@@ -254,11 +254,13 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     ``` sql
     <copy>
     . cdb19
-    sql / as sysdba
+    sqlplus / as sysdba
     </copy>
 
     -- Be sure to hit RETURN
     ```
+
+    * Use SQL\*Plus when running downgrade scripts.
 
 2. Start up *CDB19*.
 
@@ -320,7 +322,9 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     ``` sql
     <copy>
     alter session set container=YELLOW;
+    spool /home/oracle/logs/yellow-downgrade.log
     @$ORACLE_HOME/rdbms/admin/catrelod.sql
+    spool off
     </copy>
 
     -- Be sure to hit RETURN
@@ -489,8 +493,11 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
     ``` sql
     <copy>
+    set lines 1000
     select comp_id, version, status from dba_registry;
     </copy>
+
+    -- Be sure to hit RETURN
     ```
 
     <details>
@@ -538,7 +545,7 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
     </details>
 
-11. Exit SQLcl.
+11. Exit SQL\*Plus.
 
     ``` sql
     <copy>
