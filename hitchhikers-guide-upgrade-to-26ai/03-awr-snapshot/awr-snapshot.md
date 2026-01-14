@@ -80,9 +80,9 @@ This lab assumes:
 
 4. This populates the *Script Editor* tab with the driver script. Ignore any error messages.
 
-5. Expand *Virtual Users* and **double-click** on *Create*. This creates three virtual users (users 2-4) for the workload. HammerDB creates an additional user for monitoring.
+5. Expand *Virtual User* and **double-click** on *Create*. This creates three virtual users (users 2-4) for the workload. HammerDB creates an additional user for monitoring.
 
-    ![view the 3 Virtual Users being started](./images/awr-snapshot-create-virtual-users.png " ")
+    ![View the 3 Virtual Users being started](./images/awr-snapshot-create-virtual-users.png " ")
 
 ## Task 3: Capture workload from cursor cache
 
@@ -120,7 +120,7 @@ Start capturing workload information from the cursor cache into a SQL tuning set
 
 ## Task 4: Start workload
 
-Use HammerDB to start a workload. 
+Use HammerDB to start a workload.
 
 1. Return to HammerDB.
 

@@ -4,7 +4,7 @@
 
 Instead of upgrading and migrating an entire database, you will try a different approach in this lab. A migration of your data using transportable tablespaces into a brand new, empty database on the new release of Oracle AI Database. Using this approach, you can skip the usual upgrade and PDB conversion. Transportable tablespaces enables you to move your data directly into a higher release database. Further, you can export from a non-CDB and directly into a pluggable database.
 
-Transportable tablespaces works fine even on bigger databases compared to a regular export/import. However, with transportable tablespaces you don't have the same customization options.
+Transportable tablespaces work fine even on bigger databases compared to a regular export/import. However, with transportable tablespaces you don't have the same customization options.
 
 You will use the easiest method for transportable tablespaces, Full Transportable Export/Import (FTEX), to move data from the *FTEX* database and into a new PDB in the *CDB26* database.
 
@@ -202,7 +202,7 @@ You need to prepare a few things before you can start FTEX.
     * `filesize` splits the files into 5 GB chunks which is handy if you need to transfer the dump files to a remote system.
     * `metrics` and `logtime` print additional diagnostic information in the log file.
     * `exclude` specifies to skip database statistics. You will re-gather statistics on target.
-    
+
     <details>
     <summary>*click to see the output*</summary>
 

@@ -2,7 +2,7 @@
 
 ## About this Workshop
 
-Oracle AI Database 26ai is a *Long Term Support Release*. This lab combines several upgrade and migration methods, and equips you with performance features and tools to ensure stability when you move to any new Oracle AI Database release. By upgrading to Oracle AI Database 26ai, you will have Premier Support until the end of 2031 and Extended Support for a period thereafter. There is a direct upgrade path to Oracle AI Database 26ai from Oracle Database 19c and 21c, regardless of the Release Update applied. From Oracle Database 23ai, you simply patch your database to update to Oracle AI Database 26ai. 
+Oracle AI Database 26ai is a *Long Term Support Release*. This lab combines several upgrade and migration methods, and equips you with performance features and tools to ensure stability when you move to any new Oracle AI Database release. By upgrading to Oracle AI Database 26ai, you will have Premier Support until the end of 2031 and Extended Support for a period thereafter. There is a direct upgrade path to Oracle AI Database 26ai from Oracle Database 19c and 21c, regardless of the Release Update applied. From Oracle Database 23ai, you simply patch your database to update to Oracle AI Database 26ai.
 
 Estimated Workshop Time: 120 minutes
 

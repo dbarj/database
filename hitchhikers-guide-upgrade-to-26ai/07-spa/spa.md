@@ -184,7 +184,7 @@ This lab assumes:
 
     </details>
 
-    If you see any **a value different from 10000** for the *optimizer\_index\_cost\_adj*, adjust it.
+    If you see any **value different from 10000** for the *optimizer\_index\_cost\_adj*, adjust it.
 
     ``` sql
     <copy>

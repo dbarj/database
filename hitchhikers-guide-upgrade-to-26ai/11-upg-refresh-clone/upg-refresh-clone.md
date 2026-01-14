@@ -169,7 +169,7 @@ You check the source database for upgrade readiness.
 
     * `sid` specifies the source non-CDB.
     * `target_cdb` is the CDB where you want to plug in.
-    * `source_db_link` is the name of the database link in the target CDB, plus the refresh rate. Here, it's set to 60 seconds which is too low for a realistic scenario, but suitable for demo purposes.
+    * `source_dblink` is the name of the database link in the target CDB, plus the refresh rate. Here, it's set to 60 seconds which is too low for a realistic scenario, but suitable for demo purposes.
     * `target_pdb_name` renames the database from *FTEX* to *TEAL*.
     * `target_pdb_copy_option` instructs the CDB to use Oracle Managed Files (OMF).
     * `parallel_pdb_creation_clause` instructs the CDB to use parallel execution servers to copy the new PDB's data files to a new location. This may result in faster creation of the PDB. If unset, then the CDB automatically chooses the number of parallel execution servers to use.
@@ -245,7 +245,7 @@ You check the source database for upgrade readiness.
 4. Proceed with the pre-upgrade fixups.
 
     * Normally, you would do this close to the final refresh (as dictated by `start_time` config file parameter or when you plan to run the *proceed* command). But in this lab we do it now.
-    * The fixups must run on the source system. 
+    * The fixups must run on the source system.
     * In the interest of time, you skip the fixups in this exercise.
 
 ## Task 3: Build refreshable clone
@@ -289,7 +289,7 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
 
     AutoUpgrade is now refreshing the PDB periodically. In a second terminal, you will enter some data to the *FTEX* database. This allows you to verify that changes made after the initial copy of data files still exist in the PDB after the migration.
 
-3. Do not exit AutoUpgrade. Switch to a *new* terminal. You might have to open a new tab. Set the environment to the *FTEX* database.
+4. Do not exit AutoUpgrade. Switch to a *new* terminal. You might have to open a new tab. Set the environment to the *FTEX* database.
 
     ``` sql
     <copy>
@@ -298,7 +298,7 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
     </copy>
     ```
 
-4. Create test data.
+5. Create test data.
 
     ``` sql
     <copy>
@@ -329,7 +329,7 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
 
     </details>
 
-5. Exit SQLcl.
+6. Exit SQLcl.
 
     ``` sql
     <copy>
@@ -337,7 +337,7 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
     </copy>
     ```
 
-6. Switch back to the *original* terminal and check the progress of the *REFRESHPDB* phase. The *MESSAGE* field tells you how far it is.
+7. Switch back to the *original* terminal and check the progress of the *REFRESHPDB* phase. The *MESSAGE* field tells you how far it is.
 
     <details>
     <summary>*click to see the output*</summary>
@@ -355,7 +355,7 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
 
     </details>
 
-7. Switch to the *new* terminal. Examine the alert log of *CDB26*, the target CDB, and see the creation of the refreshable clone PDB.
+8. Switch to the *new* terminal. Examine the alert log of *CDB26*, the target CDB, and see the creation of the refreshable clone PDB.
 
     ``` bash
     <copy>
@@ -387,7 +387,7 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
 
     </details>
 
-8. Further, let's see the period refresh.
+9. Further, let's see the period refresh.
 
     ``` bash
     <copy>
@@ -466,10 +466,11 @@ When the upgrade starts, AutoUpgrade executes a final refresh to bring over the 
     * When you issued the `proceed` command, AutoUpgrade made a final refresh before moving on to the next phase.
     * Any changes made in the source database at this point in time, would not come over to the target PDB.
     * In the *DBUPGRADE* stage, AutoUpgrade is upgrading the PDB to the new release. The CDB is already on the new release, so only the PDB is upgraded which is much faster than a complete database upgrade.
-    * Since the source database is a non-CDB, the PDB must also be converted to a proper PDB. AutoUpgrade does that in *NONCDBTOPDB* where it runs the `noncdb_to_pdb.sql` script. 
+    * Since the source database is a non-CDB, the PDB must also be converted to a proper PDB. AutoUpgrade does that in *NONCDBTOPDB* where it runs the `noncdb_to_pdb.sql` script.
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     Details
     
@@ -512,6 +513,7 @@ When the upgrade starts, AutoUpgrade executes a final refresh to bring over the 
     
     The command status is running every 10 seconds. PRESS ENTER TO EXIT
     ```
+
     </details>
 
 3. **Wait for AutoUpgrade to complete the migration**. When the job completes, AutoUpgrade prints *Job 101 completed*. It usually takes 10-15 minutes.
@@ -538,7 +540,7 @@ When the upgrade starts, AutoUpgrade executes a final refresh to bring over the 
 
     </details>
 
-5. Set the environment to the *CDB26* database and connect.
+4. Set the environment to the *CDB26* database and connect.
 
     ``` sql
     <copy>
@@ -549,7 +551,7 @@ When the upgrade starts, AutoUpgrade executes a final refresh to bring over the 
     -- Be sure to hit RETURN
     ```
 
-6. Switch to *TEAL* and ensure that the *SALES.ORDERS* table exist.
+5. Switch to *TEAL* and ensure that the *SALES.ORDERS* table exist.
 
     ``` sql
     <copy>
@@ -580,7 +582,7 @@ When the upgrade starts, AutoUpgrade executes a final refresh to bring over the 
 
     </details>
 
-7. Exit SQLcl.
+6. Exit SQLcl.
 
     ``` sql
     <copy>

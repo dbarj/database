@@ -94,11 +94,11 @@ Use HammerDB to create a workload.
 
     ![see the performance charts and the transactions-per-minute](./images/awr-compare-transact-viewer.png " ")
 
-12. HammerDB is done running the workload when the transaction-per-minute metric drops to zero. Wait for the run to complete. 
+12. HammerDB is done running the workload when the transaction-per-minute metric drops to zero. Wait for the run to complete.
 
 13. Exit HammerDB.
 
-13. Switch back to the *yellow* terminal 🟨. SQLcl is still running. Create another AWR snapshot. Take note of the snapshot ID (e.g., 131). You need it later on.
+14. Switch back to the *yellow* terminal 🟨. SQLcl is still running. Create another AWR snapshot. Take note of the snapshot ID (e.g., 131). You need it later on.
 
     ``` sql
     <copy>

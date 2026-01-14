@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, you use SQL Plan Management to ensure that a SQL always use a good plan. When you have identified plan regressions with SQL Performance Analyzer, you can create a SQL plan baseline to ensure the optimizer chooses a plan from the baseline.
+In this lab, you use SQL Plan Management to ensure that a SQL always uses a good plan. When you have identified plan regressions with SQL Performance Analyzer, you can create a SQL plan baseline to ensure the optimizer chooses a plan from the baseline.
 
 Credits: You will use scripts written by Carlos Sierra.
 
@@ -68,6 +68,9 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
     -- Be sure to hit RETURN
     ```
 
+    * The plan with hash value *612465046* is the good plan. It uses an index access path. You want this plan in your SQL plan baseline.
+    * You might see a plan that uses a full table scan. This is a bad plan. You **don't** want that in your SQL plan baseline.
+
     <details>
     <summary>*click to see the output*</summary>
 
@@ -87,30 +90,6 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
     612465046     0 TABLE ACCESS     BY INDEX ROWID BATCHED CUSTOMER
     612465046     0 INDEX            RANGE SCAN             CUSTOMER_I1
     612465046     0 SORT             ORDER BY
-    ```
-
-    </details>
-
-    * The plan with hash value *612465046* is the good plan. It uses an index access path. You want this plan in your SQL plan baseline.
-    * You might see a plan that uses a full table scan. This is a bad plan. You **don't** want that in your SQL plan baseline.
-
-    <details>
-    <summary>*click to see the output*</summary>
-
-    ``` text
-    SQL> select PLAN_HASH_VALUE phv, child_number child, operation, options, object_name
-      2  from v$sql_plan
-      3  where sql_id='0cwuxyv314wcg'
-      4* order by 1, child_number, position desc;
-
-             PHV    CHILD OPERATION           OPTIONS                   OBJECT_NAME
-    ____________ ________ ___________________ _________________________ ______________
-       612465046        0 SELECT STATEMENT
-       612465046        0 TABLE ACCESS        BY INDEX ROWID BATCHED    CUSTOMER
-       612465046        0 INDEX               RANGE SCAN                CUSTOMER_I1
-       612465046        0 SORT                ORDER BY
-
-    4 rows selected.
     ```
 
     </details>
@@ -277,7 +256,7 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
 
     * The script asks for an SQL ID.
     * The scripts then display all available plans for that SQL.
-    * You choose the one good plan, that you want to add to a SQL plan baseline for that SQL. In a realistic scenario, there could be more good plans for an SQL. You could select more plans for the baseline.
+    * You choose the one good plan, that you want to add to a SQL plan baseline for that SQL. In a realistic scenario, there could be more good plans for a SQL. You could select more plans for the baseline.
     * Optionally, you can *fix* one of the plans. A fixed plan is always used by the optimizer. Normally, the optimizer will choose the best of the *available* plans, but if there is a *fixed* plan, the optimizer will always use that.
 
 5. Verify that the script created a SQL plan baseline.

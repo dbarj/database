@@ -291,7 +291,7 @@ Currently, the *CDB26* database is not encrypted. You must start by preparing th
     -- Be sure to hit RETURN
     ```
 
-    * You use the same keystore password in *CDB26* as well for simplicity. Realistically, you would choose different keystore passwords.
+    * You used the same keystore password in *CDB26* as well for simplicity. Realistically, you would choose different keystore passwords.
 
     <details>
     <summary>*click to see the output*</summary>
@@ -526,7 +526,7 @@ Analyze the *FTEX* database for upgrade readiness.
     Enter password:
     ```
 
-7. Since it is the first time you start the password loader, AutoUpgrade asks for a password to protect the AutoUpgrade keystore. This is not the database keystore password. Use the following AutoUpgrade keystore password: 
+7. Since it is the first time you start the password loader, AutoUpgrade asks for a password to protect the AutoUpgrade keystore. This is not the database keystore password. Use the following AutoUpgrade keystore password:
 
     ``` bash
     <copy>
@@ -547,7 +547,7 @@ Analyze the *FTEX* database for upgrade readiness.
 
     </details>
 
-7. Add the database keystore password for *FTEX*.
+8. Add the database keystore password for *FTEX*.
 
     ``` bash
     <copy>
@@ -555,13 +555,13 @@ Analyze the *FTEX* database for upgrade readiness.
     </copy>
     ```
 
-    Enter the *FTEX* database keystore password twice: 
-    
+    Enter the *FTEX* database keystore password twice:
+
     ``` bash
     <copy>
     oracle_4U
     </copy>
-    ```    
+    ```
 
     <details>
     <summary>*click to see the output*</summary>
@@ -574,7 +574,7 @@ Analyze the *FTEX* database for upgrade readiness.
 
     </details>
 
-8. Add the database keystore password for *CDB26*.
+9. Add the database keystore password for *CDB26*.
 
     ``` bash
     <copy>
@@ -583,13 +583,13 @@ Analyze the *FTEX* database for upgrade readiness.
     ```
 
     Enter the *CDB26* database keystore password twice:
-    
+
     ``` bash
     <copy>
     oracle_4U
     </copy>
     ```
-    
+
     <details>
     <summary>*click to see the output*</summary>
 
@@ -601,7 +601,7 @@ Analyze the *FTEX* database for upgrade readiness.
 
     </details>
 
-9. Save the AutoUpgrade keystore and convert it to an auto-login keystore.
+10. Save the AutoUpgrade keystore and convert it to an auto-login keystore.
 
     ``` bash
     <copy>
@@ -621,7 +621,7 @@ Analyze the *FTEX* database for upgrade readiness.
 
     </details>
 
-10. Exit the AutoUpgrade password loader.
+11. Exit the AutoUpgrade password loader.
 
     ``` bash
     <copy>
@@ -640,7 +640,7 @@ Analyze the *FTEX* database for upgrade readiness.
 
     </details>
 
-11. Re-analyze the database for upgrade readiness. Now that you added the database keystore passwords to AutoUpgrade, you can re-analyze to see if that meets the requirements. It takes a short while. Wait for it to complete.
+12. Re-analyze the database for upgrade readiness. Now that you added the database keystore passwords to AutoUpgrade, you can re-analyze to see if that meets the requirements. It takes a short while. Wait for it to complete.
 
     ``` bash
     <copy>
@@ -675,7 +675,7 @@ Analyze the *FTEX* database for upgrade readiness.
 
     </details>
 
-12. Check the result in the summary report.
+13. Check the result in the summary report.
 
     ``` bash
     <copy>
@@ -812,7 +812,7 @@ All prerequisites have been meet. You can now start the upgrade and conversion.
     ```
 
     * You renamed *FTEX* to *CYAN*.
-    * You might see other PDBs from other labs. Focus on *CYAN*. 
+    * You might see other PDBs from other labs. Focus on *CYAN*.
 
     <details>
     <summary>*click to see the output*</summary>

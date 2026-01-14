@@ -361,7 +361,7 @@ You check initialization parameters and set some in the CDB. Also, find a list o
 
     * Notice only a few parameters are set in the PDBs.
     * All others rely on the value from *CDB$ROOT* (`con_id=0`).
-    * Notice how each PDB has an undo tablespaces. This is a consequence of using *local undo* which is the default and strongly recommended. Local undo enables many key features in Multitenant, like hot cloning.
+    * Notice how each PDB has an undo tablespace. This is a consequence of using *local undo* which is the default and strongly recommended. Local undo enables many key features in Multitenant, like hot cloning.
 
     <details>
     <summary>*click to see the output*</summary>

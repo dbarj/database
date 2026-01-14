@@ -57,10 +57,9 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
 
     You use AutoUpgrade from the user's home directory. In fact, you can use AutoUpgrade from any location. It does not matter.
 
-    Check the version. If a newer version is available, you can download it from:
+    Check the version. Don't do this now, but if a newer version is available, you can download it from:
     * My Oracle Support ([AutoUpgrade Tool (Doc ID 2485457.1)](https://support.oracle.com/epmos/faces/DocumentDisplay?id=2485457.1))
     * Oracle.com ([Database Upgrades and Migrations](https://www.oracle.com/database/upgrades/))
-    Don't do this now.
 
 2. To show the many capabilities of AutoUpgrade, create a sample config file. Examine the file to get an idea of the many options in AutoUpgrade. In this lab, you will not use the sample config file.
 
@@ -229,6 +228,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     ################################################################
     #upg1.timezone_upg=
     ```
+
     </details>
 
 3. If you set the environment, AutoUpgrade can create a more precise config file.
@@ -249,6 +249,7 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
 
     <details>
     <summary>*click to see the output*</summary>
+
     ``` text
     ################################################################
     #
@@ -291,9 +292,10 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     ################################################################
     #
     ```
+
     </details>
 
-3. For this lab, you will use a pre-created config file. Examine the pre-created config file.
+4. For this lab, you will use a pre-created config file. Examine the pre-created config file.
 
     ``` bash
     <copy>
@@ -717,7 +719,11 @@ You may now [*proceed to the next lab*](#next).
 
 ## Learn More
 
-AutoUpgrade completely automates upgrades and incorporates our best practices. AutoUpgrade run all prechecks against multiple databases, fix potential issues, set a restore point in case something goes wrong, before it finally upgrade and convert your databases. And of course, do the postupgrade checks, recompilation and time zone adjustment. The only thing you need to provide is a config file in text format.
+AutoUpgrade fully automates the database upgrade process and applies Oracle best practices by default.
+It runs comprehensive prechecks across multiple databases, proactively detects and fixes potential issues,
+and creates a restore point in case something goes wrong. Once the upgrade is completed, AutoUpgrade
+automatically performs all post upgrade tasks, including recompilation and time zone adjustments. The
+only input required from you is a simple text based configuration file.
 
 * My Oracle Support, [AutoUpgrade Tool (Doc ID 2485457.1)](https://support.oracle.com/epmos/faces/DocumentDisplay?id=2485457.1)
 * Documentation, [Using AutoUpgrade for Oracle AI Database Upgrades](https://docs.oracle.com/en/database/oracle/oracle-database/26/upgrd/using-autoupgrade-oracle-database-upgrades.html)

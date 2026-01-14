@@ -16,7 +16,7 @@ Estimated Time: 15 minutes
 
 In this lab, you will:
 
-* Prepare new PDB
+* Prepare a new PDB
 * Move your data using Data Pump
 
 ### Prerequisites
@@ -307,7 +307,8 @@ You need to prepare a few things before you can start a Data Pump export.
 
 ## Task 2: Create new PDB
 
-You create a new, empty PDB in the new release and import directly into it. This avoids the in-place upgrade and PDB conversion.
+Create a new, empty PDB in the target release and import the data directly into it. This approach avoids an
+in-place upgrade and the PDB conversion.
 
 1. Set the environment to the target database, *CDB26*, and connect.
 

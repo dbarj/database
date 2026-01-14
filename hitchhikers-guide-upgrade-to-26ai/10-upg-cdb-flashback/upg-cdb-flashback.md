@@ -116,7 +116,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     </copy>
     ```
 
-    * There is one restore point named "AUTOUPGRADE\_9212\_CDBRES1927000".
+    * There is one restore point named "AUTOUPGRADE\_9212\_CDBRES1928000".
 
     <details>
     <summary>*click to see the output*</summary>
@@ -126,7 +126,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
 
           SCN    STORAGE_SIZE TIME                               PRESERVED    NAME
     _________ _______________ __________________________________ ____________ _________________________________
-       715819      1677721600 24-JUL-25 03.15.50.000000000 PM    YES          AUTOUPGRADE_9212_CDBRES1927000
+       715819      1677721600 24-JUL-25 03.15.50.000000000 PM    YES          AUTOUPGRADE_9212_CDBRES1928000
     ```
 
     </details>
@@ -195,7 +195,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     [Start Time]    2025-07-24 15:15:50
     [Duration]      0:00:02
     [Detail]        Please drop the following GRPs after Autoupgrade completes:
-                     AUTOUPGRADE_9212_CDBRES1927000
+                     AUTOUPGRADE_9212_CDBRES1928000
     ------------------------------------------
     [Stage Name]    PREUPGRADE
     [Status]        SUCCESS
