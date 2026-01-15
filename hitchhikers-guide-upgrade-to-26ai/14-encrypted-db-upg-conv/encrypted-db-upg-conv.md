@@ -501,7 +501,7 @@ Analyze the *FTEX* database for upgrade readiness.
 
           3. To upgrade a non-CDB or an entire CDB, the TDE keystore must be an
           auto-login keystore. This requirement also applies to a non-CDB to PDB
-          operation, but only if the target CDB is at an Oracle Database Release
+          operation, but only if the target CDB is at an Oracle AI Database Release
           earlier than 21c. If earlier than 21c, AutoUpgrade performs a standard
           upgrade of the non-CDB to the target version prior to creating the PDB in
           the target CDB.
@@ -911,5 +911,5 @@ For fully automated solutions, you should explore Secure External Password Store
 ## Acknowledgements
 
 * **Author** - Daniel Overby Hansen
-* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
+* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich, Alejandro Diaz
 * **Last Updated By/Date** - Rodrigo Jorge, January 2026

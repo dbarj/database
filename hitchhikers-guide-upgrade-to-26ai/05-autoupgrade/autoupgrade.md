@@ -55,11 +55,13 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
 
     </details>
 
-    You use AutoUpgrade from the user's home directory. In fact, you can use AutoUpgrade from any location. It does not matter.
+    * You use AutoUpgrade from the user's home directory. In fact, you can use AutoUpgrade from any location. It does not matter.
 
-    Check the version. Don't do this now, but if a newer version is available, you can download it from:
-    * My Oracle Support ([AutoUpgrade Tool (Doc ID 2485457.1)](https://support.oracle.com/epmos/faces/DocumentDisplay?id=2485457.1))
-    * Oracle.com ([Database Upgrades and Migrations](https://www.oracle.com/database/upgrades/))
+    * Check the version. Don't do this now, but if a newer version is available, you can download it from:
+        * My Oracle Support ([AutoUpgrade Tool (Doc ID 2485457.1)](https://support.oracle.com/epmos/faces/DocumentDisplay?id=2485457.1))
+        * Oracle.com ([Database Upgrades and Migrations](https://www.oracle.com/database/upgrades/))
+
+    * AutoUpgrade treats version *23* and *26* alike. Although `supported_target_versions` doesn't include *26*, you can in fact use this version of AutoUpgrade to upgrade to Oracle AI Database 26ai. 
 
 2. To show the many capabilities of AutoUpgrade, create a sample config file. Examine the file to get an idea of the many options in AutoUpgrade. In this lab, you will not use the sample config file.
 
@@ -733,5 +735,5 @@ only input required from you is a simple text based configuration file.
 ## Acknowledgements
 
 * **Author** - Daniel Overby Hansen
-* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
+* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich, Alejandro Diaz
 * **Last Updated By/Date** - Rodrigo Jorge, January 2026

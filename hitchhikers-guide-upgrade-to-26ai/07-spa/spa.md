@@ -391,5 +391,5 @@ You can run SQL Performance Analyzer on a production system or a test system tha
 ## Acknowledgements
 
 * **Author** - Daniel Overby Hansen
-* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
+* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich, Alejandro Diaz
 * **Last Updated By/Date** - Rodrigo Jorge, January 2026
