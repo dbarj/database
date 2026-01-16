@@ -415,8 +415,6 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
     -- Be sure to hit RETURN
     ```
 
-    * Since your session is connected to *YELLOW*, you can use `shutdown` and `startup` to just restart the PDB, not the entire CDB.
-
     <details>
     <summary>*click to see the output*</summary>
 
