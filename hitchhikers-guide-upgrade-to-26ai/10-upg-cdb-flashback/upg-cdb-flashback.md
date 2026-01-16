@@ -65,7 +65,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
 
     </details>
 
-3. Verify that the database is on Oracle Database 26ai.
+3. Verify that the database is on Oracle AI Database 26ai.
 
     ``` sql
     <copy>
@@ -439,5 +439,5 @@ AutoUpgrade completely automates restoration of a database. By default, AutoUpgr
 ## Acknowledgements
 
 * **Author** - Daniel Overby Hansen
-* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich
+* **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich, Alejandro Diaz
 * **Last Updated By/Date** - Rodrigo Jorge, January 2026
