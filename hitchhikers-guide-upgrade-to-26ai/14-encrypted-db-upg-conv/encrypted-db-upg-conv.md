@@ -182,7 +182,7 @@ Currently, the *FTEX* database is not encrypted. You must start by preparing the
 
 8. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -306,7 +306,7 @@ Currently, the *CDB26* database is not encrypted. You must start by preparing th
 
 6. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -410,8 +410,8 @@ Analyze the *FTEX* database for upgrade readiness.
     [Job ID] 100
     ==========================================
     [DB Name]                FTEX
-    [Version Before Upgrade] 19.28.0.0.0
-    [Version After Upgrade]  23.26.0.0.0
+    [Version Before Upgrade] 19.31.0.0.0
+    [Version After Upgrade]  23.26.3.0.0
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        FAILURE
@@ -687,8 +687,8 @@ Analyze the *FTEX* database for upgrade readiness.
     [Job ID] 101
     ==========================================
     [DB Name]                FTEX
-    [Version Before Upgrade] 19.28.0.0.0
-    [Version After Upgrade]  23.26.0.0.0
+    [Version Before Upgrade] 19.31.0.0.0
+    [Version After Upgrade]  23.26.3.0.0
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS
@@ -871,7 +871,7 @@ All prerequisites have been meet. You can now start the upgrade and conversion.
 
 8. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

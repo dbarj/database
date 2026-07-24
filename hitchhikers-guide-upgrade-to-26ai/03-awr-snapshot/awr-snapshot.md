@@ -188,7 +188,7 @@ Use HammerDB to start a workload.
 
 2. Exit from SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

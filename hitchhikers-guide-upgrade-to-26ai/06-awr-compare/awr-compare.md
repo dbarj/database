@@ -142,7 +142,7 @@ In the AWR Diff Report, you will compare a snapshot period **before** upgrade to
 
 2. Wait until the HTML output has been generated, then exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -160,7 +160,7 @@ In the AWR Diff Report, you will compare a snapshot period **before** upgrade to
 
 4. Examine the AWR Diff Report.
 
-    * The first table shows that the two AWR periods are from difference database releases, 19c and 23ai.
+    * The first table shows that the two AWR periods are from difference database releases, 19c and 26ai.
     * Next, look at *Top Timed Events* to see what the database spent time on during the two runs.
     * Then, look at *Wait Events* and look for big differences. A negative value in the column *Diff* means the database spent less time on that wait event in the second run, i.e., after the upgrade.
     * Overall, you will not see any significant differences. The purpose of this lab exercise is to recognize and remember how easily AWR Diff Reports can be generated when you have comparable workloads.

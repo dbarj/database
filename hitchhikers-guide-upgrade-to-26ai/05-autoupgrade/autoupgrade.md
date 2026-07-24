@@ -389,8 +389,8 @@ It is best practice to first analyze your database for upgrade readiness. It is 
     [Job ID] 100
     ==========================================
     [DB Name]                UPGR
-    [Version Before Upgrade] 19.28.0.0.0
-    [Version After Upgrade]  23.26.0.0.0
+    [Version Before Upgrade] 19.31.0.0.0
+    [Version After Upgrade]  23.26.3.0.0
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS

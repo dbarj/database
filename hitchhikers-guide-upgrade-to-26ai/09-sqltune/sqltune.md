@@ -255,7 +255,7 @@ In this lab, you will implement some of the recommendations. Namely, those about
 
 2. Exit SQLcl
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

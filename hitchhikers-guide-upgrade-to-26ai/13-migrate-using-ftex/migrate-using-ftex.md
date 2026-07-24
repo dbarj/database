@@ -179,7 +179,7 @@ You need to prepare a few things before you can start FTEX.
 
 8. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -231,7 +231,7 @@ You need to prepare a few things before you can start FTEX.
 
     ``` text
     Export: Release 19.0.0.0.0 - Production on Wed May 29 13:31:09 2024
-    Version 19.28.0.0.0
+    Version 19.31.0.0.0
 
     Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
 
@@ -468,7 +468,7 @@ You need a few more changes to the new PDB before you can start the import.
 
 3. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -529,12 +529,12 @@ You need a few more changes to the new PDB before you can start the import.
     <summary>*click to see the output*</summary>
 
     ``` text
-    Import: Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems on Wed May 29 14:01:10 2024
-    Version 23.26.0.0.0
+    Import: Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems on Wed May 29 14:01:10 2024
+    Version 23.26.3.0.0
 
     Copyright (c) 1982, 2025, Oracle and/or its affiliates.  All rights reserved.
 
-    Connected to: Oracle AI Database 26ai Enterprise Edition Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems
+    Connected to: Oracle AI Database 26ai Enterprise Edition Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems
     29-MAY-24 14:01:13.959: W-1 Startup on instance 1 took 0 seconds
     29-MAY-24 14:01:15.408: W-1 Master table "FTEXUSER"."SYS_IMPORT_TRANSPORTABLE_01" successfully loaded/unloaded
     29-MAY-24 14:01:15.943: W-1 Source time zone is +02:00 and target time zone is +00:00.
@@ -1133,7 +1133,7 @@ You need a few more changes to the new PDB before you can start the import.
 
 13. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -1173,7 +1173,7 @@ You might need the *FTEX* database in another lab. In a real migration, you don'
 
 3. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

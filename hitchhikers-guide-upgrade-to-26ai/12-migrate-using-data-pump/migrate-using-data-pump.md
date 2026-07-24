@@ -110,7 +110,7 @@ You need to prepare a few things before you can start a Data Pump export.
 
 6. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -161,7 +161,7 @@ You need to prepare a few things before you can start a Data Pump export.
 
     ``` text
     Export: Release 19.0.0.0.0 - Production on Tue May 28 03:23:45 2024
-    Version 19.28.0.0.0
+    Version 19.31.0.0.0
 
     Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
 
@@ -427,7 +427,7 @@ You need a few more changes to the new PDB before you can start the import.
 
 3. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -474,12 +474,12 @@ You need a few more changes to the new PDB before you can start the import.
     <summary>*click to see the output*</summary>
 
     ``` text
-    Import: Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems on Tue May 28 03:26:43 2024
-    Version 23.26.0.0.0
+    Import: Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems on Tue May 28 03:26:43 2024
+    Version 23.26.3.0.0
 
     Copyright (c) 1982, 2025, Oracle and/or its affiliates.  All rights reserved.
 
-    Connected to: Oracle AI Database 26ai Enterprise Edition Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems
+    Connected to: Oracle AI Database 26ai Enterprise Edition Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems
     28-MAY-24 03:26:47.767: W-1 Startup on instance 1 took 0 seconds
     28-MAY-24 03:26:48.982: W-1 Master table "IMPUSER"."SYS_IMPORT_FULL_01" successfully loaded/unloaded
     28-MAY-24 03:26:49.306: Starting "IMPUSER"."SYS_IMPORT_FULL_01":  impuser/********@localhost/purple parfile=/home/oracle/scripts/upg-12-migrate-using-data-pump-imp.par
@@ -1010,7 +1010,7 @@ You need a few more changes to the new PDB before you can start the import.
 
 12. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

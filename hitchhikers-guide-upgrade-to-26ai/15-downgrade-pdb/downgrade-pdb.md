@@ -97,7 +97,7 @@ You start the downgrade process while the PDB is still on the new release of Ora
 
     VERSION_FULL
     ____________
-    23.26.0.0.0
+    23.26.3.0.0
     ```
 
     </details>
@@ -158,7 +158,7 @@ You start the downgrade process while the PDB is still on the new release of Ora
 
 7. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -233,7 +233,7 @@ Now that the PDB is open in downgrade mode, you can start the process.
 
 4. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -464,7 +464,7 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
     VERSION_FULL
     ---------------
-    19.28.0.0.0
+    19.31.0.0.0
 
     1 row selected.
     ```
@@ -527,7 +527,7 @@ You need to plug the PDB into a CDB on Oracle Database 19c and finish the downgr
 
 11. Exit SQL\*Plus.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

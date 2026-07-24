@@ -79,7 +79,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
 
     BANNER
     ________________________________________________________________________________________________________
-    Oracle AI Database 26ai Enterprise Edition Release 23.26.0.0.0 - for Oracle Cloud and Engineered Systems
+    Oracle AI Database 26ai Enterprise Edition Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems
     ```
 
     </details>
@@ -131,7 +131,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
 
 6. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -185,8 +185,8 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     [Job ID] 100
     ==========================================
     [DB Name]                cdbres
-    [Version Before Upgrade] 19.28.0.0.0
-    [Version After Upgrade]  23.26.0.0.0
+    [Version Before Upgrade] 19.31.0.0.0
+    [Version After Upgrade]  23.26.3.0.0
     ------------------------------------------
     [Stage Name]    GRP
     [Status]        SUCCESS
@@ -371,7 +371,7 @@ Suppose your tests find a critical error and you would like to go back to Oracle
 
 6. Exit SQL*Plus.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

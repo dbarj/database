@@ -92,7 +92,7 @@ You now have two SQL Tuning Sets:
 
 2. Exit from SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

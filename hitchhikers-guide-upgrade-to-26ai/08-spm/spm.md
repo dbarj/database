@@ -305,7 +305,7 @@ Now, you have a SQL plan baseline that only contains the index plan. You now re-
 
 2. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -373,7 +373,7 @@ Now, you have a SQL plan baseline that only contains the index plan. You now re-
 
 5. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -402,7 +402,7 @@ Now, you have a SQL plan baseline that only contains the index plan. You now re-
 
 8. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>

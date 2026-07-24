@@ -80,7 +80,7 @@ Refreshable clone PDB works via a database link. You must create a user and gran
 
 3. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -143,7 +143,7 @@ Refreshable clone PDB works via a database link. You must create a user and gran
 
 7. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -221,8 +221,8 @@ You check the source database for upgrade readiness.
     [Job ID] 100
     ==========================================
     [DB Name]                FTEX
-    [Version Before Upgrade] 19.28.0.0.0
-    [Version After Upgrade]  23.26.0.0.0
+    [Version Before Upgrade] 19.31.0.0.0
+    [Version After Upgrade]  23.26.3.0.0
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS
@@ -323,7 +323,7 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
 
 6. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -572,7 +572,7 @@ When the upgrade starts, AutoUpgrade executes a final refresh to bring over the 
 
 6. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
@@ -618,7 +618,7 @@ AutoUpgrade stops the source non-CDB immediately after the final refresh. This e
 
 3. Exit SQLcl.
 
-    ``` sql
+    ``` bash
     <copy>
     exit
     </copy>
