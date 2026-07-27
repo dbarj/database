@@ -103,7 +103,7 @@ This lab assumes:
     Import: Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems on Fri Jan 2 00:25:11 2026
     Version 23.26.3.0.0
 
-    Copyright (c) 1982, 2025, Oracle and/or its affiliates.  All rights reserved.
+    Copyright (c) 1982, 2026, Oracle and/or its affiliates.  All rights reserved.
 
     Connected to: Oracle AI Database 26ai Enterprise Edition Release 23.26.3.0.0 - for Oracle Cloud and Engineered  Systems
     Master table "SYSTEM"."SYS_IMPORT_TABLE_01" successfully loaded/unloaded

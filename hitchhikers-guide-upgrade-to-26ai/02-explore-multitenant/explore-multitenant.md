@@ -232,16 +232,16 @@ You connect to the CDB, find a list of PDBs and connect to them using different 
     <summary>*click to see the output (output may vary)*</summary>
 
     ``` text
-    LSNRCTL for Linux: Version 23.26.3.0.0 - for Oracle Cloud and Engineered Systems on 23-MAY-2024 13:11:02
+    LSNRCTL for Linux: Version 23.26.3.0.0 - for Oracle Cloud and Engineered Systems on 23-MAY-2026 13:11:02
 
-    Copyright (c) 1991, 2025, Oracle.  All rights reserved.
+    Copyright (c) 1991, 2026, Oracle.  All rights reserved.
 
     Connecting to (ADDRESS=(PROTOCOL=tcp)(HOST=)(PORT=1521))
     STATUS of the LISTENER
     ------------------------
     Alias                     LISTENER
     Version                   TNSLSNR for Linux: Version 23.26.3.0.0 - for Oracle Cloud and Engineered Systems
-    Start Date                23-MAY-2024 13:09:53
+    Start Date                23-MAY-2026 13:09:53
     Uptime                    0 days 0 hr. 1 min. 8 sec
     Trace Level               off
     Security                  ON: Local OS Authentication
@@ -759,10 +759,10 @@ You want to run a script in a CDB including all PDBs.
     <summary>*click to see the output*</summary>
 
     ``` text
-    SQL*Plus: Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems on Sat Jun 8 06:20:21 2024
+    SQL*Plus: Release 23.26.3.0.0 - for Oracle Cloud and Engineered Systems on Sat Jun 8 06:20:21 2026
     Version 23.26.3.0.0
 
-    Copyright (c) 1982, 2025, Oracle.  All rights reserved.
+    Copyright (c) 1982, 2026, Oracle.  All rights reserved.
 
     SQL> Connected.
     SQL>   2

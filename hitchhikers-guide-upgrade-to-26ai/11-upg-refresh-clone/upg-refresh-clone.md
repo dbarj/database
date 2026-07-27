@@ -215,7 +215,7 @@ You check the source database for upgrade readiness.
     ==========================================
               Autoupgrade Summary Report
     ==========================================
-    [Date]           Mon May 27 06:55:59 GMT 2024
+    [Date]           Mon May 27 06:55:59 GMT 2026
     [Number of Jobs] 1
     ==========================================
     [Job ID] 100
@@ -226,7 +226,7 @@ You check the source database for upgrade readiness.
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS
-    [Start Time]    2024-05-27 06:55:52
+    [Start Time]    2026-05-27 06:55:52
     [Duration]
     [Log Directory] /home/oracle/logs/ftex-refresh/FTEX/100/prechecks
     [Detail]        /home/oracle/logs/ftex-refresh/FTEX/100/prechecks/ftex_preupgrade.log
@@ -367,10 +367,10 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
 
     ``` text
     Opatch validation is skipped for PDB TEAL (con_id=0)
-    2024-05-27T07:42:30.747705+00:00
+    2026-05-27T07:42:30.747705+00:00
     create pluggable database "TEAL"  FROM FTEX@CLONEPDB   file_name_convert=none  tempfile reuse  REFRESH MODE MANUAL
     --
-    2024-05-27T07:42:47.488916+00:00
+    2026-05-27T07:42:47.488916+00:00
     TEAL(5):.... (PID:561068): Media Recovery Complete [dbsdrv.c:15613]
     Completed: create pluggable database "TEAL"  FROM FTEX@CLONEPDB   file_name_convert=none  tempfile reuse  REFRESH MODE MANUAL
 
@@ -394,23 +394,23 @@ You build the refreshable clone with AutoUpgrade. It creates the PDB and starts 
     <summary>*click to see the output*</summary>
 
     ``` text
-    2024-05-27T07:55:50.870470+00:00
+    2026-05-27T07:55:50.870470+00:00
     TEAL(5):.... (PID:562640): Media Recovery Complete [dbsdrv.c:15613]
     Completed: ALTER PLUGGABLE DATABASE TEAL REFRESH
-    2024-05-27T07:56:47.653445+00:00
+    2026-05-27T07:56:47.653445+00:00
     ALTER PLUGGABLE DATABASE TEAL REFRESH
     --
-    2024-05-27T07:56:50.911562+00:00
+    2026-05-27T07:56:50.911562+00:00
     TEAL(5):.... (PID:562736): Media Recovery Complete [dbsdrv.c:15613]
     Completed: ALTER PLU
     GGABLE DATABASE TEAL REFRESH
-    2024-05-27T07:57:33.012205+00:00
+    2026-05-27T07:57:33.012205+00:00
     ALTER PLUGGABLE DATABASE TEAL REFRESH
     --
-    2024-05-27T07:57:35.934217+00:00
+    2026-05-27T07:57:35.934217+00:00
     TEAL(5):.... (PID:562789): Media Recovery Complete [dbsdrv.c:15613]
     Completed: ALTER PLUGGABLE DATABASE TEAL REFRESH
-    2024-05-27T07:57:35.993221+00:00
+    2026-05-27T07:57:35.993221+00:00
     ALTER PLUGGABLE DATABASE TEAL REFRESH MODE NONE
     Completed: ALTER PLUGGABLE DATABASE TEAL REFRESH MODE NONE
 
@@ -441,7 +441,7 @@ When the upgrade starts, AutoUpgrade executes a final refresh to bring over the 
 
     ``` text
     upg> proceed -job 101
-    New start time for job 101 is scheduled 0 minute(s) from now, at 25/07/2025 13:29:41
+    New start time for job 101 is scheduled 0 minute(s) from now, at 25/07/2026 13:29:41
     ```
 
     </details>

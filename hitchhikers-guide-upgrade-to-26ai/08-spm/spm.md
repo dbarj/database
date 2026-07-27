@@ -212,15 +212,15 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
 
     CREATED             PLAN_NAME                      ENA ACC FIX REP ADA ORIGIN                        LAST_EXECUTED       LAST_MODIFIED       DESCRIPTION
     ------------------- ------------------------------ --- --- --- --- --- ----------------------------- ------------------- ------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-    2024-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE                     2024-08-13T08:47:46
+    2026-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE                     2026-08-13T08:47:46
 
     CREATED             PLAN_NAME                      ENA ACC FIX REP ADA ORIGIN                          ET_PER_EXEC_MS  CPU_PER_EXEC_MS BUFFERS_PER_EXEC   READS_PER_EXEC    ROWS_PER_EXEC   EXECUTIONS     ELAPSED_TIME         CPU_TIME      BUFFER_GETS       DISK_READS   ROWS_PROCESSED
     ------------------- ------------------------------ --- --- --- --- --- ----------------------------- ---------------- ---------------- ---------------- ---------------- ---------------- ------------ ---------------- ---------------- ---------------- ---------------- ----------------
-    2024-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE            1.269            0.722              254                0               12       75,137       95,320,929       54,255,810       19,049,522               27          928,409
+    2026-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE            1.269            0.722              254                0               12       75,137       95,320,929       54,255,810       19,049,522               27          928,409
 
     CREATED             PLAN_NAME                      ENA ACC FIX REP ADA    PLAN_ID PLAN_HASH_2  PLAN_HASH PLAN_HASH_FULL DESCRIPTION
     ------------------- ------------------------------ --- --- --- --- --- ---------- ----------- ---------- -------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-    2024-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  2608724575  2608724575  612465046     2608724575
+    2026-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  2608724575  2608724575  612465046     2608724575
 
     SQL PLAN BASELINES
     ------------------
@@ -231,15 +231,15 @@ In the previous lab, you found a statement that changed plan after upgrade (SQL 
 
     CREATED             PLAN_NAME                      ENA ACC FIX REP ADA ORIGIN                        LAST_EXECUTED       LAST_MODIFIED       DESCRIPTION
     ------------------- ------------------------------ --- --- --- --- --- ----------------------------- ------------------- ------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-    2024-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE                     2024-08-13T08:47:46
+    2026-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE                     2026-08-13T08:47:46
 
     CREATED             PLAN_NAME                      ENA ACC FIX REP ADA ORIGIN                          ET_PER_EXEC_MS  CPU_PER_EXEC_MS BUFFERS_PER_EXEC   READS_PER_EXEC    ROWS_PER_EXEC   EXECUTIONS     ELAPSED_TIME         CPU_TIME      BUFFER_GETS       DISK_READS   ROWS_PROCESSED
     ------------------- ------------------------------ --- --- --- --- --- ----------------------------- ---------------- ---------------- ---------------- ---------------- ---------------- ------------ ---------------- ---------------- ---------------- ---------------- ----------------
-    2024-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE            1.269            0.722              254                0               12       75,137       95,320,929       54,255,810       19,049,522               27          928,409
+    2026-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  MANUAL-LOAD-FROM-CURSOR-CACHE            1.269            0.722              254                0               12       75,137       95,320,929       54,255,810       19,049,522               27          928,409
 
     CREATED             PLAN_NAME                      ENA ACC FIX REP ADA    PLAN_ID PLAN_HASH_2  PLAN_HASH PLAN_HASH_FULL DESCRIPTION
     ------------------- ------------------------------ --- --- --- --- --- ---------- ----------- ---------- -------------- ------------------------------------------------------------------------------------------------------------------------------------------------------
-    2024-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  2608724575  2608724575  612465046     2608724575
+    2026-08-13T08:47:46 SQL_PLAN_6t52hc6fj7bqj9b7dfa5f YES YES NO  YES NO  2608724575  2608724575  612465046     2608724575
 
     spb_create_cdb26_oraclevcn_com_upgr_0cwuxyv314wcg_20240813_084739.txt
     ```

@@ -364,7 +364,7 @@ Analyze the *FTEX* database for upgrade readiness.
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 25.6.251016 launched with default internal options
+    AutoUpgrade 26.4.260701 launched with default internal options
     Processing config file ...
     +--------------------------------+
     | Starting AutoUpgrade execution |
@@ -404,7 +404,7 @@ Analyze the *FTEX* database for upgrade readiness.
     ==========================================
               Autoupgrade Summary Report
     ==========================================
-    [Date]           Fri May 31 05:05:37 GMT 2024
+    [Date]           Fri May 31 05:05:37 GMT 2026
     [Number of Jobs] 1
     ==========================================
     [Job ID] 100
@@ -415,7 +415,7 @@ Analyze the *FTEX* database for upgrade readiness.
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        FAILURE
-    [Start Time]    2024-05-31 05:05:31
+    [Start Time]    2026-05-31 05:05:31
     [Duration]
     [Log Directory] /home/oracle/logs/encrypted-db-upg-conv/FTEX/100/prechecks
     [Detail]        /home/oracle/logs/encrypted-db-upg-conv/FTEX/100/prechecks/ftex_preupgrade.log
@@ -640,7 +640,7 @@ Analyze the *FTEX* database for upgrade readiness.
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 25.6.251016 launched with default internal options
+    AutoUpgrade 26.4.260701 launched with default internal options
     Processing config file ...
     Loading AutoUpgrade keystore
     AutoUpgrade keystore was successfully loaded
@@ -681,7 +681,7 @@ Analyze the *FTEX* database for upgrade readiness.
     ==========================================
               Autoupgrade Summary Report
     ==========================================
-    [Date]           Fri May 31 05:21:50 GMT 2024
+    [Date]           Fri May 31 05:21:50 GMT 2026
     [Number of Jobs] 1
     ==========================================
     [Job ID] 101
@@ -692,7 +692,7 @@ Analyze the *FTEX* database for upgrade readiness.
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS
-    [Start Time]    2024-05-31 05:21:45
+    [Start Time]    2026-05-31 05:21:45
     [Duration]
     [Log Directory] /home/oracle/logs/encrypted-db-upg-conv/FTEX/101/prechecks
     [Detail]        /home/oracle/logs/encrypted-db-upg-conv/FTEX/101/prechecks/ftex_preupgrade.log
@@ -718,7 +718,7 @@ All prerequisites have been meet. You can now start the upgrade and conversion.
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 25.6.251016 launched with default internal options
+    AutoUpgrade 26.4.260701 launched with default internal options
     Processing config file ...
     Loading AutoUpgrade keystore
     AutoUpgrade keystore was successfully loaded

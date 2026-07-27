@@ -70,8 +70,8 @@ You use the SQL Tuning Set *STS_CaptureCursorCache* as input to the advisor. The
     Scope                           : COMPREHENSIVE
     Time Limit(seconds)             : 360
     Completion Status               : COMPLETED
-    Started at                      : 06/03/2024 08:56:45
-    Completed at                    : 06/03/2024 08:57:06
+    Started at                      : 06/03/2026 08:56:45
+    Completed at                    : 06/03/2026 08:57:06
     SQL Tuning Set (STS) Name       : STS_CaptureCursorCache
     SQL Tuning Set Owner            : SYS
     Number of Statements in the STS : 37
@@ -156,8 +156,8 @@ You use the SQL Tuning Set *STS_CaptureCursorCache* as input to the advisor. The
 
       id plan hash	last seen	     elapsed (s)  origin	  note
       -- ---------- -------------------- ------------ --------------- ----------------
-       1 3526939835  2024-08-13/08:38:17	    0.001 Cursor Cache
-       2  395199281  2024-08-12/20:52:07	    0.001 AWR		  original plan
+       1 3526939835  2026-08-13/08:38:17	    0.001 Cursor Cache
+       2  395199281  2026-08-12/20:52:07	    0.001 AWR		  original plan
 
       Recommendation
       --------------

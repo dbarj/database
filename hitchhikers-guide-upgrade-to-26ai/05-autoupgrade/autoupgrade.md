@@ -42,15 +42,15 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     <summary>*click to see the output*</summary>
 
     ``` text
-    build.version 25.6.251016
-    build.date 2025/10/16 00:04:36 +0000
-    build.hash 54a1e2442
-    build.hash_date 2025/10/15 21:11:40 +0000
-    build.supported_target_versions 12.2,18,19,21,23
+    build.version 26.4.260701
+    build.date 2026/07/01 21:57:45 +0000
+    build.hash 211bf76de
+    build.hash_date 2026/06/27 01:28:23 +0000
+    build.supported_target_versions 12.2,18,19,21,23,26
     build.type production
-    build.label (HEAD, tag: v25.6, origin/stable_devel, stable_devel)
-    build.MOS_NOTE 2485457.1
-    build.MOS_LINK https://support.oracle.com/epmos/faces/DocumentDisplay?id=2485457.1
+    build.label (HEAD, tag: v26.4, origin/stable_devel, stable_devel)
+    build.MOS_NOTE KB123450
+    build.MOS_LINK https://support.oracle.com/support/?anchorId=&kmContentId=2485457&page=sptemplate&sptemplate=km-article
     ```
 
     </details>
@@ -86,8 +86,8 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     # :::  Sample config file for upgrade :::
     #
-    # Build version 25.6.251016
-    # Build date    2025/10/16 00:04:36 +0000
+    # Build version 26.4.260701
+    # Build date    2026/07/01 21:57:45 +0000
     #
     # # Directory includes the following:
     #   (1) upgrade's global directory
@@ -257,8 +257,8 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     # :::  Sample config file for upgrade :::
     #
-    # Build version 25.6.251016
-    # Build date    2025/10/16 00:04:36 +0000
+    # Build version 26.4.260701
+    # Build date    2026/07/01 21:57:45 +0000
     #
     # # Directory includes the following:
     #   (1) upgrade's global directory
@@ -347,7 +347,7 @@ It is best practice to first analyze your database for upgrade readiness. It is 
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 25.6.251016 launched with default internal options
+    AutoUpgrade 26.4.260701 launched with default internal options
     Processing config file ...
     +--------------------------------+
     | Starting AutoUpgrade execution |
@@ -383,7 +383,7 @@ It is best practice to first analyze your database for upgrade readiness. It is 
     ==========================================
               Autoupgrade Summary Report
     ==========================================
-    [Date]           Wed May 29 16:33:23 GMT 2024
+    [Date]           Wed May 29 16:33:23 GMT 2026
     [Number of Jobs] 1
     ==========================================
     [Job ID] 100
@@ -394,7 +394,7 @@ It is best practice to first analyze your database for upgrade readiness. It is 
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS
-    [Start Time]    2024-05-29 16:33:16
+    [Start Time]    2026-05-29 16:33:16
     [Duration]
     [Log Directory] /home/oracle/logs/autoupgrade-UPGR/UPGR/100/prechecks
     [Detail]        /home/oracle/logs/autoupgrade-UPGR/UPGR/100/prechecks/upgr_preupgrade.log
@@ -438,7 +438,7 @@ You determined that the database is ready to upgrade. Start AutoUpgrade in *depl
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 25.6.251016 launched with default internal options
+    AutoUpgrade 26.4.260701 launched with default internal options
     Processing config file ...
     +--------------------------------+
     | Starting AutoUpgrade execution |

@@ -179,7 +179,7 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     ==========================================
               Autoupgrade Summary Report
     ==========================================
-    [Date]           Thu Jul 24 16:26:24 GMT 2025
+    [Date]           Thu Jul 24 16:26:24 GMT 2026
     [Number of Jobs] 1
     ==========================================
     [Job ID] 100
@@ -190,20 +190,20 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     ------------------------------------------
     [Stage Name]    GRP
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 15:15:50
+    [Start Time]    2026-07-24 15:15:50
     [Duration]      0:00:02
     [Detail]        Please drop the following GRPs after Autoupgrade completes:
                      AUTOUPGRADE_9212_CDBRES1928000
     ------------------------------------------
     [Stage Name]    PREUPGRADE
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 15:15:52
+    [Start Time]    2026-07-24 15:15:52
     [Duration]      0:00:00
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/preupgrade
     ------------------------------------------
     [Stage Name]    PRECHECKS
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 15:15:52
+    [Start Time]    2026-07-24 15:15:52
     [Duration]      0:00:32
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/prechecks
     [Detail]        /home/oracle/logs/upg-cdb-flashback/CDBRES/100/prechecks/cdbres_preupgrade.log
@@ -211,26 +211,26 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     ------------------------------------------
     [Stage Name]    PREFIXUPS
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 15:16:24
+    [Start Time]    2026-07-24 15:16:24
     [Duration]      0:02:48
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/prefixups
     [Detail]        /home/oracle/logs/upg-cdb-flashback/CDBRES/100/prefixups/prefixups.html
     ------------------------------------------
     [Stage Name]    DRAIN
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 15:19:13
+    [Start Time]    2026-07-24 15:19:13
     [Duration]      0:00:43
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/drain
     ------------------------------------------
     [Stage Name]    DBUPGRADE
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 15:19:57
+    [Start Time]    2026-07-24 15:19:57
     [Duration]      0:48:01
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/dbupgrade
     ------------------------------------------
     [Stage Name]    POSTCHECKS
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 16:08:12
+    [Start Time]    2026-07-24 16:08:12
     [Duration]      0:00:04
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/postchecks
     [Detail]        /home/oracle/logs/upg-cdb-flashback/CDBRES/100/postchecks/cdbres_postupgrade.log
@@ -238,20 +238,20 @@ You start by checking the *CDBRES* database. This database was originally on Ora
     ------------------------------------------
     [Stage Name]    POSTFIXUPS
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 16:08:18
+    [Start Time]    2026-07-24 16:08:18
     [Duration]      0:17:33
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/postfixups
     [Detail]        /home/oracle/logs/upg-cdb-flashback/CDBRES/100/postfixups/postfixups.html
     ------------------------------------------
     [Stage Name]    POSTUPGRADE
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 16:25:51
+    [Start Time]    2026-07-24 16:25:51
     [Duration]      0:00:31
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/postupgrade
     ------------------------------------------
     [Stage Name]    SYSUPDATES
     [Status]        SUCCESS
-    [Start Time]    2025-07-24 16:26:23
+    [Start Time]    2026-07-24 16:26:23
     [Duration]      0:00:01
     [Log Directory] /home/oracle/logs/upg-cdb-flashback/CDBRES/100/sysupdates
     ------------------------------------------
