@@ -285,11 +285,7 @@ In this lab, you will implement some of the recommendations. Namely, those about
     * Remember that adding an index most likely have a negative effect on DMLs.
     * Generally, exercise caution when implementing recommendations from SQL Tuning Advisor. One change might have a positive effect on one SQL, but a negative elsewhere. This is where SQL Performance Analyzer can help.
 
-**Congratulations! You have completed the Performance Stability Prescription.**
-
-This is the end of track 1. You can proceed with any lab from tracks 2 or 3.
-
-You may now [*proceed to the next lab*](#next).
+**Congratulations!** You have now completed the Performance Stability Prescription. This is the end of *Top Gun DBA: Zero-Turbulence Upgrades, Stable Performance*.
 
 ## Learn More
 
@@ -304,4 +300,4 @@ You can submit one or more SQL statements as input to the advisor and receive ad
 
 * **Author** - Daniel Overby Hansen
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich, Alejandro Diaz
-* **Last Updated By/Date** - Rodrigo Jorge, January 2026
+* **Last Updated By/Date** - Rodrigo Jorge, August 2026

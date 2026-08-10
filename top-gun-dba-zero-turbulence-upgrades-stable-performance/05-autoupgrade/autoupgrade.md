@@ -711,9 +711,7 @@ You determined that the database is ready to upgrade. Start AutoUpgrade in *depl
 
 10. Wait until the upgrade completes. Depending on the lab platform, the upgrade will take about 15-25 minutes. Don't exit from the AutoUpgrade console. Leave it running.
 
-11. Optionally, you can complete some of the labs from tracks 2 and 3. Check *Introduction* for details
-
-12. When the upgrade completes, AutoUpgrade prints a message saying *Job 101 completed* and exits from the AutoUpgrade console.
+11. When the upgrade completes, AutoUpgrade prints a message saying *Job 101 completed* and exits from the AutoUpgrade console.
 
 **Congratulations! You upgraded the UPGR database successfully to the latest version of Oracle AI Database and converted your database to a PDB.**
 
@@ -736,4 +734,4 @@ only input required from you is a simple text based configuration file.
 
 * **Author** - Daniel Overby Hansen
 * **Contributors** - Klaus Gronau, Rodrigo Jorge, Alex Zaballa, Mike Dietrich, Alejandro Diaz
-* **Last Updated By/Date** - Rodrigo Jorge, January 2026
+* **Last Updated By/Date** - Rodrigo Jorge, August 2026
