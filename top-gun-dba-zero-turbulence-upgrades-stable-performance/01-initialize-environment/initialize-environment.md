@@ -44,8 +44,9 @@ In this lab, you will:
     * Database Listener
         * LISTENER
     * Database Server Instances
-        * FTEX
         * UPGR
+        * BEIGE
+        * CDB19
         * CDB26
 
 2. Ensure the listener is started. Use the *yellow* terminal 🟨.
@@ -66,7 +67,7 @@ In this lab, you will:
 
     </details>
 
-3. Ensure that the databases (*FTEX*, *UPGR* and *CDB26*) are started.
+3. Ensure that the databases (*UPGR* and *CDB26*) are started.
 
     ``` bash
     <copy>
@@ -74,14 +75,17 @@ In this lab, you will:
     </copy>
     ```
 
+    * You don't use *BEIGE* and *CDB19* in this workshop.
+
     <details>
     <summary>*click to see the output*</summary>
 
     ``` text
     $ ps -ef | grep ora_ | grep pmon | grep -v grep
-    oracle      3851       1  0 20:19 ?        00:00:00 ora_pmon_UPGR
-    oracle      5110       1  0 20:19 ?        00:00:00 ora_pmon_FTEX
-    oracle      5345       1  0 20:19 ?        00:00:00 ora_pmon_CDB26
+    oracle      5094       1  0 05:09 ?        00:00:00 ora_pmon_UPGR
+    oracle      5505       1  0 05:09 ?        00:00:00 ora_pmon_BEIGE
+    oracle      5964       1  0 05:09 ?        00:00:00 ora_pmon_CDB19
+    oracle      6467       1  0 05:09 ?        00:00:00 ora_pmon_CDB26
     ```
 
     </details>

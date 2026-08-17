@@ -42,13 +42,13 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     <summary>*click to see the output*</summary>
 
     ``` text
-    build.version 26.4.260701
-    build.date 2026/07/01 21:57:45 +0000
-    build.hash 211bf76de
-    build.hash_date 2026/06/27 01:28:23 +0000
+    build.version 26.5.260807
+    build.date 2026/08/07 17:06:01 +0000
+    build.hash 0d4f2f519
+    build.hash_date 2026/07/31 15:26:55 +0000
     build.supported_target_versions 12.2,18,19,21,23,26
     build.type production
-    build.label (HEAD, tag: v26.4, origin/stable_devel, stable_devel)
+    build.label (HEAD, tag: v26.5, origin/stable_devel, stable_devel)
     build.MOS_NOTE KB123450
     build.MOS_LINK https://support.oracle.com/support/?anchorId=&kmContentId=2485457&page=sptemplate&sptemplate=km-article
     ```
@@ -85,9 +85,6 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     ################################################################
     #
     # :::  Sample config file for upgrade :::
-    #
-    # Build version 26.4.260701
-    # Build date    2026/07/01 21:57:45 +0000
     #
     # # Directory includes the following:
     #   (1) upgrade's global directory
@@ -257,9 +254,6 @@ It is strongly recommended to always use the latest version of AutoUpgrade. To u
     #
     # :::  Sample config file for upgrade :::
     #
-    # Build version 26.4.260701
-    # Build date    2026/07/01 21:57:45 +0000
-    #
     # # Directory includes the following:
     #   (1) upgrade's global directory
     #   (2) Any logs tied to a job
@@ -347,7 +341,6 @@ It is best practice to first analyze your database for upgrade readiness. It is 
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 26.4.260701 launched with default internal options
     Processing config file ...
     +--------------------------------+
     | Starting AutoUpgrade execution |
@@ -438,7 +431,6 @@ You determined that the database is ready to upgrade. Start AutoUpgrade in *depl
     <summary>*click to see the output*</summary>
 
     ``` text
-    AutoUpgrade 26.4.260701 launched with default internal options
     Processing config file ...
     +--------------------------------+
     | Starting AutoUpgrade execution |
