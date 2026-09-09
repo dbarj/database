@@ -2,7 +2,7 @@
 
 ## Introduction
 
-With the retail foundation in place, the next decision is operational: what needs attention right now, and which database evidence supports that call? In this lab, you connect command-center metrics to orders, products, and categories so the dashboard becomes a starting point for investigation.
+With the retail foundation in place, the next decision is operational: *What needs attention right now, and which database evidence supports that call?* In this lab, you connect command-center metrics to orders, products, and categories so the dashboard becomes a starting point for investigation, not the final answer.
 
 ### Objectives
 
@@ -41,9 +41,12 @@ Estimated Time: **10 minutes**
 
 ## Task 1: Review dashboard operating metrics
 
+Start with the KPI query that explains the top-level command-center metrics:
+
 1. Run this KPI query.
 
-    > **SQL Worksheet reminder:** Need a reminder on how to open and use the SQL Worksheet? Return to [Getting Started Task 2: Open SQL Worksheet](/workshops/sandbox/index.html?lab=getting-started#Task2:OpenSQLWorksheet) for the step-by-step graphic showing where to paste and run SQL statements.
+
+    > **SQL Worksheet reminder:** Need a reminder on how to open and use the SQL Worksheet? Return to [Getting Started Task 2: Open SQL Worksheet](https://oracle-livelabs.github.io/database/livestack-workshop-retail/workshops/tenancy/index.html?lab=getting-started#Task2:OpenSQLWorksheet) for the step-by-step graphic showing where to paste and run SQL statements.
 
     The query uses scalar subqueries because each dashboard card needs one value. A scalar subquery is a query inside the `SELECT` list that returns a single result, such as an order count or revenue total.
 
@@ -77,7 +80,11 @@ Estimated Time: **10 minutes**
 
 2. The result is the first trust check for the command center. A business user sees the cards; you can show the SQL that produces them.
 
+**Note:** Sample values may change after data refreshes or rebuilds. Focus on the expected result pattern and the business takeaway, not the exact values.
+
 ## Task 2: Review product performance
+
+Next, rank product performance so the dashboard can point to the products and categories driving revenue:
 
 1. Review the product table in the application.
 
@@ -92,8 +99,8 @@ Estimated Time: **10 minutes**
     The important clauses are:
 
     1. `JOIN` connects each order line to its product.
-    2. `GROUP BY` rolls many order lines into one row per product.
-    3. `ORDER BY SUM(oi.line_total) DESC` puts the highest-revenue products first. The query orders by the numeric total, not the formatted display text.
+    2. `GROUP BY` rolls many order lines into one row per product ID. Including the ID keeps products separate even if they share a name, category, and unit price.
+    3. `ORDER BY SUM(oi.line_total) DESC, p.product_name, p.product_id` puts the highest-revenue products first and gives tied revenue a stable order. The query orders by the numeric total, not the formatted display text.
 
     ```sql
     <copy>
@@ -105,10 +112,13 @@ Estimated Time: **10 minutes**
     FROM products p
     JOIN order_items oi
       ON oi.product_id = p.product_id
-    GROUP BY p.product_name,
+    GROUP BY p.product_id,
+             p.product_name,
              NVL(p.category, 'Uncategorized'),
              p.unit_price
-    ORDER BY SUM(oi.line_total) DESC
+    ORDER BY SUM(oi.line_total) DESC,
+             p.product_name,
+             p.product_id
     FETCH FIRST 8 ROWS ONLY;
     </copy>
     ```
@@ -128,7 +138,11 @@ Estimated Time: **10 minutes**
 
 3. The ranking matters because it turns the dashboard from a summary into a drill-through path. You can inspect which products or service items drive the top-line number.
 
+**Note:** Sample values may change after data refreshes or rebuilds. Focus on the expected result pattern and the business takeaway, not the exact values.
+
 ## Task 3: Review revenue by category
+
+Broaden the view from individual products to category revenue so planners can separate a single product spike from a wider retail signal:
 
 1. Run the category query.
 
@@ -166,6 +180,8 @@ Estimated Time: **10 minutes**
     A production dashboard may add indexes or materialized views when a metric becomes expensive to calculate repeatedly. This lab uses direct SQL so you can see the calculation before any performance layer hides it.
 
     Next, you inspect how the same order evidence can serve an application as JSON without creating a separate document store.
+
+**Note:** Sample values may change after data refreshes or rebuilds. Focus on the expected result pattern and the business takeaway, not the exact values.
 
 ## Acknowledgements
 
